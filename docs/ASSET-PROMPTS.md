@@ -1,5 +1,8 @@
 # 추가 생성 필요 에셋 프롬프트 (2026-08-08)
 
+> 2026-08-08 저녁 기준: 29종 중 26종 생성·적용 완료 (i117~i142).
+> **남은 3종 재생성 프롬프트는 맨 아래 "재생성 3종" 섹션** — 무령왕 관식(금관으로 잘못 나옴), 대동여지도·달항아리(미생성).
+
 현재 아이콘이 없어 이름 칩으로 표시되는 스티커 29종 + 배포용 이미지 1종.
 생성 후 `source-assets/icons-numbered/`에 117.png부터 번호를 이어 넣고 `scripts/optimize_assets.py`를 다시 돌린 뒤, `src/data/stickers.ts`의 `icon` 필드만 채우면 된다.
 
@@ -59,3 +62,17 @@
 4. `src/data/stickers.ts` 해당 스티커의 `icon: 'i117'` 식으로 연결
 5. `docs/asset-catalog.md`에 한 줄 추가
 6. 유물 형태가 실물과 크게 다르면 사용 보류하고 이름 칩 유지 (CONTENT-REVIEW 원칙)
+
+## 재생성 3종 (복붙용 완결 프롬프트)
+
+### 1. 무령왕 금제관식 — ※ 금관 전체를 그리면 안 됨. 얇은 금판 장식 1점
+
+A single sticker-style illustration of the gold crown ornament (geumje gwansik) excavated from the tomb of King Muryeong of Baekje, Korea. IMPORTANT: this is NOT a full crown — depict ONE thin, flat, openwork hammered-gold plate shaped like a rising flame, with palmette and honeysuckle scroll cut-out patterns and tiny dangling gold spangles, standing upright. For a premium Korean history educational app for upper elementary students. One object only, centered, clean transparent background, soft warm lighting, subtle gold outline sticker border, navy/gold/teal palette, detailed and respectful to the real artifact's shape. No collage, no asset sheet, no grid, no text, no watermark, one object per image. Square 1:1.
+
+### 2. 대동여지도
+
+A single sticker-style illustration of Daedongyeojido, the great 19th-century woodblock-printed map of Korea by Kim Jeong-ho. Depict a partially unfolded accordion-fold book-map on aged hanji paper, showing the Korean peninsula drawn with black woodblock-printed mountain ridgelines and river networks, folded panels visible at the sides. For a premium Korean history educational app for upper elementary students. One object only, centered, clean transparent background, soft warm lighting, subtle gold outline sticker border, navy/gold/teal/warm-wood palette, detailed and respectful to the real artifact. No collage, no asset sheet, no grid, no readable modern text, no watermark, one object per image. Square 1:1.
+
+### 3. 백자 달항아리
+
+A single sticker-style illustration of a Joseon dynasty white porcelain moon jar (dalhangari). One large, softly asymmetrical round jar with a short neck, milky warm-white glaze with a very subtle bluish tint and gentle glow, quiet and elegant. For a premium Korean history educational app for upper elementary students. One object only, centered, clean transparent background, soft warm lighting, subtle gold outline sticker border, detailed and respectful to the real artifact's shape. No collage, no asset sheet, no grid, no text, no watermark, one object per image. Square 1:1.

@@ -3,3 +3,5 @@ dist/
 source-assets/
 *.local
 .DS_Store
+
+.vercel
