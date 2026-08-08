@@ -1,0 +1,265 @@
+/* ---------- 버튼 ---------- */
+
+.app-btn {
+  min-height: max(48px, var(--button-height));
+  padding: 0.8cqh 2.4cqw;
+  border-radius: calc(var(--radius-card) * 0.8);
+  border: 0.22cqw solid var(--color-wood);
+  font-family: inherit;
+  font-size: 2.4cqh;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+  touch-action: manipulation;
+}
+
+.app-btn:hover:not(:disabled) {
+  transform: translateY(-0.3cqh);
+  filter: brightness(1.05);
+}
+
+.app-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.app-btn:focus-visible {
+  outline: 0.4cqw solid var(--color-gold);
+  outline-offset: 0.2cqw;
+}
+
+.app-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.app-btn--primary {
+  background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-card);
+}
+
+.app-btn--secondary {
+  background: linear-gradient(180deg, #1d3a63 0%, var(--color-navy) 100%);
+  color: var(--color-gold-light);
+  border-color: var(--color-gold);
+}
+
+.app-btn--ghost {
+  background: rgba(247, 234, 208, 0.85);
+  border-color: rgba(107, 69, 40, 0.5);
+  font-size: 2.1cqh;
+}
+
+/* ---------- 종이 카드 ---------- */
+
+.paper-card {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 252, 240, 0.55), transparent 55%),
+    linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
+  border: 0.25cqw solid var(--color-wood);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 2.2cqh 2cqw;
+}
+
+/* ---------- 모달 ---------- */
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 22, 38, 0.6);
+}
+
+.modal-panel {
+  max-width: 62cqw;
+  max-height: 82cqh;
+  overflow-y: auto;
+}
+
+/* ---------- 에러 폴백 / 이름 칩 ---------- */
+
+.error-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-navy);
+}
+
+.error-fallback__card {
+  text-align: center;
+  display: grid;
+  gap: 2cqh;
+  max-width: 55cqw;
+}
+
+.asset-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--color-paper);
+  border: 0.2cqw dashed var(--color-wood);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  font-size: 1.8cqh;
+  font-weight: 700;
+  color: var(--color-wood);
+  padding: 1cqw;
+  overflow: hidden;
+}
+
+/* ---------- 스테이지 헤더 ---------- */
+
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  padding: 1.6cqh 1.6cqw;
+}
+
+.stage-header__title-wrap {
+  flex: 1;
+  text-align: center;
+}
+
+.stage-header__title {
+  font-size: 4.2cqh;
+  color: var(--color-paper);
+  text-shadow: 0 0.3cqh 0.8cqh rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.2cqw;
+}
+
+.stage-header__subtitle {
+  font-size: 2.2cqh;
+  color: var(--color-gold-light);
+  text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.5);
+}
+
+.stage-header__right {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+.stage-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+}
+
+.stage-progress__bar {
+  width: 14cqw;
+  height: 1.8cqh;
+  border-radius: 1cqh;
+  background: rgba(247, 234, 208, 0.35);
+  border: 0.15cqw solid var(--color-gold);
+  overflow: hidden;
+}
+
+.stage-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  transition: width 0.4s ease;
+}
+
+.stage-progress__text {
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--color-paper);
+  text-shadow: 0 0.2cqh 0.4cqh rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- 스티커 보상 연출 ---------- */
+
+.reward {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 2cqh;
+}
+
+.reward__burst {
+  position: absolute;
+  top: -4cqh;
+  width: 34cqh;
+  height: 34cqh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 217, 168, 0.9) 0%, rgba(214, 168, 79, 0.35) 45%, transparent 70%);
+  animation: reward-burst 0.9s ease-out;
+}
+
+.reward__sticker {
+  width: 24cqh;
+  height: 24cqh;
+  display: grid;
+  place-items: center;
+  animation: reward-pop 0.6s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+.reward__img,
+.reward__sticker .asset-fallback {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 1cqh 1.6cqh rgba(0, 0, 0, 0.4));
+}
+
+.reward__card {
+  text-align: center;
+  display: grid;
+  gap: 1.4cqh;
+  max-width: 56cqw;
+}
+
+.reward__badge {
+  font-size: 2.2cqh;
+  font-weight: 800;
+  color: var(--color-teal);
+  letter-spacing: 0.3cqw;
+}
+
+.reward__name {
+  font-size: 3.6cqh;
+  color: var(--color-ink);
+}
+
+.reward__explain {
+  font-size: 2.3cqh;
+  line-height: 1.5;
+}
+
+@keyframes reward-pop {
+  0% {
+    transform: scale(0.2) rotate(-14deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes reward-burst {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reward__sticker,
+  .reward__burst {
+    animation: none;
+  }
+}

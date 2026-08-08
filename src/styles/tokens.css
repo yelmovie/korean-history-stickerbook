@@ -1,0 +1,18 @@
+:root {
+  --color-navy: #10233f;
+  --color-navy-deep: #0a1626;
+  --color-gold: #d6a84f;
+  --color-gold-light: #ecd9a8;
+  --color-teal: #2e6e6a;
+  --color-paper: #f7ead0;
+  --color-paper-dark: #eddcb8;
+  --color-wood: #6b4528;
+  --color-ink: #2b2118;
+  --color-correct: #2e7d4f;
+  --color-wrong: #b04a3a;
+  --radius-card: 1.4cqw;
+  --button-height: 6.5cqh;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --shadow-card: 0 0.4cqw 1.2cqw rgba(24, 16, 6, 0.35);
+  --font-main: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}

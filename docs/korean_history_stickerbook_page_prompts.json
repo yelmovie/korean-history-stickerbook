@@ -1,0 +1,292 @@
+{
+  "project": {
+    "title": "한국사 스티커북: 시간여행 다이어리",
+    "purpose": "한국 유물·유적지·보물 스티커를 수집하고 역사 다이어리를 완성하는 초등 고학년용 심화 역사 학습 웹앱",
+    "target": "초등 5~6학년 또는 4학년 심화 활동",
+    "visual_style": {
+      "ratio": "16:9 horizontal web app / tablet responsive",
+      "style": "밝고 친근한 고급 교육용 일러스트, 한국 전통문양, 남색·금색·청록 계열, 따뜻한 목재 질감",
+      "avoid": [
+        "유치원 수준처럼 지나치게 단순한 표현",
+        "실제 사진풍",
+        "공포·폭력·상해·재난 피해 장면",
+        "선정적 요소",
+        "혐오 요소",
+        "저작권 문제가 생길 수 있는 유명 캐릭터 스타일 모사"
+      ]
+    },
+    "global_image_rules": [
+      "한 이미지에 여러 화면을 넣지 않는다.",
+      "콜라주, 그리드, 분할 화면, 컨택트시트, 에셋 시트, 캐릭터 시트, 스프라이트 시트 형태를 금지한다.",
+      "각 페이지 화면 샘플은 반드시 독립된 단일 화면 1장으로 만든다.",
+      "각 페이지용 개별 에셋은 이미지 1장 = 에셋 1개 원칙을 지킨다.",
+      "UI 버튼, 공통 인터페이스, 말풍선, 진행바, 애니메이션 효과는 CSS와 코드로 구현한다.",
+      "화면당 핵심 이미지 에셋은 10개 이내로 제한한다.",
+      "이전 페이지 에셋을 반복 생성하지 않고, 세계관만 통일한다."
+    ],
+    "implementation_note": "프롬프트는 이미지 생성·화면 샘플 제작·Claude Code 또는 Antigravity 구현 지시용으로 사용할 수 있다. 역사적 사실 문구는 구현 전 국가유산포털, 국사편찬위원회, 국립중앙박물관 등 공식 자료로 최종 검수한다."
+  },
+  "pages": [
+    {
+      "page": 1,
+      "page_name": "메인 화면",
+      "role": "프로젝트 첫 진입 화면. 역사 다이어리 세계관과 스티커북 정체성을 보여준다.",
+      "learning_depth": "역사 탐험을 시작하기 전, 유물·유적·기록을 근거로 판단한다는 학습 방향을 암시한다.",
+      "screen_prompt": "16:9 tablet web app main title screen for a Korean history stickerbook learning game. A warm traditional Korean study room with a large wall map of Korea, wooden shelves, scrolls, historical objects, and a glowing open history diary on a central wooden desk. The mood is adventurous and premium but friendly for upper elementary students. Use navy blue, gold, teal, warm wood, and subtle traditional Korean patterns. Leave clear space for CSS buttons at the bottom. No collage, no grid, no asset sheet, one complete screen only.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "메인 배경: 전통 서재와 한국 지도",
+        "대표 캐릭터: 현대적 한복 느낌의 소년 역사 탐험가",
+        "보조 마스코트: 한국풍 호랑이 또는 까치 마스코트",
+        "제목 로고: 한국사 스티커북",
+        "부제 배너: 시간여행 다이어리",
+        "핵심 오브젝트: 빛나는 역사 다이어리",
+        "오브젝트: 시간여행 포털",
+        "오브젝트: 보물 지도",
+        "오브젝트: 스티커 보관함",
+        "강조 아이콘: 첫 미션 시작을 상징하는 금빛 나침반"
+      ],
+      "negative_prompt": "Do not make a collage. Do not place multiple assets as a sheet. Do not create a UI button image. Do not use dinosaurs, space, fantasy unrelated to Korean history, real photo style, horror, violence, or copyrighted character style.",
+      "ui_css_note": "시작하기, 이어하기, 스티커북 보기 버튼은 CSS로 구현한다.",
+      "advanced_learning_note": "첫 화면 안내 문구 예: '유물의 모양, 쓰임, 발견 장소를 근거로 역사 스티커를 찾아보세요.'"
+    },
+    {
+      "page": 2,
+      "page_name": "탐험 스테이지 선택",
+      "role": "선사·삼국·고려·조선·근현대·다이어리 완성으로 이어지는 전체 흐름을 선택한다.",
+      "learning_depth": "시대 순서를 반복 노출하고, 단순 선택이 아니라 시대 흐름을 이해하게 한다.",
+      "screen_prompt": "16:9 Korean history stage selection screen inside a refined traditional archive room. A large decorative wooden stage board with five hanging scroll slots for different historical eras. The background has teal and navy banners, warm sunlight, Korean traditional patterns, books, and maps. The composition should have enough empty center space for interactive CSS stage cards. Friendly upper elementary educational mood, not childish. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 전통 기록실 또는 역사 아카이브",
+        "대표 캐릭터: 여학생 역사 안내자",
+        "보조 마스코트: 까치 학자 마스코트",
+        "스테이지 간판",
+        "선사 시대 배지",
+        "삼국 문화유산 배지",
+        "고려 보물 복원 배지",
+        "조선 발명 연구 배지",
+        "근현대 역사 배지",
+        "장식 오브젝트: 빈 목재 선택 보드"
+      ],
+      "negative_prompt": "No collage, no multiple asset sheet, no repeated main page boy explorer, no UI buttons, no actual photo style, no unrelated space or dinosaur assets.",
+      "ui_css_note": "스테이지 카드, 잠금 표시, 완료 도장, 선택 버튼은 CSS로 구현한다.",
+      "advanced_learning_note": "선택 전 미니 질문: '선사 → 삼국 → 고려 → 조선 → 근현대 순서가 맞는지 확인하세요.'"
+    },
+    {
+      "page": 3,
+      "page_name": "선사 박물관",
+      "role": "선사 시대 유물 관찰과 생활 모습 추리",
+      "learning_depth": "유물 이름 맞히기가 아니라 재료·쓰임·생활 모습·시대 변화 근거를 묻는다.",
+      "screen_prompt": "16:9 prehistoric museum exhibition screen for a Korean history learning app. A warm indoor prehistoric gallery with cave wall paintings, stone tools, pottery display cases, excavation pit, dolmen model, and empty space for quiz panels. The mood is archaeological, exploratory, and friendly for upper elementary students. Use earthy ochre, warm stone, brown, muted teal accents. No collage, no grid, no asset sheet, one complete screen only.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 선사 시대 박물관 전시관",
+        "대표 캐릭터: 고고학자 소녀",
+        "보조 마스코트: 고슴도치 탐험가",
+        "핵심 아이콘: 주먹도끼 또는 뗀석기",
+        "보조 아이콘: 빗살무늬 토기",
+        "학습 오브젝트: 고인돌 배지",
+        "장식 오브젝트: 불 피우는 화덕",
+        "학습 상징: 유물 파편 전시대",
+        "관찰 도구: 붓과 돋보기",
+        "분위기 오브젝트: 암각화 돌판"
+      ],
+      "negative_prompt": "No dinosaurs, no caveman stereotypes, no violent hunting scene, no scary cave, no collage, no asset sheet, no repeated previous page mascots.",
+      "ui_css_note": "돋보기 확대, 힌트 카드, 선택지 카드, 정답 피드백은 CSS/DOM으로 구현한다.",
+      "advanced_learning_note": "예시 심화 문제: '빗살무늬 토기와 그물추가 함께 발견되었다면 어떤 생활 모습을 추리할 수 있을까요?'"
+    },
+    {
+      "page": 4,
+      "page_name": "삼국 문화유산 탐험",
+      "role": "삼국과 통일신라 문화유산을 지도·유적·왕권·불교문화와 연결한다.",
+      "learning_depth": "문화유산을 지역과 나라, 시대적 특징에 연결하고 공통점과 차이점을 파악한다.",
+      "screen_prompt": "16:9 Three Kingdoms cultural heritage exploration screen in a Korean traditional museum hall. A large illustrated historical map of Korea in the center wall, display shelves with crowns, pagodas, stone monuments, and temple art. Bright daylight through a traditional window. Space in the middle for map interaction and CSS markers. Premium educational illustration style, navy, gold, jade green, warm wood. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 삼국 문화유산 전시관",
+        "대표 캐릭터: 삼국 탐험 소년",
+        "보조 마스코트: 귀여운 수호 사자",
+        "핵심 아이콘: 신라 금관 배지",
+        "보조 아이콘: 불국사 또는 사찰 배지",
+        "유적 아이콘: 석굴암 불상",
+        "유물 아이콘: 백제 금동대향로",
+        "역사 자료: 고구려 고분벽화 원형판",
+        "지도 오브젝트: 고대 지도 스크롤",
+        "수집 오브젝트: 삼국 스티커 앨범"
+      ],
+      "negative_prompt": "No battle scenes, no weapons as focus, no violence, no collage, no asset sheet, no excessive baby style.",
+      "ui_css_note": "지도 핀, 유적지 선택 카드, 나라별 색상 테두리, 정답 효과는 CSS로 구현한다.",
+      "advanced_learning_note": "예시 심화 문제: '불국사·석굴암·다보탑·석가탑의 공통점으로 알맞은 것은?'"
+    },
+    {
+      "page": 5,
+      "page_name": "고려 보물 복원소",
+      "role": "고려청자·팔만대장경·금속활자 등 고려의 기술과 문화유산 복원",
+      "learning_depth": "기술 특징, 보존 방식, 불교문화, 인쇄문화의 의미를 추론한다.",
+      "screen_prompt": "16:9 Goryeo treasure restoration workshop screen for a Korean history stickerbook app. A traditional restoration room filled with celadon tones, wooden tables, pottery tools, soft daylight, shelves of celadon ceramics, wooden printing blocks, and restoration materials. Center area should be clear for puzzle restoration gameplay. Elegant, calm, premium educational illustration for upper elementary students. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 고려 도자기 복원 작업실",
+        "대표 캐릭터: 복원 작업 중인 소년",
+        "보조 마스코트: 용거북이 마스코트",
+        "핵심 아이콘: 고려청자 배지",
+        "보조 아이콘: 팔만대장경 목판",
+        "학습 오브젝트: 금속활자 상자",
+        "복원 오브젝트: 청자 복원 작업대",
+        "장식 오브젝트: 청자 보물상자",
+        "문화유산 오브젝트: 장경판전 목조 건물 모델",
+        "강조 오브젝트: 고려 보물 보관함"
+      ],
+      "negative_prompt": "No broken glass danger, no scary dark room, no collage, no asset sheet, no unrelated modern lab machines.",
+      "ui_css_note": "퍼즐 조각 이동, 복원 진행률, 상감기법 설명 카드, 힌트는 CSS/Canvas로 구현한다.",
+      "advanced_learning_note": "예시 심화 문제: '팔만대장경과 장경판전을 함께 살펴보면 고려의 어떤 특징을 알 수 있을까요?'"
+    },
+    {
+      "page": 6,
+      "page_name": "조선 발명 연구소",
+      "role": "세종 시대와 조선 과학기술·기록문화 이해",
+      "learning_depth": "발명품의 쓰임과 백성 생활, 나라 운영과의 관련성을 추론한다.",
+      "screen_prompt": "16:9 Joseon invention research room screen. Traditional Korean scientific study with astronomical instruments, sundial, rain gauge, water clock references, scroll diagrams, wooden desks, teal and navy decorative panels, warm light. Leave center floor and desk space for interactive science-in-history quiz elements. Friendly but sophisticated upper elementary educational style. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 조선 과학 연구소",
+        "대표 캐릭터: 과학을 사랑하는 소녀",
+        "보조 마스코트: 학자 토끼",
+        "핵심 아이콘: 측우기 배지",
+        "보조 아이콘: 앙부일구 배지",
+        "학습 오브젝트: 자격루 기계 엠블럼",
+        "장식 오브젝트: 별자리 두루마리",
+        "학습 상징: 훈민정음 책과 붓 배지",
+        "오브젝트: 조선 과학 책상",
+        "분위기 오브젝트: 학자 도구 상자"
+      ],
+      "negative_prompt": "No modern sci-fi lab, no actual photo style, no collage, no repeated Goryeo celadon focus, no battle imagery.",
+      "ui_css_note": "인물-발명품 연결선, 발명품 설명 카드, 빈칸 문제는 CSS로 구현한다.",
+      "advanced_learning_note": "예시 심화 문제: '측우기·앙부일구·자격루가 백성 생활이나 나라 운영에 도움을 준 근거를 고르세요.'"
+    },
+    {
+      "page": 7,
+      "page_name": "근현대 역사 기록실",
+      "role": "동학농민운동, 3·1운동, 대한민국 임시정부, 광복 등 근현대 사건 흐름 정리",
+      "learning_depth": "사건 순서, 사건 의미, 독립운동의 연결 관계를 자료 해석형으로 이해한다.",
+      "screen_prompt": "16:9 modern Korean history archive room. A clean educational exhibition space with a timeline wall, old newspapers, historical documents, framed photographs, Korean map, archive shelves, and a central empty board for sequencing events. Colors navy, cream, wood, muted red accent. Respectful, hopeful, non-violent, upper elementary level. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 근현대 역사 기록실",
+        "대표 캐릭터: 남학생 기록가",
+        "보조 마스코트: 학자 고슴도치",
+        "핵심 아이콘: 3·1운동 기념 배지",
+        "보조 아이콘: 독립선언서 배지",
+        "학습 오브젝트: 근현대 역사 기록 보드",
+        "장식 오브젝트: 근대 기록 보관함",
+        "상징 오브젝트: 임시정부 건물 미니어처",
+        "보상 오브젝트: 대한민국 훈장",
+        "분위기 오브젝트: 기록과 역사의 책상"
+      ],
+      "negative_prompt": "No violence, no war damage, no suffering scene, no political propaganda style, no real persons' exact portrait unless intentionally simplified and respectful, no collage.",
+      "ui_css_note": "사건 카드, 순서 배열, 연결선, 정답 해설은 CSS/DOM으로 구현한다.",
+      "advanced_learning_note": "예시 심화 문제: '3·1운동 이후 대한민국 임시정부 수립으로 이어진 관계를 설명하세요.'"
+    },
+    {
+      "page": 8,
+      "page_name": "역사 다이어리 꾸미기",
+      "role": "수집한 스티커를 시대별 다이어리 페이지에 배치하고 설명을 완성한다.",
+      "learning_depth": "자유 꾸미기가 아니라 시대 정확성, 근거 설명, 유물·사건 연결을 평가한다.",
+      "screen_prompt": "16:9 cozy Korean traditional craft studio for decorating a history diary. A large blank open diary on a table in the foreground, a clean parchment display area on the wall, craft tools, paper tapes, stamp pads, small drawers, fabric ribbons, warm sunlight, navy and gold details. Leave large empty diary pages for interactive sticker placement. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 전통 작업실과 열린 다이어리",
+        "대표 캐릭터: 다이어리를 든 소녀",
+        "보조 마스코트: 담비 또는 너구리형 학습 마스코트",
+        "핵심 아이콘: 역사 다이어리 꾸미기 배지",
+        "보조 아이콘: 한지 도장 세트",
+        "장식 오브젝트: 꽃무늬 액자",
+        "학습 상징: 빈 열린 책",
+        "안내 오브젝트: 한지 문구 세트",
+        "보상 오브젝트: 스티커 파우치",
+        "분위기 오브젝트: 전통 보관함"
+      ],
+      "negative_prompt": "No sticker sheet, no multiple stickers in one image, no messy clutter, no collage, no childish nursery style.",
+      "ui_css_note": "스티커 드래그, 크기 조절, 회전, 삭제, 말풍선, 텍스트 입력은 CSS/JS로 구현한다.",
+      "advanced_learning_note": "예시 심화 미션: '고려청자를 고려 시대 페이지에 붙이고, 그 시대 특징을 한 줄로 쓰세요.'"
+    },
+    {
+      "page": 9,
+      "page_name": "역사 다이어리 전시",
+      "role": "완성한 다이어리를 발표 전시 형태로 보여준다.",
+      "learning_depth": "자신이 고른 대표 유물·사건의 중요성을 근거 들어 발표한다.",
+      "screen_prompt": "16:9 traditional Korean exhibition room for presenting completed history diaries. A display platform, a large blank presentation wall, navy and gold banners, warm wooden interior, soft lights, flowers, and a gallery-like mood. Leave the central wall empty for the student's diary preview. Bright, proud, respectful, and polished educational design. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 전통 전시실",
+        "대표 캐릭터: 역사 다이어리 발표자",
+        "보조 마스코트: 역사 다이어리 수호자",
+        "핵심 아이콘: 역사 다이어리 전시 배지",
+        "보조 아이콘: 발표 아이콘 두루마리",
+        "장식 오브젝트: 전시 목판",
+        "학습 상징: 완성된 역사 다이어리",
+        "안내 오브젝트: 역사 다이어리 전시 표지판",
+        "보상 오브젝트: 어린이 역사 큐레이터 배지",
+        "분위기 오브젝트: 발표 응원 화환"
+      ],
+      "negative_prompt": "No crowd, no real photo style, no collage, no asset sheet, no unrelated fantasy trophy room.",
+      "ui_css_note": "다이어리 넘기기, 발표 모드, 저장 버튼, 다시 꾸미기 버튼은 CSS/JS로 구현한다.",
+      "advanced_learning_note": "예시 발표 문장: '내가 고른 최고의 역사 보물은 ○○입니다. 이 보물을 통해 알 수 있는 시대 특징은 ○○입니다.'"
+    },
+    {
+      "page": 10,
+      "page_name": "완성 결과와 수료",
+      "role": "최종 결과, 칭호, 수료증, 보상 확인 화면",
+      "learning_depth": "단순 축하가 아니라 활동 결과와 성장 포인트를 정리한다.",
+      "screen_prompt": "16:9 final completion ceremony screen for a Korean history diary learning app. A bright traditional Korean stage with navy and gold banners, warm lanterns, flower arrangements, a large blank certificate wall, and celebratory but calm atmosphere. It should feel like a school exhibition award ceremony for upper elementary students. Leave central area for result summary and certificate UI. No collage, no grid, no asset sheet.",
+      "asset_limit": 10,
+      "recommended_assets": [
+        "배경: 전통 수료 무대",
+        "대표 캐릭터: 금메달을 든 소녀",
+        "보조 마스코트: 마법의 까치 캐릭터",
+        "핵심 아이콘: 한국사 스티커북 최종 로고",
+        "보조 아이콘: 시간여행 다이어리 배너",
+        "장식 오브젝트: 전통 축하 액자",
+        "학습 상징: 수료증 두루마리",
+        "안내 오브젝트: 수료 축하 표지판",
+        "보상 오브젝트: 금빛 업적 배지",
+        "분위기 오브젝트: 꽃등불 축하 부케"
+      ],
+      "negative_prompt": "No confetti clutter that hides UI, no collage, no asset sheet, no unrelated dinosaur or space theme, no real photo style.",
+      "ui_css_note": "결과 요약 패널, 모은 스티커 수, 획득 칭호, 처음으로 버튼, 다시 보기 버튼은 CSS/JS로 구현한다.",
+      "advanced_learning_note": "결과 항목 예: 시대 배치 정확도, 근거 설명 성공률, 자료 해석 완료 수, 최종 칭호 '어린이 역사 큐레이터'."
+    }
+  ],
+  "maintenance_design": {
+    "goal": "1년 이상 유지 가능한 안정적 설계",
+    "principles": [
+      "이미지 에셋은 페이지별 폴더로 분리한다.",
+      "에셋 파일명은 page##_role_name 형태로 통일한다.",
+      "UI 버튼과 반복 요소는 이미지가 아니라 CSS 컴포넌트로 만든다.",
+      "문제 데이터는 코드에 하드코딩하지 않고 JSON으로 분리한다.",
+      "역사 설명 문구는 source 필드를 두어 공식 검수 가능하게 한다.",
+      "localStorage 저장 구조를 versioned schema로 관리한다.",
+      "이미지 로딩 실패 시 fallback placeholder를 제공한다.",
+      "페이지별 에셋 수를 10개 이하로 유지하여 성능 부담을 줄인다.",
+      "애니메이션은 CSS transform/opacity 중심으로 제한한다.",
+      "모바일·태블릿·전자칠판 해상도에서 UI가 깨지지 않도록 16:9 safe area를 둔다."
+    ],
+    "recommended_folder_structure": {
+      "assets/images/page01": "메인 화면 에셋",
+      "assets/images/page02": "스테이지 선택 에셋",
+      "assets/images/page03": "선사 박물관 에셋",
+      "assets/images/page04": "삼국 문화유산 에셋",
+      "assets/images/page05": "고려 보물 복원소 에셋",
+      "assets/images/page06": "조선 발명 연구소 에셋",
+      "assets/images/page07": "근현대 역사 기록실 에셋",
+      "assets/images/page08": "역사 다이어리 꾸미기 에셋",
+      "assets/images/page09": "역사 다이어리 전시 에셋",
+      "assets/images/page10": "완성 결과와 수료 에셋",
+      "data/questions": "시대별 문제 JSON",
+      "data/stickers": "스티커 메타데이터 JSON",
+      "src/components": "공통 UI 컴포넌트",
+      "src/scenes": "페이지별 화면 컴포넌트 또는 씬"
+    }
+  }
+}

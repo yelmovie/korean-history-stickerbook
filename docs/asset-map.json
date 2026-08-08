@@ -1,0 +1,522 @@
+{
+  "icons": {
+    "i001": {
+      "opt": "/assets/opt/icons/i001.webp",
+      "original": "1.png"
+    },
+    "i002": {
+      "opt": "/assets/opt/icons/i002.webp",
+      "original": "2.png"
+    },
+    "i003": {
+      "opt": "/assets/opt/icons/i003.webp",
+      "original": "3.png"
+    },
+    "i004": {
+      "opt": "/assets/opt/icons/i004.webp",
+      "original": "4.png"
+    },
+    "i005": {
+      "opt": "/assets/opt/icons/i005.webp",
+      "original": "5.png"
+    },
+    "i006": {
+      "opt": "/assets/opt/icons/i006.webp",
+      "original": "6.png"
+    },
+    "i007": {
+      "opt": "/assets/opt/icons/i007.webp",
+      "original": "7.png"
+    },
+    "i008": {
+      "opt": "/assets/opt/icons/i008.webp",
+      "original": "8.png"
+    },
+    "i009": {
+      "opt": "/assets/opt/icons/i009.webp",
+      "original": "9.png"
+    },
+    "i010": {
+      "opt": "/assets/opt/icons/i010.webp",
+      "original": "10.png"
+    },
+    "i011": {
+      "opt": "/assets/opt/icons/i011.webp",
+      "original": "11.png"
+    },
+    "i012": {
+      "opt": "/assets/opt/icons/i012.webp",
+      "original": "12.png"
+    },
+    "i013": {
+      "opt": "/assets/opt/icons/i013.webp",
+      "original": "13.png"
+    },
+    "i014": {
+      "opt": "/assets/opt/icons/i014.webp",
+      "original": "14.png"
+    },
+    "i015": {
+      "opt": "/assets/opt/icons/i015.webp",
+      "original": "15.png"
+    },
+    "i016": {
+      "opt": "/assets/opt/icons/i016.webp",
+      "original": "16.png"
+    },
+    "i017": {
+      "opt": "/assets/opt/icons/i017.webp",
+      "original": "17.png"
+    },
+    "i018": {
+      "opt": "/assets/opt/icons/i018.webp",
+      "original": "18.png"
+    },
+    "i019": {
+      "opt": "/assets/opt/icons/i019.webp",
+      "original": "19.png"
+    },
+    "i020": {
+      "opt": "/assets/opt/icons/i020.webp",
+      "original": "20.png"
+    },
+    "i021": {
+      "opt": "/assets/opt/icons/i021.webp",
+      "original": "21.png"
+    },
+    "i022": {
+      "opt": "/assets/opt/icons/i022.webp",
+      "original": "22.png"
+    },
+    "i023": {
+      "opt": "/assets/opt/icons/i023.webp",
+      "original": "23.png"
+    },
+    "i024": {
+      "opt": "/assets/opt/icons/i024.webp",
+      "original": "24.png"
+    },
+    "i025": {
+      "opt": "/assets/opt/icons/i025.webp",
+      "original": "25.png"
+    },
+    "i026": {
+      "opt": "/assets/opt/icons/i026.webp",
+      "original": "26.png"
+    },
+    "i027": {
+      "opt": "/assets/opt/icons/i027.webp",
+      "original": "27.png"
+    },
+    "i028": {
+      "opt": "/assets/opt/icons/i028.webp",
+      "original": "28.png"
+    },
+    "i029": {
+      "opt": "/assets/opt/icons/i029.webp",
+      "original": "29.png"
+    },
+    "i030": {
+      "opt": "/assets/opt/icons/i030.webp",
+      "original": "30.png"
+    },
+    "i031": {
+      "opt": "/assets/opt/icons/i031.webp",
+      "original": "31.png"
+    },
+    "i032": {
+      "opt": "/assets/opt/icons/i032.webp",
+      "original": "32.png"
+    },
+    "i033": {
+      "opt": "/assets/opt/icons/i033.webp",
+      "original": "33.png"
+    },
+    "i034": {
+      "opt": "/assets/opt/icons/i034.webp",
+      "original": "34.png"
+    },
+    "i035": {
+      "opt": "/assets/opt/icons/i035.webp",
+      "original": "35.png"
+    },
+    "i036": {
+      "opt": "/assets/opt/icons/i036.webp",
+      "original": "36.png"
+    },
+    "i037": {
+      "opt": "/assets/opt/icons/i037.webp",
+      "original": "37.png"
+    },
+    "i038": {
+      "opt": "/assets/opt/icons/i038.webp",
+      "original": "38.png"
+    },
+    "i039": {
+      "opt": "/assets/opt/icons/i039.webp",
+      "original": "39.png"
+    },
+    "i040": {
+      "opt": "/assets/opt/icons/i040.webp",
+      "original": "40.png"
+    },
+    "i041": {
+      "opt": "/assets/opt/icons/i041.webp",
+      "original": "41.png"
+    },
+    "i042": {
+      "opt": "/assets/opt/icons/i042.webp",
+      "original": "42.png"
+    },
+    "i043": {
+      "opt": "/assets/opt/icons/i043.webp",
+      "original": "43.png"
+    },
+    "i044": {
+      "opt": "/assets/opt/icons/i044.webp",
+      "original": "44.png"
+    },
+    "i045": {
+      "opt": "/assets/opt/icons/i045.webp",
+      "original": "45.png"
+    },
+    "i046": {
+      "opt": "/assets/opt/icons/i046.webp",
+      "original": "46.png"
+    },
+    "i047": {
+      "opt": "/assets/opt/icons/i047.webp",
+      "original": "47.png"
+    },
+    "i048": {
+      "opt": "/assets/opt/icons/i048.webp",
+      "original": "48.png"
+    },
+    "i049": {
+      "opt": "/assets/opt/icons/i049.webp",
+      "original": "49.png"
+    },
+    "i050": {
+      "opt": "/assets/opt/icons/i050.webp",
+      "original": "50.png"
+    },
+    "i051": {
+      "opt": "/assets/opt/icons/i051.webp",
+      "original": "51.png"
+    },
+    "i052": {
+      "opt": "/assets/opt/icons/i052.webp",
+      "original": "52.png"
+    },
+    "i053": {
+      "opt": "/assets/opt/icons/i053.webp",
+      "original": "53.png"
+    },
+    "i054": {
+      "opt": "/assets/opt/icons/i054.webp",
+      "original": "54.png"
+    },
+    "i055": {
+      "opt": "/assets/opt/icons/i055.webp",
+      "original": "55.png"
+    },
+    "i056": {
+      "opt": "/assets/opt/icons/i056.webp",
+      "original": "56.png"
+    },
+    "i057": {
+      "opt": "/assets/opt/icons/i057.webp",
+      "original": "57.png"
+    },
+    "i058": {
+      "opt": "/assets/opt/icons/i058.webp",
+      "original": "58.png"
+    },
+    "i059": {
+      "opt": "/assets/opt/icons/i059.webp",
+      "original": "59.png"
+    },
+    "i060": {
+      "opt": "/assets/opt/icons/i060.webp",
+      "original": "60.png"
+    },
+    "i061": {
+      "opt": "/assets/opt/icons/i061.webp",
+      "original": "61.png"
+    },
+    "i062": {
+      "opt": "/assets/opt/icons/i062.webp",
+      "original": "62.png"
+    },
+    "i063": {
+      "opt": "/assets/opt/icons/i063.webp",
+      "original": "63.png"
+    },
+    "i064": {
+      "opt": "/assets/opt/icons/i064.webp",
+      "original": "64.png"
+    },
+    "i065": {
+      "opt": "/assets/opt/icons/i065.webp",
+      "original": "65.png"
+    },
+    "i066": {
+      "opt": "/assets/opt/icons/i066.webp",
+      "original": "66.png"
+    },
+    "i067": {
+      "opt": "/assets/opt/icons/i067.webp",
+      "original": "67.png"
+    },
+    "i068": {
+      "opt": "/assets/opt/icons/i068.webp",
+      "original": "68.png"
+    },
+    "i069": {
+      "opt": "/assets/opt/icons/i069.webp",
+      "original": "69.png"
+    },
+    "i070": {
+      "opt": "/assets/opt/icons/i070.webp",
+      "original": "70.png"
+    },
+    "i071": {
+      "opt": "/assets/opt/icons/i071.webp",
+      "original": "71.png"
+    },
+    "i072": {
+      "opt": "/assets/opt/icons/i072.webp",
+      "original": "72.png"
+    },
+    "i073": {
+      "opt": "/assets/opt/icons/i073.webp",
+      "original": "73.png"
+    },
+    "i074": {
+      "opt": "/assets/opt/icons/i074.webp",
+      "original": "74.png"
+    },
+    "i075": {
+      "opt": "/assets/opt/icons/i075.webp",
+      "original": "75.png"
+    },
+    "i076": {
+      "opt": "/assets/opt/icons/i076.webp",
+      "original": "76.png"
+    },
+    "i077": {
+      "opt": "/assets/opt/icons/i077.webp",
+      "original": "77.png"
+    },
+    "i078": {
+      "opt": "/assets/opt/icons/i078.webp",
+      "original": "78.png"
+    },
+    "i079": {
+      "opt": "/assets/opt/icons/i079.webp",
+      "original": "79.png"
+    },
+    "i080": {
+      "opt": "/assets/opt/icons/i080.webp",
+      "original": "80.png"
+    },
+    "i081": {
+      "opt": "/assets/opt/icons/i081.webp",
+      "original": "81.png"
+    },
+    "i082": {
+      "opt": "/assets/opt/icons/i082.webp",
+      "original": "82.png"
+    },
+    "i083": {
+      "opt": "/assets/opt/icons/i083.webp",
+      "original": "83.png"
+    },
+    "i084": {
+      "opt": "/assets/opt/icons/i084.webp",
+      "original": "84.png"
+    },
+    "i085": {
+      "opt": "/assets/opt/icons/i085.webp",
+      "original": "85.png"
+    },
+    "i086": {
+      "opt": "/assets/opt/icons/i086.webp",
+      "original": "86.png"
+    },
+    "i087": {
+      "opt": "/assets/opt/icons/i087.webp",
+      "original": "87.png"
+    },
+    "i088": {
+      "opt": "/assets/opt/icons/i088.webp",
+      "original": "88.png"
+    },
+    "i089": {
+      "opt": "/assets/opt/icons/i089.webp",
+      "original": "89.png"
+    },
+    "i090": {
+      "opt": "/assets/opt/icons/i090.webp",
+      "original": "90.png"
+    },
+    "i091": {
+      "opt": "/assets/opt/icons/i091.webp",
+      "original": "91.png"
+    },
+    "i092": {
+      "opt": "/assets/opt/icons/i092.webp",
+      "original": "92.png"
+    },
+    "i093": {
+      "opt": "/assets/opt/icons/i093.webp",
+      "original": "93.png"
+    },
+    "i094": {
+      "opt": "/assets/opt/icons/i094.webp",
+      "original": "94.png"
+    },
+    "i095": {
+      "opt": "/assets/opt/icons/i095.webp",
+      "original": "95.png"
+    },
+    "i096": {
+      "opt": "/assets/opt/icons/i096.webp",
+      "original": "96.png"
+    },
+    "i097": {
+      "opt": "/assets/opt/icons/i097.webp",
+      "original": "97.png"
+    },
+    "i098": {
+      "opt": "/assets/opt/icons/i098.webp",
+      "original": "98.png"
+    },
+    "i099": {
+      "opt": "/assets/opt/icons/i099.webp",
+      "original": "99.png"
+    },
+    "i100": {
+      "opt": "/assets/opt/icons/i100.webp",
+      "original": "100.png"
+    },
+    "i101": {
+      "opt": "/assets/opt/icons/i101.webp",
+      "original": "101.png"
+    },
+    "i102": {
+      "opt": "/assets/opt/icons/i102.webp",
+      "original": "102.png"
+    },
+    "i103": {
+      "opt": "/assets/opt/icons/i103.webp",
+      "original": "103.png"
+    },
+    "i104": {
+      "opt": "/assets/opt/icons/i104.webp",
+      "original": "104.png"
+    },
+    "i105": {
+      "opt": "/assets/opt/icons/i105.webp",
+      "original": "105.png"
+    },
+    "i106": {
+      "opt": "/assets/opt/icons/i106.webp",
+      "original": "106.png"
+    },
+    "i107": {
+      "opt": "/assets/opt/icons/i107.webp",
+      "original": "107.png"
+    },
+    "i108": {
+      "opt": "/assets/opt/icons/i108.webp",
+      "original": "108.png"
+    },
+    "i109": {
+      "opt": "/assets/opt/icons/i109.webp",
+      "original": "109.png"
+    },
+    "i110": {
+      "opt": "/assets/opt/icons/i110.webp",
+      "original": "110.png"
+    },
+    "i111": {
+      "opt": "/assets/opt/icons/i111.webp",
+      "original": "111.png"
+    },
+    "i112": {
+      "opt": "/assets/opt/icons/i112.webp",
+      "original": "112.png"
+    },
+    "i113": {
+      "opt": "/assets/opt/icons/i113.webp",
+      "original": "113.png"
+    },
+    "i114": {
+      "opt": "/assets/opt/icons/i114.webp",
+      "original": "114.png"
+    },
+    "i115": {
+      "opt": "/assets/opt/icons/i115.webp",
+      "original": "115.png"
+    },
+    "i116": {
+      "opt": "/assets/opt/icons/i116.webp",
+      "original": "116.png"
+    }
+  },
+  "backgrounds": {
+    "bg01": {
+      "opt": "/assets/opt/bg/bg01.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_00 (3).png"
+    },
+    "bg02": {
+      "opt": "/assets/opt/bg/bg02.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_09 (3).png"
+    },
+    "bg03": {
+      "opt": "/assets/opt/bg/bg03.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_20 (1).png"
+    },
+    "bg04": {
+      "opt": "/assets/opt/bg/bg04.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_34 (1).png"
+    },
+    "bg05": {
+      "opt": "/assets/opt/bg/bg05.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_43 (1).png"
+    },
+    "bg06": {
+      "opt": "/assets/opt/bg/bg06.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_51 (1).png"
+    },
+    "bg07": {
+      "opt": "/assets/opt/bg/bg07.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_53_59 (1).png"
+    },
+    "bg08": {
+      "opt": "/assets/opt/bg/bg08.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_08 (1).png"
+    },
+    "bg09": {
+      "opt": "/assets/opt/bg/bg09.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_18 (2).png"
+    },
+    "bg10": {
+      "opt": "/assets/opt/bg/bg10.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_28 (1).png"
+    },
+    "bg11": {
+      "opt": "/assets/opt/bg/bg11.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_36 (1).png"
+    },
+    "bg12": {
+      "opt": "/assets/opt/bg/bg12.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_47 (1).png"
+    },
+    "bg13": {
+      "opt": "/assets/opt/bg/bg13.webp",
+      "original": "ChatGPT Image 2026년 8월 8일 오후 07_54_57 (1).png"
+    }
+  }
+}
