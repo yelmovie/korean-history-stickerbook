@@ -21,10 +21,13 @@ const SCREEN_BGM: Partial<Record<Screen, string>> = {
 
 export type SfxName = 'correct' | 'wrong' | 'sticker' | 'page' | 'snap'
 
+/** 전체 음소거(우상단 아이콘) + BGM/SFX 개별 음소거(설정 패널) */
 class AudioManager {
   private bgm: HTMLAudioElement | null = null
   private currentTrack = ''
   private _muted = false
+  private _bgmMuted = false
+  private _sfxMuted = false
   private unlocked = false
   private sfxCache = new Map<string, HTMLAudioElement>()
 
@@ -32,7 +35,7 @@ class AudioManager {
     // 브라우저 자동재생 제한: 첫 사용자 입력 후 BGM 재생을 재시도한다
     const unlock = () => {
       this.unlocked = true
-      this.resume()
+      this.applyBgmState()
       window.removeEventListener('pointerdown', unlock)
       window.removeEventListener('keydown', unlock)
     }
@@ -44,12 +47,36 @@ class AudioManager {
     return this._muted
   }
 
+  get bgmMuted(): boolean {
+    return this._bgmMuted
+  }
+
+  get sfxMuted(): boolean {
+    return this._sfxMuted
+  }
+
   setMuted(muted: boolean): void {
     this._muted = muted
-    if (this.bgm) {
-      if (muted) this.bgm.pause()
-      else void this.bgm.play().catch(() => {})
-    }
+    this.applyBgmState()
+  }
+
+  setBgmMuted(muted: boolean): void {
+    this._bgmMuted = muted
+    this.applyBgmState()
+  }
+
+  setSfxMuted(muted: boolean): void {
+    this._sfxMuted = muted
+  }
+
+  private bgmSilenced(): boolean {
+    return this._muted || this._bgmMuted
+  }
+
+  private applyBgmState(): void {
+    if (!this.bgm) return
+    if (this.bgmSilenced()) this.bgm.pause()
+    else if (this.unlocked) void this.bgm.play().catch(() => {})
   }
 
   /** 화면에 맞는 BGM으로 전환. 같은 트랙이면 그대로 둔다(중복 재생 방지) */
@@ -66,18 +93,14 @@ class AudioManager {
       audio.loop = true
       audio.volume = BGM_VOLUME
       this.bgm = audio
-      if (!this._muted && this.unlocked) void audio.play().catch(() => {})
+      if (!this.bgmSilenced() && this.unlocked) void audio.play().catch(() => {})
     } catch {
       this.bgm = null
     }
   }
 
-  private resume(): void {
-    if (this.bgm && !this._muted) void this.bgm.play().catch(() => {})
-  }
-
   playSfx(name: SfxName): void {
-    if (this._muted) return
+    if (this._muted || this._sfxMuted) return
     try {
       let audio = this.sfxCache.get(name)
       if (!audio) {

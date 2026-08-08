@@ -120,6 +120,13 @@ export interface SaveData {
   /** questionId → 정답 여부 (첫 시도 기준) */
   questionResults: Record<string, boolean>
   diary: Record<PeriodId, DiaryPage>
-  settings: { muted: boolean }
+  settings: {
+    /** 전체 소리 (우상단 아이콘) */
+    muted: boolean
+    bgmMuted: boolean
+    sfxMuted: boolean
+    /** 교사용 전체 해금 */
+    unlockAll: boolean
+  }
   lastSavedAt: string
 }

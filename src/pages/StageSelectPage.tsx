@@ -11,6 +11,7 @@ const devUnlockAll = new URLSearchParams(location.search).get('unlock') === 'all
 export function StageSelectPage() {
   const { save, goTo } = useGame()
   const allDone = STAGES.every((s) => save.completedStages.includes(s.id))
+  const unlockAll = devUnlockAll || save.settings.unlockAll
 
   return (
     <div className="screen stage-select">
@@ -26,7 +27,7 @@ export function StageSelectPage() {
         <main className="stage-select__cards">
           {STAGES.map((stage, idx) => {
             const done = save.completedStages.includes(stage.id)
-            const locked = !devUnlockAll && idx > 0 && !save.completedStages.includes(STAGES[idx - 1].id)
+            const locked = !unlockAll && idx > 0 && !save.completedStages.includes(STAGES[idx - 1].id)
             const total = questionsForStage(stage.id).length
             const earned = questionsForStage(stage.id).filter((q) =>
               save.earnedStickers.includes(q.rewardStickerId),

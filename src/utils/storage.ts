@@ -13,7 +13,7 @@ export function defaultSave(): SaveData {
     earnedStickers: [],
     questionResults: {},
     diary,
-    settings: { muted: false },
+    settings: { muted: false, bgmMuted: false, sfxMuted: false, unlockAll: false },
     lastSavedAt: new Date().toISOString(),
   }
 }
