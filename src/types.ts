@@ -42,6 +42,8 @@ export interface ChoiceQuestion extends QuestionBase {
   /** 중앙에 크게 보여줄 유물 아이콘 id */
   artifactIcon?: string | null
   artifactName?: string
+  /** true면 흙을 문질러 유물을 발굴한 뒤에 문제를 풀 수 있다 */
+  excavate?: boolean
   /** 관찰 포인트: 클릭하면 힌트 카드가 열린다 */
   observePoints?: { label: string; text: string }[]
   choices: string[]
@@ -91,12 +93,25 @@ export interface PuzzleQuestion extends QuestionBase {
   reasonAnswerIndex: number
 }
 
+/** 빈칸 채우기: 낱말 칩을 눌러 문장을 완성한다 (짧은 서술형) */
+export interface FillQuestion extends QuestionBase {
+  type: 'fill'
+  artifactIcon?: string | null
+  artifactName?: string
+  textBefore: string
+  textAfter: string
+  chips: string[]
+  answerIndex: number
+  wrongHint?: string
+}
+
 export type Question =
   | ChoiceQuestion
   | PlacementQuestion
   | MatchQuestion
   | OrderingQuestion
   | PuzzleQuestion
+  | FillQuestion
 
 export interface DiaryPlacedSticker {
   stickerId: string
@@ -117,8 +132,10 @@ export interface SaveData {
   version: 1
   completedStages: StageId[]
   earnedStickers: string[]
-  /** questionId → 정답 여부 (첫 시도 기준) */
+  /** questionId → 정답 여부 (최초 도전의 첫 시도 기준, 갱신 안 됨) */
   questionResults: Record<string, boolean>
+  /** 스테이지별 최고 기록: 한 번의 도전에서 첫 시도에 맞힌 문항 수 (재도전 시 갱신) */
+  bestRuns: Partial<Record<StageId, number>>
   diary: Record<PeriodId, DiaryPage>
   settings: {
     /** 전체 소리 (우상단 아이콘) */

@@ -12,6 +12,7 @@ export function defaultSave(): SaveData {
     completedStages: [],
     earnedStickers: [],
     questionResults: {},
+    bestRuns: {},
     diary,
     settings: { muted: false, bgmMuted: false, sfxMuted: false, unlockAll: false },
     lastSavedAt: new Date().toISOString(),
@@ -46,6 +47,7 @@ export function loadSave(): { data: SaveData; existed: boolean; corrupted: boole
         typeof parsed.questionResults === 'object' && parsed.questionResults !== null
           ? parsed.questionResults
           : base.questionResults,
+      bestRuns: typeof parsed.bestRuns === 'object' && parsed.bestRuns !== null ? parsed.bestRuns : base.bestRuns,
       diary: { ...base.diary, ...(typeof parsed.diary === 'object' && parsed.diary !== null ? parsed.diary : {}) },
       settings: { ...base.settings, ...(typeof parsed.settings === 'object' ? parsed.settings : {}) },
       lastSavedAt: typeof parsed.lastSavedAt === 'string' ? parsed.lastSavedAt : base.lastSavedAt,

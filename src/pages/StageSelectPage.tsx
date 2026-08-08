@@ -51,6 +51,11 @@ export function StageSelectPage() {
                   {locked ? '🔒 이전 시대 완료 시 해금' : `스티커 ${earned}/${total}`}
                 </span>
                 {done && (
+                  <span className="stage-card__best">
+                    ★ 최고 기록 {save.bestRuns[stage.id] ?? 0}/{total} — 다시 도전!
+                  </span>
+                )}
+                {done && (
                   <span className="stage-card__stamp" aria-label="완료 도장">
                     <AssetImage src={iconSrc(A.stamp)} alt="완료" className="stage-card__stamp-img" fallbackLabel="완료" />
                   </span>

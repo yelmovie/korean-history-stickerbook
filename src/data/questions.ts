@@ -6,7 +6,7 @@ export const QUESTIONS: Question[] = [
   // ================= Stage 1: 선사 박물관 =================
   {
     id: 'q-s1-01', stageId: 'stage1', type: 'choice',
-    artifactIcon: 'i043', artifactName: '빗살무늬 토기',
+    artifactIcon: 'i043', artifactName: '빗살무늬 토기', excavate: true,
     prompt: '이 토기를 신석기 시대 생활과 연결할 수 있는 근거로 가장 알맞은 것은 무엇일까요?',
     observePoints: [
       { label: '무늬', text: '표면에 빗살처럼 생긴 무늬가 새겨져 있어요.' },
@@ -27,7 +27,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-02', stageId: 'stage1', type: 'choice',
-    artifactIcon: 'i042', artifactName: '주먹도끼',
+    artifactIcon: 'i042', artifactName: '주먹도끼', excavate: true,
     prompt: '주먹도끼의 생김새를 보고, 구석기 사람들이 어떻게 썼을지 가장 알맞게 추리한 것은?',
     observePoints: [
       { label: '모양', text: '한쪽 끝은 뾰족하고 옆날은 날카로워요.' },
@@ -410,10 +410,12 @@ export const QUESTIONS: Question[] = [
     contentReviewNeeded: true, sourceNote: '실록 열람 제한 서술 검수 필요',
   },
   {
-    id: 'q-s4-06', stageId: 'stage4', type: 'choice',
-    artifactName: '한 줄 정리',
-    prompt: '빈칸에 들어갈 말로 가장 알맞은 것은? — "측우기는 ______ 위해 만든 기구이다."',
-    choices: [
+    id: 'q-s4-06', stageId: 'stage4', type: 'fill',
+    artifactIcon: 'i071', artifactName: '측우기',
+    prompt: '낱말 카드를 골라 오늘 배운 내용을 한 문장으로 정리해 보세요.',
+    textBefore: '측우기는 ',
+    textAfter: ' 위해 만든 기구이다.',
+    chips: [
       '비가 내린 양을 재어 농사에 도움을 주기',
       '바닷물의 깊이를 재기',
       '지진을 미리 알아내기',
@@ -423,7 +425,7 @@ export const QUESTIONS: Question[] = [
     wrongHint: '측우기의 이름에는 "비를 잰다(측우)"는 뜻이 담겨 있어요.',
     explanation: '한 줄로 정리하면 오래 기억할 수 있어요. 측우기는 강우량을 재는 기구예요.',
     rewardStickerId: 'angbuilgu',
-    contentReviewNeeded: true, sourceNote: '짧은 서술형(선택 완성). 검수 필요',
+    contentReviewNeeded: true, sourceNote: '짧은 서술형(칩 완성). 검수 필요',
   },
 
   // ================= Stage 5: 근현대 역사 기록실 =================
@@ -509,6 +511,17 @@ export const QUESTIONS: Question[] = [
   },
 ]
 
+/** 스테이지 내 난이도 커브: 친숙한 유물의 관찰형으로 시작해 종합·해석형으로 마무리 */
+const STAGE_ORDER: Record<StageId, string[]> = {
+  stage1: ['q-s1-02', 'q-s1-01', 'q-s1-03', 'q-s1-04', 'q-s1-05', 'q-s1-06'],
+  stage2: ['q-s2-01', 'q-s2-04', 'q-s2-05', 'q-s2-02', 'q-s2-03', 'q-s2-06'],
+  stage3: ['q-s3-01', 'q-s3-05', 'q-s3-02', 'q-s3-04', 'q-s3-03'],
+  stage4: ['q-s4-01', 'q-s4-03', 'q-s4-02', 'q-s4-05', 'q-s4-04', 'q-s4-06'],
+  stage5: ['q-s5-01', 'q-s5-03', 'q-s5-02', 'q-s5-05', 'q-s5-04'],
+}
+
 export function questionsForStage(stageId: StageId): Question[] {
-  return QUESTIONS.filter((q) => q.stageId === stageId)
+  const qs = QUESTIONS.filter((q) => q.stageId === stageId)
+  const order = STAGE_ORDER[stageId]
+  return [...qs].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
 }

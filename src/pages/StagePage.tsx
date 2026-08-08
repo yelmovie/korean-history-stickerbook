@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
 import { AppButton, Modal } from '../components/common'
 import { ChoiceView } from '../components/questions/ChoiceView'
+import { FillView } from '../components/questions/FillView'
 import { MatchView } from '../components/questions/MatchView'
 import { OrderingView } from '../components/questions/OrderingView'
 import { PlacementView } from '../components/questions/PlacementView'
@@ -28,10 +29,13 @@ export function StagePage({ stageId }: Props) {
   const [index, setIndex] = useState(0)
   const [reward, setReward] = useState<Question | null>(null)
   const [finished, setFinished] = useState(false)
+  /** 이번 도전에서 첫 시도에 맞힌 문항 수 (재도전 최고 기록용) */
+  const [runCorrect, setRunCorrect] = useState(0)
 
   const question = questions[index]
 
   const handleSolved = (q: Question) => (firstTryCorrect: boolean) => {
+    if (firstTryCorrect) setRunCorrect((n) => n + 1)
     update((draft) => ({
       ...draft,
       earnedStickers: draft.earnedStickers.includes(q.rewardStickerId)
@@ -52,12 +56,11 @@ export function StagePage({ stageId }: Props) {
         completedStages: draft.completedStages.includes(stageId)
           ? draft.completedStages
           : [...draft.completedStages, stageId],
+        bestRuns: { ...draft.bestRuns, [stageId]: Math.max(draft.bestRuns[stageId] ?? 0, runCorrect) },
       }))
       setFinished(true)
     }
   }
-
-  const earnedInStage = questions.filter((q) => save.earnedStickers.includes(q.rewardStickerId)).length
 
   return (
     <div className="screen">
@@ -88,6 +91,9 @@ export function StagePage({ stageId }: Props) {
               {question.type === 'puzzle' && (
                 <PuzzleView key={question.id} question={question} onSolved={handleSolved(question)} />
               )}
+              {question.type === 'fill' && (
+                <FillView key={question.id} question={question} onSolved={handleSolved(question)} />
+              )}
             </>
           )}
         </main>
@@ -108,7 +114,8 @@ export function StagePage({ stageId }: Props) {
           <AssetImage src={iconSrc(stage.badge)} alt={`${stage.title} 완료 배지`} className="stage-complete__badge" />
           <h2>{stage.title} 탐험 완료!</h2>
           <p>
-            이번 탐험에서 스티커 {earnedInStage}개를 모았어요.
+            첫 시도 정답 {runCorrect}/{questions.length}
+            {(save.bestRuns[stageId] ?? 0) <= runCorrect ? ' — 최고 기록!' : ` (최고 기록 ${save.bestRuns[stageId]}/${questions.length})`}
             <br />
             모은 스티커는 역사 다이어리에 붙일 수 있어요.
           </p>

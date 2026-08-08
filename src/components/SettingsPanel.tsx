@@ -110,16 +110,21 @@ export function SettingsPanel({ open, onClose }: Props) {
                   <p className="settings-note">
                     {teacher.curriculum.subject} · {teacher.curriculum.gradeBand}
                   </p>
-                  {teacher.curriculum.standards.map((s) => (
-                    <div key={s.code} className="standard-card">
-                      <p className="standard-card__code">
-                        {s.code} <span className="standard-card__area">{s.area}</span>
-                      </p>
+                  {teacher.curriculum.standards.map((s, i) => (
+                    <details key={s.code} className="standard-card standard-card--toggle" open={i === 0}>
+                      <summary className="standard-card__summary">
+                        <span className="standard-card__code">
+                          {s.code} <span className="standard-card__area">{s.area}</span>
+                        </span>
+                        <span className="standard-card__chevron" aria-hidden="true">
+                          ▼
+                        </span>
+                      </summary>
                       <p className="standard-card__text">{s.text}</p>
                       <p className="standard-card__how">
                         <strong>{s.stages.join(' · ')}</strong> — {s.how}
                       </p>
-                    </div>
+                    </details>
                   ))}
                   <p className="settings-note">{teacher.curriculum.note}</p>
                 </>

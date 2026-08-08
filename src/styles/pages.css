@@ -1428,3 +1428,346 @@
   cursor: pointer;
   animation: btn-pulse 1.6s ease-in-out infinite;
 }
+
+/* ================= dokdo급 연출: 장면 전환·마스코트·반짝임 ================= */
+
+.screen__content {
+  animation: scene-in 0.45s ease-out;
+}
+
+@keyframes scene-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.6cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-panel {
+  animation: modal-in 0.3s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.stage-deco__mascot,
+.main-page__chest {
+  animation: floaty 3.4s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.2cqh);
+  }
+}
+
+.stage-card__stamp-img {
+  animation: stamp-in 0.5s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+
+@keyframes stamp-in {
+  0% {
+    transform: scale(2.2) rotate(30deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(12deg);
+    opacity: 1;
+  }
+}
+
+.choice-item--wrong {
+  animation: cell-shake 0.3s ease;
+}
+
+/* 배경 위 비네트: 화면 가장자리를 살짝 눌러 시선을 중앙으로 */
+.screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(10, 22, 38, 0.4) 100%);
+}
+
+.screen__content {
+  z-index: 2;
+}
+
+.main-page__subtitle,
+.stage-card__title,
+.diary-tab,
+.completion__title,
+.reward__name,
+.reward__badge {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen__content,
+  .modal-panel,
+  .stage-deco__mascot,
+  .main-page__chest,
+  .stage-card__stamp-img {
+    animation: none;
+  }
+}
+
+/* ================= 발굴(문지르기) ================= */
+
+.scratch-wrap {
+  position: relative;
+  width: 22cqh;
+  height: 22cqh;
+}
+
+.scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5cqh;
+  cursor: grab;
+  touch-action: none;
+  z-index: 3;
+}
+
+.scratch-guide {
+  position: absolute;
+  bottom: 1cqh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  pointer-events: none;
+  font-size: 2cqh;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(16, 35, 63, 0.75);
+  padding: 0.4cqh 1.2cqw;
+  border-radius: 2cqh;
+  white-space: nowrap;
+  animation: btn-pulse 1.6s ease-in-out infinite;
+}
+
+.scratch-done {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 4cqh;
+  animation: reward-pop 0.5s ease-out;
+}
+
+/* ================= 유물 확대 관찰 ================= */
+
+button.artifact-pedestal {
+  font-family: inherit;
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+}
+
+.artifact-pedestal--zoomed {
+  transform: scale(1.55);
+  transform-origin: center 40%;
+  z-index: 25;
+  cursor: zoom-out;
+}
+
+.artifact-pedestal--small .artifact-pedestal__img,
+.artifact-pedestal--small .asset-fallback {
+  width: 13cqh;
+  height: 13cqh;
+}
+
+/* ================= 관찰 포인트 뒤집기 카드 ================= */
+
+.flip-card {
+  background: none;
+  border: none;
+  padding: 0;
+  min-height: max(48px, 7.5cqh);
+  perspective: 60cqh;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.flip-card__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: max(48px, 7.5cqh);
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.3, 1.2, 0.4, 1);
+}
+
+.flip-card--open .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card__front,
+.flip-card__back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.9cqh 1.2cqw;
+  border-radius: 1.2cqh;
+  backface-visibility: hidden;
+  font-size: 2cqh;
+  line-height: 1.4;
+}
+
+.flip-card__front {
+  border: 0.2cqw dashed var(--color-gold);
+  background: rgba(247, 234, 208, 0.92);
+  font-weight: 800;
+  color: var(--color-ink);
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.flip-card__back {
+  border: 0.2cqw solid var(--color-gold);
+  background: #fffdf5;
+  color: var(--color-wood);
+  transform: rotateY(180deg);
+  font-weight: 600;
+}
+
+/* ================= 빈칸 채우기 ================= */
+
+.fill-sentence-card {
+  width: 100%;
+}
+
+.fill-sentence {
+  font-size: 2.9cqh;
+  line-height: 1.7;
+  text-align: center;
+  font-weight: 700;
+}
+
+.fill-blank {
+  display: inline-block;
+  min-width: 18cqw;
+  min-height: 4.2cqh;
+  margin: 0 0.5cqw;
+  padding: 0.2cqh 1cqw;
+  border-bottom: 0.5cqh solid var(--color-gold);
+  background: rgba(214, 168, 79, 0.14);
+  border-radius: 0.8cqh 0.8cqh 0 0;
+  vertical-align: bottom;
+}
+
+.fill-blank--filled {
+  background: #e3efed;
+  border-bottom-color: var(--color-teal);
+  color: var(--color-teal);
+  animation: reward-pop 0.4s ease-out;
+}
+
+.fill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1cqh 1cqw;
+  justify-content: center;
+}
+
+.fill-chip {
+  font-family: inherit;
+  font-size: 2.2cqh;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0.8cqh 1.6cqw;
+  border-radius: 2.6cqh;
+  border: 0.22cqw solid var(--color-wood);
+  background: linear-gradient(180deg, #fdf3dc 0%, var(--color-paper-dark) 100%);
+  box-shadow: 0 0.4cqh 0 var(--btn-edge-paper);
+  cursor: pointer;
+}
+
+.fill-chip:active:not(:disabled) {
+  transform: translateY(0.3cqh);
+  box-shadow: 0 0.1cqh 0 var(--btn-edge-paper);
+}
+
+.fill-chip--wrong {
+  background: #e8d5cd;
+  border-color: var(--color-wrong);
+  color: var(--color-wrong);
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.fill-chip--used {
+  visibility: hidden;
+}
+
+.stage-card__best {
+  font-size: 1.8cqh;
+  font-weight: 800;
+  color: var(--color-teal);
+}
+
+/* 성취기준 접기/펼치기 */
+.standard-card--toggle {
+  padding: 0;
+  overflow: hidden;
+}
+
+.standard-card__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1cqw;
+  padding: 1.2cqh 1.4cqw;
+  min-height: 48px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.standard-card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.standard-card__summary:hover {
+  background: rgba(214, 168, 79, 0.15);
+}
+
+.standard-card__chevron {
+  font-size: 1.6cqh;
+  color: var(--color-gold);
+  transition: transform 0.25s ease;
+}
+
+.standard-card--toggle[open] .standard-card__chevron {
+  transform: rotate(180deg);
+}
+
+.standard-card--toggle .standard-card__text,
+.standard-card--toggle .standard-card__how {
+  padding: 0 1.4cqw;
+}
+
+.standard-card--toggle .standard-card__how {
+  padding-bottom: 1.2cqh;
+}

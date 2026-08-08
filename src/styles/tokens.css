@@ -15,4 +15,8 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --shadow-card: 0 0.4cqw 1.2cqw rgba(24, 16, 6, 0.35);
   --font-main: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-display: 'Jua', 'Malgun Gothic', sans-serif;
+  --btn-edge-paper: #a5824f;
+  --btn-edge-navy: #081527;
+  --shadow-pop: 0 0.8cqh 2cqh rgba(9, 22, 40, 0.35), inset 0 0.2cqh 0 rgba(255, 255, 255, 0.65);
 }
