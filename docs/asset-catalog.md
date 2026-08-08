@@ -151,6 +151,9 @@
 | i140 | 6·25 전쟁 기록 자료 | artifact |
 | i141 | 동학농민운동 깃발 | artifact |
 | i142 | 대한제국 문서 | artifact |
+| i143 | 무령왕 금제관식 | artifact |
+| i144 | 대동여지도 | artifact |
+| i145 | 백자 달항아리 | artifact |
 
 ## 배경 (bg01~bg13)
 

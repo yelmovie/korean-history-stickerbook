@@ -567,6 +567,18 @@
     "i142": {
       "opt": "/assets/opt/icons/i142.webp",
       "original": "142.png"
+    },
+    "i143": {
+      "opt": "/assets/opt/icons/i143.webp",
+      "original": "143.png"
+    },
+    "i144": {
+      "opt": "/assets/opt/icons/i144.webp",
+      "original": "144.png"
+    },
+    "i145": {
+      "opt": "/assets/opt/icons/i145.webp",
+      "original": "145.png"
     }
   },
   "backgrounds": {

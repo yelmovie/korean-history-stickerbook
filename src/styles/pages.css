@@ -1414,3 +1414,17 @@
   color: var(--color-wrong) !important;
   background: #f3e3de !important;
 }
+
+.review-gate {
+  font-family: inherit;
+  font-size: 2.4cqh;
+  font-weight: 800;
+  min-height: 48px;
+  padding: 1cqh 2.4cqw;
+  border-radius: 2.4cqh;
+  border: 0.3cqw solid var(--color-teal);
+  background: #e3efed;
+  color: var(--color-teal);
+  cursor: pointer;
+  animation: btn-pulse 1.6s ease-in-out infinite;
+}
