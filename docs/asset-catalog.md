@@ -5,7 +5,7 @@
 
 라벨은 이미지 내용을 보고 자동 식별한 것으로, `(?)`는 불확실 표시.
 
-## 아이콘 (i001~i116)
+## 아이콘 (i001~i142)
 
 | id | 라벨 | 분류 |
 |---|---|---|
@@ -125,6 +125,32 @@
 | i114 | 시간여행 다이어리 배너 | logo |
 | i115 | "역사를 배우고, 미래를 꿈꾸다" 두루마리 현판 | logo |
 | i116 | 어린이 역사 큐레이터 제목 로고 | logo |
+| i117 | 슴베찌르개 | artifact |
+| i118 | 가락바퀴 | artifact |
+| i119 | 뼈바늘 | artifact |
+| i120 | 간석기 | artifact |
+| i121 | 민무늬 토기 | artifact |
+| i122 | 반달돌칼 | artifact |
+| i123 | 비파형 동검 | artifact |
+| i124 | 광개토대왕릉비 | artifact |
+| i125 | 첨성대 | artifact |
+| i126 | 불국사 | artifact |
+| i127 | 다보탑 | artifact |
+| i128 | 석가탑 | artifact |
+| i129 | 청자 참외모양 병 | artifact |
+| i130 | 직지 | artifact |
+| i131 | 고려 불화 | artifact |
+| i132 | 청동 은입사 향완 | artifact |
+| i133 | 개성 만월대 | artifact |
+| i134 | 조선왕조실록 | artifact |
+| i135 | 동의보감 | artifact |
+| i136 | 독립신문 | artifact |
+| i137 | 안중근 의사 유묵 | artifact |
+| i138 | 유관순 열사 기록 | artifact |
+| i139 | 광복 기념 자료 | artifact |
+| i140 | 6·25 전쟁 기록 자료 | artifact |
+| i141 | 동학농민운동 깃발 | artifact |
+| i142 | 대한제국 문서 | artifact |
 
 ## 배경 (bg01~bg13)
 
@@ -142,4 +168,7 @@
 | bg10 | 다이어리 꾸미기 작업실 | 8 꾸미기 |
 | bg11 | 한옥 전시실 | 9 전시 |
 | bg12 | 한옥 수료식 무대 | 10 수료 |
-| bg13 | bg12와 동일(중복) | 미사용 |
+| bg13 | bg12와 동일(중복) | public 제외(source-assets/unused-webp) |
+
+
+※ src에서 참조되지 않는 아이콘 webp는 `source-assets/unused-webp/`로 옮겨 배포 용량에서 제외했다. 다시 쓰려면 파일을 `public/assets/opt/`로 되돌리면 된다.

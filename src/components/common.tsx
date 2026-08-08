@@ -46,6 +46,30 @@ export function Modal({ open, onClose, children, className }: ModalProps) {
     if (open) ref.current?.focus()
   }, [open])
   if (!open) return null
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onClose?.()
+      return
+    }
+    // 포커스 트랩: Tab이 다이얼로그 밖으로 나가지 않게 한다
+    if (e.key === 'Tab' && ref.current) {
+      const focusables = ref.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])',
+      )
+      if (focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+  }
+
   return (
     <div className="modal-backdrop" onClick={onClose} role="presentation">
       <div
@@ -55,6 +79,7 @@ export function Modal({ open, onClose, children, className }: ModalProps) {
         aria-modal="true"
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={onKeyDown}
       >
         {children}
       </div>
