@@ -5,6 +5,7 @@ import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
 import { ScratchReveal } from './ScratchReveal'
+import { ChoiceList, HintBubble } from './shared'
 
 interface Props {
   question: ChoiceQuestion
@@ -116,31 +117,13 @@ export function ChoiceView({ question, onSolved }: Props) {
           </div>
         ) : (
           <>
-            <div className="choice-list">
-              {question.choices.map((c, i) => (
-                <button
-                  key={c}
-                  type="button"
-                  className={`choice-item ${wrongPicks.includes(i) ? 'choice-item--wrong' : ''}`}
-                  onClick={() => pick(i)}
-                  disabled={wrongPicks.includes(i) || needReview}
-                >
-                  <span className="choice-item__num">{i + 1}</span>
-                  <span>{c}</span>
-                  {wrongPicks.includes(i) && <span aria-label="오답">✕</span>}
-                </button>
-              ))}
-            </div>
+            <ChoiceList choices={question.choices} wrongPicks={wrongPicks} onPick={pick} disabled={needReview} />
             {needReview && (
               <button type="button" className="review-gate" onClick={reviewEvidence}>
                 🔍 근거 다시 보기
               </button>
             )}
-            {hintMsg && (
-              <div className="hint-bubble" role="status">
-                💡 {hintMsg}
-              </div>
-            )}
+            <HintBubble msg={hintMsg} />
           </>
         )}
       </div>

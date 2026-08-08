@@ -4,6 +4,7 @@ import type { OrderingQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { AppButton, PaperCard } from '../common'
+import { HintBubble } from './shared'
 
 interface Props {
   question: OrderingQuestion
@@ -85,11 +86,7 @@ export function OrderingView({ question, onSolved }: Props) {
         {trayItems.length === 0 && <AppButton onClick={check}>순서 확인하기</AppButton>}
       </div>
       {!full && <p className="placement-guide">사건 카드를 눌러 먼저 일어난 순서대로 채워 보세요</p>}
-      {hintMsg && (
-        <div className="hint-bubble" role="status">
-          💡 {hintMsg}
-        </div>
-      )}
+      <HintBubble msg={hintMsg} />
     </div>
   )
 }

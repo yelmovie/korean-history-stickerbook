@@ -3,6 +3,7 @@ import { iconSrc } from '../../data/assets'
 import type { PuzzleQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { PaperCard } from '../common'
+import { ChoiceList, HintBubble } from './shared'
 
 interface Props {
   question: PuzzleQuestion
@@ -106,25 +107,8 @@ export function PuzzleView({ question, onSolved }: Props) {
         <PaperCard className="qv__prompt-card">
           <p className="qv__prompt">{question.reasonPrompt}</p>
         </PaperCard>
-        <div className="choice-list">
-          {question.reasonChoices.map((c, i) => (
-            <button
-              key={c}
-              type="button"
-              className={`choice-item ${wrongReasons.includes(i) ? 'choice-item--wrong' : ''}`}
-              onClick={() => pickReason(i)}
-              disabled={wrongReasons.includes(i)}
-            >
-              <span className="choice-item__num">{i + 1}</span>
-              <span>{c}</span>
-            </button>
-          ))}
-        </div>
-        {hintMsg && (
-          <div className="hint-bubble" role="status">
-            💡 {hintMsg}
-          </div>
-        )}
+        <ChoiceList choices={question.reasonChoices} wrongPicks={wrongReasons} onPick={pickReason} />
+        <HintBubble msg={hintMsg} />
       </div>
     )
   }
@@ -170,11 +154,7 @@ export function PuzzleView({ question, onSolved }: Props) {
         </div>
       </div>
       <p className="placement-guide">조각을 끌어 복원판의 알맞은 자리에 맞춰 보세요</p>
-      {hintMsg && (
-        <div className="hint-bubble" role="status">
-          💡 {hintMsg}
-        </div>
-      )}
+      <HintBubble msg={hintMsg} />
     </div>
   )
 }

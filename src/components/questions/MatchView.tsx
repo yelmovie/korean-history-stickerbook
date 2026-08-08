@@ -4,6 +4,7 @@ import type { MatchQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
+import { HintBubble } from './shared'
 
 interface Props {
   question: MatchQuestion
@@ -133,11 +134,7 @@ export function MatchView({ question, onSolved }: Props) {
         </div>
       </div>
       <p className="placement-guide">왼쪽을 누르고, 알맞은 오른쪽 짝을 눌러 이어 보세요</p>
-      {hintMsg && (
-        <div className="hint-bubble" role="status">
-          💡 {hintMsg}
-        </div>
-      )}
+      <HintBubble msg={hintMsg} />
     </div>
   )
 }

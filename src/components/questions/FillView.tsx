@@ -4,6 +4,7 @@ import type { FillQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
+import { HintBubble } from './shared'
 
 interface Props {
   question: FillQuestion
@@ -72,11 +73,7 @@ export function FillView({ question, onSolved }: Props) {
         ))}
       </div>
       <p className="placement-guide">알맞은 낱말 카드를 눌러 빈칸을 채워 보세요</p>
-      {hintMsg && (
-        <div className="hint-bubble" role="status">
-          💡 {hintMsg}
-        </div>
-      )}
+      <HintBubble msg={hintMsg} />
     </div>
   )
 }

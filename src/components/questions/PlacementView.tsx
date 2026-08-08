@@ -4,6 +4,7 @@ import type { PlacementQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
+import { ChoiceList, HintBubble } from './shared'
 
 interface Props {
   question: PlacementQuestion
@@ -81,25 +82,8 @@ export function PlacementView({ question, onSolved }: Props) {
         <PaperCard className="qv__prompt-card">
           <p className="qv__prompt">{question.reasonPrompt}</p>
         </PaperCard>
-        <div className="choice-list">
-          {question.reasonChoices.map((c, i) => (
-            <button
-              key={c}
-              type="button"
-              className={`choice-item ${wrongReasons.includes(i) ? 'choice-item--wrong' : ''}`}
-              onClick={() => pickReason(i)}
-              disabled={wrongReasons.includes(i)}
-            >
-              <span className="choice-item__num">{i + 1}</span>
-              <span>{c}</span>
-            </button>
-          ))}
-        </div>
-        {hintMsg && (
-          <div className="hint-bubble" role="status">
-            💡 {hintMsg}
-          </div>
-        )}
+        <ChoiceList choices={question.reasonChoices} wrongPicks={wrongReasons} onPick={pickReason} />
+        <HintBubble msg={hintMsg} />
       </div>
     )
   }
@@ -146,11 +130,7 @@ export function PlacementView({ question, onSolved }: Props) {
         </button>
         <p className="placement-guide">유물을 끌어서 알맞은 자리에 놓아 보세요</p>
       </div>
-      {hintMsg && (
-        <div className="hint-bubble" role="status">
-          💡 {hintMsg}
-        </div>
-      )}
+      <HintBubble msg={hintMsg} />
     </div>
   )
 }
