@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { iconSrc } from '../../data/assets'
+import { iconSrc, photoSrc, PHOTO_CREDIT } from '../../data/assets'
 import type { ChoiceQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
@@ -50,7 +50,14 @@ export function ChoiceView({ question, onSolved }: Props) {
     )
   }
 
-  const artifactBody = (
+  // 실물 사진이 있으면 AI 일러스트 대신 실물 사진으로 관찰한다 (공공누리 원본 우선 원칙)
+  const realPhoto = photoSrc(question.artifactPhoto)
+  const artifactBody = realPhoto ? (
+    <span className="artifact-photo-frame">
+      <AssetImage src={realPhoto} alt={question.artifactName ?? ''} className="artifact-photo" fallbackLabel={question.artifactName} />
+      <span className="artifact-photo-credit">{PHOTO_CREDIT}</span>
+    </span>
+  ) : (
     <AssetImage
       src={iconSrc(question.artifactIcon)}
       alt={question.artifactName ?? ''}

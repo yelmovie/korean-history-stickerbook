@@ -183,7 +183,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-04', stageId: 'stage2', type: 'choice',
-    artifactIcon: 'i052', artifactName: '백제 금동대향로',
+    artifactIcon: 'i052', artifactName: '백제 금동대향로', artifactPhoto: 'baekje-incense-burner',
     prompt: '백제 금동대향로를 관찰하면 산과 동물, 악사 등이 정교하게 새겨져 있어요. 이를 통해 알 수 있는 것은?',
     observePoints: [
       { label: '꼭대기', text: '봉황 모양 장식이 있어요.' },
@@ -257,7 +257,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s3-02', stageId: 'stage3', type: 'choice',
-    artifactIcon: 'i062', artifactName: '팔만대장경과 장경판전',
+    artifactIcon: 'i062', artifactName: '팔만대장경과 장경판전', artifactPhoto: 'tripitaka',
     prompt: '팔만대장경(목판 8만여 장)과 그것을 보관한 장경판전을 함께 살펴보면, 고려의 어떤 특징을 알 수 있을까요?',
     observePoints: [
       { label: '목판', text: '나무판에 한 글자씩 정성껏 새겼어요.' },
@@ -347,7 +347,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-02', stageId: 'stage4', type: 'choice',
-    artifactIcon: 'i071', artifactName: '측우기',
+    artifactIcon: 'i071', artifactName: '측우기', artifactPhoto: 'cheugugi',
     prompt: '측우기로 비의 양을 재는 일이 백성의 생활에 도움이 된 까닭으로 가장 알맞은 것은?',
     choices: [
       '비의 양을 알면 농사 계획을 세우고 나라가 세금을 정하는 데 참고할 수 있었기 때문이다',
@@ -379,7 +379,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-04', stageId: 'stage4', type: 'choice',
-    artifactName: '자격루·앙부일구·측우기',
+    artifactName: '자격루·앙부일구·측우기', artifactPhoto: 'jagyeongnu',
     prompt: '자격루, 앙부일구, 측우기를 함께 살펴보면 알 수 있는 조선 과학의 특징으로 알맞은 것은?',
     choices: [
       '과학 기술을 백성의 생활과 나라 운영에 활용하려 했다',

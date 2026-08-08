@@ -93,3 +93,16 @@ A single sticker-style illustration of a Joseon dynasty white porcelain moon jar
 | 4 | ref3d_04_celadon | 청자 상감운학문 매병 | 고려 복원·관찰 |
 | 5 | ref3d_05_cheugugi | 측우기 | 조선 기능 추론 |
 | 6 | ref3d_06_moon_jar | 백자 달항아리 | 다이어리·전시 보너스 |
+
+## 실물 자료 파이프라인 (2026-08-09, AI 유물 이미지 대체 방침)
+
+### 사진 (적용됨)
+`국가유산청 OpenAPI` 검색→이미지 목록→다운로드→1024px webp. 절차는 이 세션의 커밋 참고. 남은 유물(빗살무늬 토기, 주먹도끼 등 비지정·박물관 소장품)은 **e뮤지엄(emuseum.go.kr)** 에서 공공누리 1유형 사진을 수동 확인 후 `source-assets/photos-original/{stickerId}.jpg`로 넣고 아래 명령으로 변환:
+`python -c "from PIL import Image; im=Image.open('source-assets/photos-original/ID.jpg'); im.thumbnail((1024,1024)); im.save('public/assets/photo/ID.webp','WEBP',quality=82)"`
+그 뒤 `src/data/assets.ts`의 REAL_PHOTOS에 id 추가 + CREDITS.md 표에 한 줄 추가.
+
+### 3D (준비됨, 모델 대기)
+- 출처: digital.khs.go.kr 3D 에셋(Sketchfab/Unity/Unreal 마켓 배포) 또는 박물관 3D 스캔. 다운로드 시 공공누리 유형 확인.
+- 변환: `npx @gltf-transform/cli optimize in.glb out.glb --compress draco --texture-size 1024`
+- 배치: `public/assets/3d/{stickerId}.glb` → 문제 화면 "3D로 보기" 버튼에서만 lazy load (model-viewer)
+- 원칙: 태블릿 성능 — 폴리곤 ≤30k, 텍스처 ≤1024px, 첫 로딩에 포함 금지

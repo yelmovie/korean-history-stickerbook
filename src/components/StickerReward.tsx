@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { iconSrc } from '../data/assets'
+import { iconSrc, photoSrc, PHOTO_CREDIT } from '../data/assets'
 import type { Sticker } from '../types'
 import { audio } from '../utils/audio'
 import { AppButton } from './common'
@@ -26,6 +26,12 @@ export function StickerReward({ sticker, explanation, onDone }: Props) {
         <div className="paper-card reward__card">
           <p className="reward__badge">스티커 획득!</p>
           <h2 className="reward__name">{sticker.name}</h2>
+          {photoSrc(sticker.id) && (
+            <span className="reward__photo-wrap">
+              <AssetImage src={photoSrc(sticker.id)} alt={`${sticker.name} 실물 사진`} className="reward__photo" />
+              <span className="artifact-photo-credit">{PHOTO_CREDIT}</span>
+            </span>
+          )}
           <p className="reward__explain">{explanation}</p>
           <AppButton onClick={onDone}>보관함에 넣기</AppButton>
         </div>

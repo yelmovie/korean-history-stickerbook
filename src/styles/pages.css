@@ -1759,3 +1759,50 @@ button.artifact-pedestal {
 .standard-card--toggle .standard-card__how {
   padding-bottom: 1.2cqh;
 }
+
+/* ================= 실물 사진 (공공누리 원본) ================= */
+
+.artifact-photo-frame {
+  display: grid;
+  justify-items: center;
+  gap: 0.4cqh;
+}
+
+.artifact-photo {
+  max-width: 26cqw;
+  max-height: 30cqh;
+  object-fit: contain;
+  border-radius: 1cqh;
+  border: 0.35cqw solid var(--color-gold);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.artifact-photo-credit {
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--color-paper);
+  background: rgba(16, 35, 63, 0.75);
+  padding: 0.25cqh 1.2cqw;
+  border-radius: 1.6cqh;
+}
+
+.reward__photo-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 0.4cqh;
+}
+
+.reward__photo {
+  max-width: 18cqw;
+  max-height: 20cqh;
+  object-fit: contain;
+  border-radius: 1cqh;
+  border: 0.3cqw solid var(--color-gold);
+  background: #fff;
+}
+
+.reward__photo-wrap .artifact-photo-credit {
+  color: var(--color-wood);
+  background: rgba(16, 35, 63, 0.08);
+}

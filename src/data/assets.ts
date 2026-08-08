@@ -10,6 +10,26 @@ export function bgSrc(id: string): string {
   return `/assets/opt/bg/${id}.webp`
 }
 
+/** 실물 사진이 확보된 스티커 id (국가유산청 국가유산포털 OpenAPI 제공, 출처는 CREDITS.md) */
+export const REAL_PHOTOS = new Set([
+  'cheugugi',
+  'silla-crown',
+  'baekje-incense-burner',
+  'celadon-maebyeong',
+  'angbuilgu',
+  'cheomseongdae',
+  'dabotap',
+  'seokgatap',
+  'tripitaka',
+  'jagyeongnu',
+])
+
+export function photoSrc(stickerId: string | null | undefined): string | null {
+  return stickerId && REAL_PHOTOS.has(stickerId) ? `/assets/photo/${stickerId}.webp` : null
+}
+
+export const PHOTO_CREDIT = '실물 사진 ⓒ 국가유산청 국가유산포털'
+
 /** 자주 쓰는 에셋의 의미 있는 별칭 */
 export const A = {
   logo: 'i001',
