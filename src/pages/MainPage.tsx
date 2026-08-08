@@ -42,7 +42,6 @@ export function MainPage() {
         </header>
         <div className="main-page__scene" aria-hidden="true">
           <AssetImage src={iconSrc(A.boyExplorer)} alt="" className="main-page__character" />
-          <AssetImage src={iconSrc(A.portal)} alt="" className="main-page__portal" />
           <AssetImage src={iconSrc(A.treasureChest)} alt="" className="main-page__chest" />
         </div>
         <nav className="main-page__buttons">

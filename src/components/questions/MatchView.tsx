@@ -59,7 +59,11 @@ export function MatchView({ question, onSolved }: Props) {
   }, [links])
 
   const clickRight = (rightId: string) => {
-    if (!selectedLeft) return
+    if (!selectedLeft) {
+      // 오른쪽을 먼저 눌러도 막히지 않고 안내한다 (태블릿에서 "안 눌린다" 오해 방지)
+      setHintMsg('왼쪽 카드를 먼저 누르고, 알맞은 짝을 눌러 이어 주세요!')
+      return
+    }
     if (question.pairs[selectedLeft] === rightId) {
       audio.playSfx('snap')
       const next = { ...links, [selectedLeft]: rightId }
@@ -125,7 +129,7 @@ export function MatchView({ question, onSolved }: Props) {
                 }}
                 className={`match-item match-item--right ${done ? 'match-item--done' : ''}`}
                 onClick={() => clickRight(item.id)}
-                disabled={done || !selectedLeft}
+                disabled={done}
               >
                 {item.label}
               </button>

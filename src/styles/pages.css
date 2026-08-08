@@ -46,26 +46,27 @@
 
 .main-page__title-area {
   text-align: center;
-  padding-top: 3cqh;
+  padding-top: 2.4cqh;
   display: grid;
   justify-items: center;
-  gap: 0.6cqh;
+  gap: 0.8cqh;
 }
 
 .main-page__logo {
-  width: 46cqw;
-  max-height: 20cqh;
+  width: 64cqw;
+  max-height: 30cqh;
   object-fit: contain;
   filter: drop-shadow(0 0.6cqh 1cqh rgba(0, 0, 0, 0.35));
 }
 
 .main-page__subtitle {
-  font-size: 3cqh;
+  font-size: 3.6cqh;
   font-weight: 800;
   color: var(--color-navy);
-  background: rgba(247, 234, 208, 0.85);
-  padding: 0.4cqh 2cqw;
-  border-radius: 2cqh;
+  background: rgba(247, 234, 208, 0.9);
+  padding: 0.5cqh 2.4cqw;
+  border-radius: 2.4cqh;
+  border: 0.2cqw solid var(--color-gold);
 }
 
 .main-page__tagline {
@@ -92,16 +93,6 @@
   filter: drop-shadow(0 1cqh 1.5cqh rgba(0, 0, 0, 0.35));
 }
 
-.main-page__portal {
-  position: absolute;
-  right: 16cqw;
-  bottom: 30cqh;
-  height: 38cqh;
-  object-fit: contain;
-  opacity: 0.9;
-  animation: portal-glow 3.2s ease-in-out infinite;
-}
-
 .main-page__chest {
   position: absolute;
   right: 4cqw;
@@ -109,16 +100,6 @@
   height: 28cqh;
   object-fit: contain;
   filter: drop-shadow(0 1cqh 1.2cqh rgba(0, 0, 0, 0.35));
-}
-
-@keyframes portal-glow {
-  0%,
-  100% {
-    filter: brightness(1) drop-shadow(0 0 1cqh rgba(236, 217, 168, 0.4));
-  }
-  50% {
-    filter: brightness(1.15) drop-shadow(0 0 2.4cqh rgba(236, 217, 168, 0.8));
-  }
 }
 
 .main-page__buttons {
@@ -299,8 +280,10 @@
 }
 
 .qv__prompt-card {
-  width: 100%;
-  padding: 1.6cqh 2cqw;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1.2cqh 2.4cqw;
 }
 
 .qv__prompt {
@@ -311,7 +294,8 @@
 }
 
 .choice-list {
-  width: 100%;
+  width: min(100%, 74cqw);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2cqh 1.2cqw;
@@ -650,7 +634,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.5cqw;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   background: rgba(16, 35, 63, 0.45);
   border: 0.25cqw solid var(--color-gold);
   border-radius: var(--radius-card);
@@ -1134,11 +1120,11 @@
 
 .completion__cert {
   position: relative;
-  width: min(70cqw, 100%);
+  width: min(64cqw, 100%);
   text-align: center;
   display: grid;
-  gap: 1.6cqh;
-  padding: 3cqh 3cqw;
+  gap: 1.4cqh;
+  padding: 2.2cqh 2.4cqw;
 }
 
 .completion__cert-head {
@@ -1261,10 +1247,10 @@
 }
 
 .settings-panel {
-  width: 76cqw;
-  height: 78cqh;
-  max-width: 76cqw;
-  max-height: 78cqh;
+  width: 72cqw;
+  height: 74cqh;
+  max-width: 72cqw;
+  max-height: 74cqh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1655,7 +1641,9 @@ button.artifact-pedestal {
 /* ================= 빈칸 채우기 ================= */
 
 .fill-sentence-card {
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .fill-sentence {

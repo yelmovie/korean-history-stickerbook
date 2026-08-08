@@ -76,3 +76,20 @@ A single sticker-style illustration of Daedongyeojido, the great 19th-century wo
 ### 3. 백자 달항아리
 
 A single sticker-style illustration of a Joseon dynasty white porcelain moon jar (dalhangari). One large, softly asymmetrical round jar with a short neck, milky warm-white glaze with a very subtle bluish tint and gentle glow, quiet and elegant. For a premium Korean history educational app for upper elementary students. One object only, centered, clean transparent background, soft warm lighting, subtle gold outline sticker border, detailed and respectful to the real artifact's shape. No collage, no asset sheet, no grid, no text, no watermark, one object per image. Square 1:1.
+
+## 3D 변환용 초기 이미지 프롬프트 (Meshy AI 이미지→3D)
+
+파일 규칙: 레퍼런스 이미지 `ref3d_NN_이름.png` → Meshy 결과 GLB `public/assets/3d/aNN_이름.glb`
+공통 원칙: 오브젝트 1개, 민무늬 밝은 회색 배경, 3/4 시점, 그림자·글로우·스티커 테두리 금지 (기존 아이콘은 후광·테두리 때문에 3D 변환용으로 부적합).
+
+공통 접미 프롬프트 (모든 항목 뒤에 붙임):
+> single object centered, 3/4 view slightly from above, plain light gray studio background, soft even lighting, no cast shadows, no glow, no outline, no text, realistic detailed surface texture, museum replica quality, suitable for image-to-3D conversion. Square 1:1.
+
+| # | 파일명 | 대상 | 용도 |
+|---|---|---|---|
+| 1 | ref3d_01_hand_axe | 주먹도끼 | 선사 관찰 문제 3D 돌려보기 |
+| 2 | ref3d_02_dolmen | 고인돌 | 선사 배치 문제 |
+| 3 | ref3d_03_cheomseongdae | 첨성대 | 삼국 관찰 |
+| 4 | ref3d_04_celadon | 청자 상감운학문 매병 | 고려 복원·관찰 |
+| 5 | ref3d_05_cheugugi | 측우기 | 조선 기능 추론 |
+| 6 | ref3d_06_moon_jar | 백자 달항아리 | 다이어리·전시 보너스 |

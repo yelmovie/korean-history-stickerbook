@@ -71,7 +71,7 @@
   border: 0.25cqw solid var(--color-wood);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  padding: 2.2cqh 2cqw;
+  padding: 1.5cqh 1.5cqw;
 }
 
 /* ---------- 모달 ---------- */

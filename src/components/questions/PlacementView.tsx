@@ -18,6 +18,8 @@ export function PlacementView({ question, onSolved }: Props) {
   const [wrongSlots, setWrongSlots] = useState<string[]>([])
   const [wrongReasons, setWrongReasons] = useState<number[]>([])
   const [hintMsg, setHintMsg] = useState<string | null>(null)
+  // 드래그 좌표는 ref로 동기 추적 (고주사율 터치·빠른 플릭에서 state 지연으로 드래그가 유실되는 것 방지)
+  const dragRef = useRef<{ x: number; y: number } | null>(null)
   const [drag, setDrag] = useState<{ x: number; y: number } | null>(null)
   const [armed, setArmed] = useState(false)
   const slotRefs = useRef(new Map<string, HTMLButtonElement>())
@@ -52,15 +54,20 @@ export function PlacementView({ question, onSolved }: Props) {
     if (placed) return
     e.currentTarget.setPointerCapture(e.pointerId)
     startPos.current = { x: e.clientX, y: e.clientY }
+    dragRef.current = { x: 0, y: 0 }
     setDrag({ x: 0, y: 0 })
   }
   const onPointerMove = (e: React.PointerEvent) => {
-    if (drag === null) return
-    setDrag({ x: e.clientX - startPos.current.x, y: e.clientY - startPos.current.y })
+    if (dragRef.current === null) return
+    const d = { x: e.clientX - startPos.current.x, y: e.clientY - startPos.current.y }
+    dragRef.current = d
+    setDrag(d)
   }
   const onPointerUp = (e: React.PointerEvent) => {
-    if (drag === null) return
-    const moved = Math.hypot(drag.x, drag.y) > 12
+    const d = dragRef.current
+    if (d === null) return
+    dragRef.current = null
+    const moved = Math.hypot(d.x, d.y) > 12
     setDrag(null)
     if (!moved) {
       // 탭: 선택 상태 토글 → 슬롯 탭으로 배치 (키보드·터치 접근 대체 경로)
@@ -118,6 +125,10 @@ export function PlacementView({ question, onSolved }: Props) {
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
+          onPointerCancel={() => {
+            dragRef.current = null
+            setDrag(null)
+          }}
           aria-label={`${question.artifactName} — 끌어서 알맞은 자리에 놓거나, 눌러서 고른 뒤 자리를 누르세요`}
         >
           <AssetImage

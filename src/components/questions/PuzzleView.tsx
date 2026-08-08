@@ -15,6 +15,8 @@ export function PuzzleView({ question, onSolved }: Props) {
   const [placedPieces, setPlacedPieces] = useState<number[]>([])
   const [missed, setMissed] = useState(false)
   const [armedPiece, setArmedPiece] = useState<number | null>(null)
+  // 드래그 좌표는 ref로 동기 추적 (빠른 플릭에서 state 지연으로 드래그 유실 방지)
+  const dragRef = useRef<{ piece: number; x: number; y: number } | null>(null)
   const [drag, setDrag] = useState<{ piece: number; x: number; y: number } | null>(null)
   const [wrongReasons, setWrongReasons] = useState<number[]>([])
   const [hintMsg, setHintMsg] = useState<string | null>(null)
@@ -59,15 +61,20 @@ export function PuzzleView({ question, onSolved }: Props) {
   const onPointerDown = (piece: number) => (e: React.PointerEvent) => {
     e.currentTarget.setPointerCapture(e.pointerId)
     startPos.current = { x: e.clientX, y: e.clientY }
+    dragRef.current = { piece, x: 0, y: 0 }
     setDrag({ piece, x: 0, y: 0 })
   }
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!drag) return
-    setDrag({ ...drag, x: e.clientX - startPos.current.x, y: e.clientY - startPos.current.y })
+    if (!dragRef.current) return
+    const d = { piece: dragRef.current.piece, x: e.clientX - startPos.current.x, y: e.clientY - startPos.current.y }
+    dragRef.current = d
+    setDrag(d)
   }
   const onPointerUp = (e: React.PointerEvent) => {
-    if (!drag) return
-    const { piece, x, y } = drag
+    const d = dragRef.current
+    if (!d) return
+    dragRef.current = null
+    const { piece, x, y } = d
     setDrag(null)
     if (Math.hypot(x, y) <= 12) {
       setArmedPiece(armedPiece === piece ? null : piece)
@@ -148,6 +155,10 @@ export function PuzzleView({ question, onSolved }: Props) {
               onPointerDown={onPointerDown(piece)}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
+              onPointerCancel={() => {
+                dragRef.current = null
+                setDrag(null)
+              }}
               aria-label={`청자 조각 ${piece + 1} — 끌어서 복원판에 놓기`}
             />
           ))}

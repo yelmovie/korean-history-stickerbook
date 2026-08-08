@@ -93,6 +93,9 @@ export function ScratchReveal({ children, onRevealed }: Props) {
               rubbing.current = false
               checkCleared()
             }}
+            onPointerCancel={() => {
+              rubbing.current = false
+            }}
             aria-label="흙을 문질러 유물 발굴하기"
             role="img"
           />

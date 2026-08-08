@@ -16,6 +16,8 @@ export function DiaryEditorPage() {
   const { save, update, goTo } = useGame()
   const [period, setPeriod] = useState<PeriodId>('prehistoric')
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  // 드래그 좌표는 ref로 동기 추적 (빠른 플릭에서 state 지연으로 드래그 유실 방지)
+  const dragRef = useRef<{ id: string; x: number; y: number } | null>(null)
   const [dragPos, setDragPos] = useState<{ id: string; x: number; y: number } | null>(null)
   const pageRef = useRef<HTMLDivElement>(null)
   const dragOffset = useRef({ dx: 0, dy: 0 })
@@ -66,6 +68,7 @@ export function DiaryEditorPage() {
     setSelectedId(s.stickerId)
     const maxZ = page.stickers.reduce((m, st) => Math.max(m, st.z), 0)
     if (s.z < maxZ) changeSelectedById(s.stickerId, (st) => ({ ...st, z: maxZ + 1 }))
+    dragRef.current = { id: s.stickerId, x: s.x, y: s.y }
     setDragPos({ id: s.stickerId, x: s.x, y: s.y })
   }
 
@@ -74,22 +77,25 @@ export function DiaryEditorPage() {
   }
 
   const onStickerPointerMove = (e: React.PointerEvent) => {
-    if (!dragPos) return
+    if (!dragRef.current) return
     const rect = pageRef.current!.getBoundingClientRect()
     const px = (e.clientX - rect.left) / rect.width
     const py = (e.clientY - rect.top) / rect.height
-    setDragPos({
-      id: dragPos.id,
+    const next = {
+      id: dragRef.current.id,
       x: clamp(px - dragOffset.current.dx, 0.06, 0.94),
       y: clamp(py - dragOffset.current.dy, 0.08, 0.92),
-    })
+    }
+    dragRef.current = next
+    setDragPos(next)
   }
 
   const onStickerPointerUp = () => {
-    if (!dragPos) return
-    const { id, x, y } = dragPos
+    const d = dragRef.current
+    if (!d) return
+    dragRef.current = null
     setDragPos(null)
-    changeSelectedById(id, (s) => ({ ...s, x, y }))
+    changeSelectedById(d.id, (s) => ({ ...s, x: d.x, y: d.y }))
   }
 
   const setNote = (content: string) => {
@@ -163,6 +169,7 @@ export function DiaryEditorPage() {
                     onPointerDown={onStickerPointerDown(s)}
                     onPointerMove={onStickerPointerMove}
                     onPointerUp={onStickerPointerUp}
+                    onPointerCancel={onStickerPointerUp}
                     role="button"
                     aria-label={`${sticker.name} 스티커 — 끌어서 이동`}
                   >
