@@ -38,7 +38,6 @@ export function MainPage() {
         <header className="main-page__title-area">
           <AssetImage src={iconSrc(A.logo)} alt="한국사 스티커북" className="main-page__logo" />
           <p className="main-page__subtitle">— 시간여행 다이어리 —</p>
-          <p className="main-page__tagline">유물의 모양, 쓰임, 발견 장소를 근거로 역사 스티커를 모아 보세요!</p>
         </header>
         <div className="main-page__scene" aria-hidden="true">
           <AssetImage src={iconSrc(A.boyExplorer)} alt="" className="main-page__character" />

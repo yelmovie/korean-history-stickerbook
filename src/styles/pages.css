@@ -53,10 +53,10 @@
 }
 
 .main-page__logo {
-  width: 64cqw;
-  max-height: 30cqh;
+  width: 68cqw;
+  max-height: 26cqh;
   object-fit: contain;
-  filter: drop-shadow(0 0.6cqh 1cqh rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 0.8cqh 1.2cqh rgba(0, 0, 0, 0.45));
 }
 
 .main-page__subtitle {
@@ -67,15 +67,6 @@
   padding: 0.5cqh 2.4cqw;
   border-radius: 2.4cqh;
   border: 0.2cqw solid var(--color-gold);
-}
-
-.main-page__tagline {
-  font-size: 2.1cqh;
-  color: var(--color-paper);
-  text-shadow: 0 0.2cqh 0.6cqh rgba(0, 0, 0, 0.7);
-  background: rgba(16, 35, 63, 0.55);
-  padding: 0.5cqh 1.5cqw;
-  border-radius: 2cqh;
 }
 
 .main-page__scene {
