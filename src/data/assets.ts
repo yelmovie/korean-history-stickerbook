@@ -22,6 +22,18 @@ export const REAL_PHOTOS = new Set([
   'seokgatap',
   'tripitaka',
   'jagyeongnu',
+  'muryeong-ornament',
+  'moon-jar',
+  'daedongyeojido',
+  'donguibogam',
+  'sillok',
+  'dolmen',
+  'honcheonui',
+  'hunminjeongeum',
+  'celadon-melon',
+  'seokguram',
+  'janggyeong-panjeon',
+  'bulguksa',
 ])
 
 export function photoSrc(stickerId: string | null | undefined): string | null {

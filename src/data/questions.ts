@@ -144,7 +144,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-02', stageId: 'stage2', type: 'choice',
-    artifactName: '불국사와 석굴암',
+    artifactName: '불국사와 석굴암', artifactPhoto: 'bulguksa',
     prompt: '불국사와 석굴암을 통해 알 수 있는 통일신라 문화의 특징으로 가장 알맞은 것은?',
     choices: [
       '불교문화와 뛰어난 건축·조각 기술이 발달했다',
@@ -363,7 +363,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-03', stageId: 'stage4', type: 'choice',
-    artifactIcon: 'i070', artifactName: '훈민정음',
+    artifactIcon: 'i070', artifactName: '훈민정음', artifactPhoto: 'hunminjeongeum',
     prompt: '『훈민정음』 서문에는 "백성이 말하고자 하는 바가 있어도 그 뜻을 펴지 못하는 사람이 많다"는 내용이 담겨 있어요. 세종이 훈민정음을 만든 목적으로 가장 알맞은 것은?',
     choices: [
       '백성이 쉽게 배우고 쓸 수 있는 글자를 만들기 위해서',
@@ -395,7 +395,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-05', stageId: 'stage4', type: 'choice',
-    artifactIcon: 'i028', artifactName: '조선왕조실록',
+    artifactIcon: 'i028', artifactName: '조선왕조실록', artifactPhoto: 'sillok',
     prompt: '조선왕조실록은 왕의 일을 날마다 기록했고, 왕도 함부로 고쳐 볼 수 없었다고 알려져 있어요. 이런 기록 문화가 중요한 까닭은?',
     choices: [
       '사실을 있는 그대로 남겨 후대가 역사를 믿고 배울 수 있게 하기 때문이다',
