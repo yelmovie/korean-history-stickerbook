@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { iconSrc, photoSrc, PHOTO_CREDIT } from '../../data/assets'
+import { iconSrc, photoSrc, photoCredit } from '../../data/assets'
 import type { ChoiceQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
@@ -55,7 +55,7 @@ export function ChoiceView({ question, onSolved }: Props) {
   const artifactBody = realPhoto ? (
     <span className="artifact-photo-frame">
       <AssetImage src={realPhoto} alt={question.artifactName ?? ''} className="artifact-photo" fallbackLabel={question.artifactName} />
-      <span className="artifact-photo-credit">{PHOTO_CREDIT}</span>
+      <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
     </span>
   ) : (
     <AssetImage

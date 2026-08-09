@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { iconSrc, photoSrc, PHOTO_CREDIT } from '../data/assets'
+import { iconSrc, photoSrc, photoCredit } from '../data/assets'
 import type { Sticker } from '../types'
 import { audio } from '../utils/audio'
 import { AppButton } from './common'
@@ -29,7 +29,7 @@ export function StickerReward({ sticker, explanation, onDone }: Props) {
           {photoSrc(sticker.id) && (
             <span className="reward__photo-wrap">
               <AssetImage src={photoSrc(sticker.id)} alt={`${sticker.name} 실물 사진`} className="reward__photo" />
-              <span className="artifact-photo-credit">{PHOTO_CREDIT}</span>
+              <span className="artifact-photo-credit">{photoCredit(sticker.id)}</span>
             </span>
           )}
           <p className="reward__explain">{explanation}</p>

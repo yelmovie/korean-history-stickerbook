@@ -6,7 +6,7 @@ export const QUESTIONS: Question[] = [
   // ================= Stage 1: 선사 박물관 =================
   {
     id: 'q-s1-01', stageId: 'stage1', type: 'choice',
-    artifactIcon: 'i043', artifactName: '빗살무늬 토기', excavate: true,
+    artifactIcon: 'i043', artifactName: '빗살무늬 토기', excavate: true, artifactPhoto: 'comb-pottery',
     prompt: '이 토기를 신석기 시대 생활과 연결할 수 있는 근거로 가장 알맞은 것은 무엇일까요?',
     observePoints: [
       { label: '무늬', text: '표면에 빗살처럼 생긴 무늬가 새겨져 있어요.' },
@@ -27,7 +27,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-02', stageId: 'stage1', type: 'choice',
-    artifactIcon: 'i042', artifactName: '주먹도끼', excavate: true,
+    artifactIcon: 'i042', artifactName: '주먹도끼', excavate: true, artifactPhoto: 'hand-axe',
     prompt: '주먹도끼의 생김새를 보고, 구석기 사람들이 어떻게 썼을지 가장 알맞게 추리한 것은?',
     observePoints: [
       { label: '모양', text: '한쪽 끝은 뾰족하고 옆날은 날카로워요.' },
@@ -48,7 +48,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-03', stageId: 'stage1', type: 'choice',
-    artifactName: '가락바퀴와 뼈바늘',
+    artifactName: '가락바퀴와 뼈바늘', artifactPhoto: 'spindle-whorl',
     prompt: '가락바퀴와 뼈바늘이 함께 발견되었다면, 어떤 생활 모습을 추리할 수 있을까요?',
     choices: [
       '옷감이나 실을 만들어 옷을 지어 입는 생활',
@@ -204,7 +204,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-05', stageId: 'stage2', type: 'choice',
-    artifactIcon: 'i057', artifactName: '고구려 고분벽화',
+    artifactIcon: 'i057', artifactName: '고구려 고분벽화', artifactPhoto: 'goguryeo-mural',
     prompt: '고구려 고분벽화에 사냥하는 모습, 춤추는 모습이 그려져 있어요. 이런 벽화가 역사 자료로 중요한 까닭은?',
     choices: [
       '당시 사람들의 생활 모습과 생각을 그림으로 보여 주기 때문이다',
@@ -311,7 +311,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s3-05', stageId: 'stage3', type: 'choice',
-    artifactIcon: 'i063', artifactName: '금속활자',
+    artifactIcon: 'i063', artifactName: '금속활자', artifactPhoto: 'metal-type',
     prompt: '"금속으로 글자를 하나씩 만들어 두면, 여러 종류의 책을 찍을 때 다시 배열해 쓸 수 있다." 이 설명에서 알 수 있는 금속활자의 좋은 점은?',
     choices: [
       '글자를 다시 조합해 여러 책을 인쇄할 수 있어 편리하다',
@@ -461,7 +461,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s5-03', stageId: 'stage5', type: 'choice',
-    artifactIcon: 'i080', artifactName: '독립선언서',
+    artifactIcon: 'i080', artifactName: '독립선언서', artifactPhoto: 'declaration',
     prompt: '독립선언서에는 "우리는 오늘 조선이 독립한 나라이며, 조선 사람이 자주적인 민족임을 선언한다"는 내용이 담겨 있어요. 이 자료와 가장 관련 깊은 사건은?',
     choices: [
       '3·1운동',
@@ -495,7 +495,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s5-05', stageId: 'stage5', type: 'choice',
-    artifactName: '독립신문',
+    artifactName: '독립신문', artifactPhoto: 'independent-news',
     prompt: '독립신문은 한글로 찍어 누구나 읽기 쉽게 만들었다고 알려져 있어요. 그 까닭으로 가장 알맞은 것은?',
     choices: [
       '많은 백성이 소식을 읽고 자주 독립 의식을 가질 수 있게 하기 위해서',

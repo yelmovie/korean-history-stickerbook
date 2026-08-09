@@ -10,37 +10,29 @@ export function bgSrc(id: string): string {
   return `/assets/opt/bg/${id}.webp`
 }
 
-/** 실물 사진이 확보된 스티커 id (국가유산청 국가유산포털 OpenAPI 제공, 출처는 CREDITS.md) */
-export const REAL_PHOTOS = new Set([
-  'cheugugi',
-  'silla-crown',
-  'baekje-incense-burner',
-  'celadon-maebyeong',
-  'angbuilgu',
-  'cheomseongdae',
-  'dabotap',
-  'seokgatap',
-  'tripitaka',
-  'jagyeongnu',
-  'muryeong-ornament',
-  'moon-jar',
-  'daedongyeojido',
-  'donguibogam',
-  'sillok',
-  'dolmen',
-  'honcheonui',
-  'hunminjeongeum',
-  'celadon-melon',
-  'seokguram',
-  'janggyeong-panjeon',
-  'bulguksa',
-])
+/** 실물 사진 출처 (상세 소장처는 CREDITS.md). KHS = 국가유산청 국가유산포털 OpenAPI, EMU = e뮤지엄(공공누리 제1유형 필터 확인) */
+const KHS = '실물 사진 ⓒ 국가유산청 국가유산포털'
+const EMU = '실물 사진 ⓒ 국립박물관 e뮤지엄 (공공누리 제1유형)'
 
-export function photoSrc(stickerId: string | null | undefined): string | null {
-  return stickerId && REAL_PHOTOS.has(stickerId) ? `/assets/photo/${stickerId}.webp` : null
+export const PHOTO_CREDITS: Record<string, string> = {
+  cheugugi: KHS, 'silla-crown': KHS, 'baekje-incense-burner': KHS, 'celadon-maebyeong': KHS,
+  angbuilgu: KHS, cheomseongdae: KHS, dabotap: KHS, seokgatap: KHS, tripitaka: KHS, jagyeongnu: KHS,
+  'muryeong-ornament': KHS, 'moon-jar': KHS, daedongyeojido: KHS, donguibogam: KHS, sillok: KHS,
+  dolmen: KHS, honcheonui: KHS, hunminjeongeum: KHS, 'celadon-melon': KHS, seokguram: KHS,
+  'janggyeong-panjeon': KHS, bulguksa: KHS, 'goryeo-celadon': KHS,
+  'comb-pottery': EMU, 'hand-axe': EMU, 'plain-pottery': EMU, 'half-moon-knife': EMU,
+  'bipa-dagger': EMU, 'spindle-whorl': EMU, 'bone-needle': EMU, 'sumbe-point': EMU,
+  'polished-stone': EMU, 'goguryeo-mural': EMU, 'gwanggaeto-stele': EMU, 'metal-type': EMU,
+  'goryeo-painting': EMU, 'independent-news': EMU, taegeukgi: EMU, declaration: EMU,
 }
 
-export const PHOTO_CREDIT = '실물 사진 ⓒ 국가유산청 국가유산포털'
+export function photoSrc(stickerId: string | null | undefined): string | null {
+  return stickerId && stickerId in PHOTO_CREDITS ? `/assets/photo/${stickerId}.webp` : null
+}
+
+export function photoCredit(stickerId: string | null | undefined): string {
+  return (stickerId && PHOTO_CREDITS[stickerId]) || KHS
+}
 
 /** 자주 쓰는 에셋의 의미 있는 별칭 */
 export const A = {
