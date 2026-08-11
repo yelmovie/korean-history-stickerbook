@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
+import { CharacterTalk } from '../components/CharacterTalk'
 import { AppButton, Modal } from '../components/common'
 import { SettingsPanel } from '../components/SettingsPanel'
 import { A, bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
+import { MAIN_LINES } from '../data/lines'
 import { useGame } from '../game/GameContext'
 import { audio } from '../utils/audio'
 
@@ -39,8 +41,8 @@ export function MainPage() {
           <AssetImage src={iconSrc(A.logo)} alt="한국사 스티커북" className="main-page__logo" />
           <p className="main-page__subtitle">— 시간여행 다이어리 —</p>
         </header>
-        <div className="main-page__scene" aria-hidden="true">
-          <AssetImage src={iconSrc(A.boyExplorer)} alt="" className="main-page__character" />
+        <div className="main-page__scene">
+          <CharacterTalk icon={A.boyExplorer} lines={MAIN_LINES} side="right" className="main-page__character" name="탐험가" />
           <AssetImage src={iconSrc(A.treasureChest)} alt="" className="main-page__chest" />
         </div>
         <nav className="main-page__buttons">

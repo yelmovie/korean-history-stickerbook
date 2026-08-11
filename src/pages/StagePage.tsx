@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
+import { CharacterTalk } from '../components/CharacterTalk'
 import { AppButton, Modal } from '../components/common'
 import { ChoiceView } from '../components/questions/ChoiceView'
 import { FillView } from '../components/questions/FillView'
@@ -13,6 +14,7 @@ import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { questionsForStage } from '../data/questions'
 import { stageById } from '../data/stages'
 import { stickerById } from '../data/stickers'
+import { STAGE_LINES } from '../data/lines'
 import { useGame } from '../game/GameContext'
 import type { Question, StageId } from '../types'
 
@@ -95,9 +97,21 @@ export function StagePage({ stageId }: Props) {
             </>
           )}
         </main>
-        <div className={`stage-deco ${stage.swapSides ? 'stage-deco--swap' : ''}`} aria-hidden="true">
-          <AssetImage src={iconSrc(stage.character)} alt="" className="stage-deco__character" />
-          <AssetImage src={iconSrc(stage.mascot)} alt="" className="stage-deco__mascot" />
+        <div className={`stage-deco ${stage.swapSides ? 'stage-deco--swap' : ''}`}>
+          <CharacterTalk
+            icon={stage.character}
+            lines={STAGE_LINES[stageId].character}
+            side={stage.swapSides ? 'left' : 'right'}
+            className="stage-deco__character"
+            name="탐험가"
+          />
+          <CharacterTalk
+            icon={stage.mascot}
+            lines={STAGE_LINES[stageId].mascot}
+            side={stage.swapSides ? 'right' : 'left'}
+            className="stage-deco__mascot"
+            name="마스코트"
+          />
         </div>
       </div>
       {reward && (

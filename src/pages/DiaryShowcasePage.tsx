@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
+import { CharacterTalk } from '../components/CharacterTalk'
 import { AppButton } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG, A } from '../data/assets'
 import { PERIOD_LABELS } from '../data/stages'
 import { stickerById } from '../data/stickers'
+import { SHOWCASE_LINES } from '../data/lines'
 import { useGame } from '../game/GameContext'
 import type { PeriodId } from '../types'
 import { audio } from '../utils/audio'
@@ -83,7 +85,7 @@ export function DiaryShowcasePage() {
           </AppButton>
         </div>
         <div className="diary-show__speech">
-          <AssetImage src={iconSrc(A.medalGirl)} alt="" className="diary-show__presenter" />
+          <CharacterTalk icon={A.medalGirl} lines={SHOWCASE_LINES} side="left" className="diary-show__presenter" name="발표자" />
           <div className="paper-card diary-show__speech-card">
             <p className="diary-show__speech-label">🎤 발표해 보세요</p>
             <p className="diary-show__speech-text">{speech}</p>

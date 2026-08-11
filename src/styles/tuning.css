@@ -115,3 +115,148 @@
 .puzzle-piece {
   position: relative;
 }
+
+/* ================= 다이어리 전시 화면 ================= */
+
+/* 발표자는 오른쪽 끝, 발표 문장 카드는 화면 가운데 */
+.diary-show__speech {
+  position: relative;
+  justify-content: center;
+  padding-right: 24cqw;
+  padding-left: 6cqw;
+}
+
+.diary-show__presenter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 44cqh;
+  max-width: 22cqw;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+.diary-show__speech-card {
+  flex: 0 1 auto;
+  width: min(100%, 62cqw);
+  margin: 0 auto;
+}
+
+/* ================= 캐릭터 말 걸기 ================= */
+
+.char-talk {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.char-talk__btn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.15s ease;
+}
+
+.char-talk__btn:hover {
+  transform: translateY(-0.6cqh);
+}
+
+.char-talk__btn:focus-visible {
+  outline: 0.4cqw solid var(--color-gold);
+  outline-offset: 0.3cqw;
+  border-radius: 1cqh;
+}
+
+.char-talk__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+.char-talk__bubble {
+  position: absolute;
+  bottom: 78%;
+  z-index: 25;
+  min-width: 16cqw;
+  max-width: 30cqw;
+  padding: 1.2cqh 1.4cqw;
+  border-radius: 1.8cqh;
+  border: 0.25cqw solid var(--color-gold);
+  background: #fffdf5;
+  color: var(--color-ink);
+  font-size: 2.2cqh;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: left;
+  text-wrap: pretty;
+  box-shadow: var(--shadow-card);
+  animation: bubble-in 0.2s ease-out;
+}
+
+.char-talk--right .char-talk__bubble {
+  left: 60%;
+}
+
+.char-talk--left .char-talk__bubble {
+  right: 60%;
+}
+
+/* 말풍선 꼬리 */
+.char-talk__bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -1.4cqh;
+  width: 0;
+  height: 0;
+  border-left: 1.2cqh solid transparent;
+  border-right: 1.2cqh solid transparent;
+  border-top: 1.5cqh solid #fffdf5;
+}
+
+.char-talk--right .char-talk__bubble::after {
+  left: 2cqw;
+}
+
+.char-talk--left .char-talk__bubble::after {
+  right: 2cqw;
+}
+
+/* 타이핑 커서 */
+.char-talk__caret {
+  display: inline-block;
+  width: 0.25cqw;
+  height: 2.2cqh;
+  margin-left: 0.2cqw;
+  vertical-align: -0.3cqh;
+  background: var(--color-teal);
+  animation: caret-blink 0.8s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 캐릭터 클래스가 CharacterTalk 래퍼로 옮겨졌으므로 안쪽 이미지가 크기를 상속 */
+.stage-deco__character,
+.stage-deco__mascot,
+.main-page__character,
+.diary-show__presenter {
+  display: block;
+}
+
+/* 좌우 반전 스테이지에서 캐릭터를 화면 오른쪽 끝에 딱 붙인다 */
+.stage-deco--swap .stage-deco__character .char-talk__img {
+  object-position: bottom right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char-talk__caret {
+    animation: none;
+  }
+}
