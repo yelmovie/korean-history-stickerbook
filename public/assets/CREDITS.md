@@ -17,7 +17,7 @@
 
 ## 실물 사진 (2026-08-09 추가)
 
-출처: **국가유산청 국가유산포털 OpenAPI** (`khs.go.kr/cha/SearchImageOpenapi.do`). 원본은 `source-assets/photos-original/`, 앱은 `assets/photo/*.webp`(≤1024px) 사용.
+출처: **국가유산청 국가유산포털 OpenAPI** (`khs.go.kr/cha/SearchImageOpenapi.do`). 원본은 `source-assets/03-photos-original/`, 앱은 `assets/photo/*.webp`(≤1024px) 사용.
 
 공공누리 유형은 이미지 OpenAPI 응답의 `imageNuri` 필드(A=제1유형 … D=제4유형)를 사진 한 장 단위로 확인한 값이다. 전수 검증 근거와 원본 이미지 URL은 **`docs/KOGL-AUDIT.md`** 참조.
 
@@ -80,7 +80,7 @@
 | taegeukgi | 데니 태극기 | 국립중앙박물관 |
 | declaration | 독립선언서 | 국립중앙박물관 |
 
-- **`net-sinker`(그물추) — 앱에서 완전히 제거함(2026-08-11).** 공공누리 유형을 특정할 수 없어 사진·아이콘·문항을 모두 내리고, 해당 문항은 「민무늬 토기 + 반달돌칼」 동반 출토 추리형으로 대체했다. 원본은 `source-assets/photos-kogl4-withdrawn/unverified_net-sinker.webp` 에 보관.
+- **`net-sinker`(그물추) — 앱에서 완전히 제거함(2026-08-11).** 공공누리 유형을 특정할 수 없어 사진·아이콘·문항을 모두 내리고, 해당 문항은 「민무늬 토기 + 반달돌칼」 동반 출토 추리형으로 대체했다. 원본은 `source-assets/13-withdrawn-license/unverified_net-sinker.webp` 에 보관.
 - goryeo-celadon(고려청자 스티커)은 국가유산청 청자 상감운학문 매병 사진을 함께 사용.
 - 무용총 수렵도는 **모사도**(정기환 필), 광개토대왕릉비는 **원석탁본**임 — 앱에서 원본 실물로 오해되지 않게 검수 시 참고.
 - 미확보(개방 자료 없음 확인): 거북선(실물 없음), 직지(프랑스 국립도서관 소재), 대한제국 문서·유관순 기록·광복/6·25 기록(독립기념관 등 별도 기관) → 일러스트 유지.
@@ -102,7 +102,7 @@
 | `bulguksa` | 경주 불국사(사적) | **내림** — 동일 |
 
 내린 4종은 앱에서 스티커 아이콘으로 자동 대체된다(`photoSrc()`가 null을 반환).
-원본은 삭제하지 않고 `source-assets/photos-kogl4-withdrawn/` 로 옮겨 두었다.
+원본은 삭제하지 않고 `source-assets/13-withdrawn-license/` 로 옮겨 두었다.
 
 **앞으로 사진을 추가할 때**: 같은 유물이라도 관리번호가 다르면 유형이 다르다.
 반드시 `SearchImageOpenapi.do` 응답의 `imageNuri`가 `A`(제1유형)인지 확인하고 받을 것.

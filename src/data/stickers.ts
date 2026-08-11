@@ -49,7 +49,7 @@ export const STICKERS: Sticker[] = [
   { id: 'moon-jar', period: 'joseon', name: '백자 달항아리', icon: 'i145', hintLine: '백자 달항아리는 둥근 달을 닮은 조선의 흰 도자기이다.', contentReviewNeeded: true },
   // ----- 근현대 -----
   { id: 'independent-news', period: 'modern', name: '독립신문', icon: 'i236', hintLine: '독립신문은 한글로 소식을 전하며 자주 독립 의식을 높이고자 한 신문이다.', contentReviewNeeded: true },
-  { id: 'taegeukgi', period: 'modern', name: '태극기', icon: 'i229', hintLine: '태극기는 우리나라를 상징하는 국기로, 독립운동에서도 중요한 상징이었다.', contentReviewNeeded: true },
+  { id: 'taegeukgi', period: 'modern', name: '태극기', icon: 'i238', hintLine: '태극기는 우리나라를 상징하는 국기로, 독립운동에서도 중요한 상징이었다. 함께 보는 옛 태극기 사진은 4괘의 자리와 모양이 지금과 조금 다른데, 태극기 도안이 1949년에 통일되기 전에는 그리는 방식이 여러 가지였기 때문이다.', contentReviewNeeded: true, sourceNote: '사진은 e뮤지엄 소장 옛 태극기 실물(공공누리 제1유형). 현행 국기법 규격과 4괘 배치가 다르므로 그대로 두고 설명을 붙였다' },
   { id: 'declaration', period: 'modern', name: '독립선언서', icon: 'i237', hintLine: '독립선언서는 3·1운동 때 우리 민족의 독립 의지를 세계에 알린 글이다.', contentReviewNeeded: true },
   { id: 'ahn-calligraphy', period: 'modern', name: '안중근 의사 유묵', icon: 'i137', hintLine: '안중근 의사 유묵은 안중근 의사가 남긴 붓글씨이다.', contentReviewNeeded: true },
   { id: 'yu-record', period: 'modern', name: '유관순 열사 기록', icon: 'i138', hintLine: '유관순 열사 기록은 3·1운동에 참여한 유관순 열사와 관련된 자료이다.', contentReviewNeeded: true },

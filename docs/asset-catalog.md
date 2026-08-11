@@ -1,7 +1,7 @@
 # 에셋 카탈로그 (2026-08-08 자동 식별)
 
 앱 사용 경로: `/assets/opt/icons/iNNN.webp`, `/assets/opt/bg/bgNN.webp`
-원본: `source-assets/icons-numbered/N.png`, `source-assets/icons-originalimg/` (파일명 매핑은 `asset-map.json`)
+원본: `source-assets/01-icons-original/N.png`, `source-assets/02-backgrounds-original/` (파일명 매핑은 `asset-map.json`)
 
 라벨은 이미지 내용을 보고 자동 식별한 것으로, `(?)`는 불확실 표시.
 
@@ -171,10 +171,10 @@
 | bg10 | 다이어리 꾸미기 작업실 | 8 꾸미기 |
 | bg11 | 한옥 전시실 | 9 전시 |
 | bg12 | 한옥 수료식 무대 | 10 수료 |
-| bg13 | bg12와 동일(중복) | public 제외(source-assets/unused-webp) |
+| bg13 | bg12와 동일(중복) | public 제외(source-assets/11-unused) |
 
 
-※ src에서 참조되지 않는 아이콘 webp는 `source-assets/unused-webp/`로 옮겨 배포 용량에서 제외했다. 다시 쓰려면 파일을 `public/assets/opt/`로 되돌리면 된다.
+※ src에서 참조되지 않는 아이콘 webp는 `source-assets/11-unused/`로 옮겨 배포 용량에서 제외했다. 다시 쓰려면 파일을 `public/assets/opt/`로 되돌리면 된다.
 
 ---
 
@@ -189,13 +189,13 @@
 
 | 상태 | 원본 파일명 | 앱 파일명 | 용도 | 해상도 | 비고 |
 |---|---|---|---|---|---|
-| ☐ 미생성 | `source-assets/icons-numbered/146.png` | `i146.webp` | 그물추 스티커 아이콘 | 1024×1024 | `net-sinker` 현재 `icon: null` |
-| ☐ 미생성 | `source-assets/icons-numbered/147.png` | `i147.webp` | 금속활자 낱개 (한자 `直` 양각 거울상) | 1024×1024 | `i063` 대체 |
-| ☐ 미생성 | `source-assets/icons-numbered/148.png` | `i148.webp` | 마스코트 — 탐사 두더지 (선사) | 1024×1024 | `i041` 대체 |
-| ☐ 미생성 | `source-assets/icons-numbered/149.png` | `i149.webp` | 마스코트 — 수호 해치 사자 (삼국) | 1024×1024 | `i051` 대체 |
-| ☐ 미생성 | `source-assets/icons-numbered/150.png` | `i150.webp` | 마스코트 — 청자 용거북 (고려) | 1024×1024 | `i060` 대체 |
-| ☐ 미생성 | `source-assets/icons-numbered/151.png` | `i151.webp` | 마스코트 — 학자 토끼 (조선) | 1024×1024 | `i068` 대체 |
-| ☐ 미생성 | `source-assets/icons-numbered/152.png` | `i152.webp` | 마스코트 — 사서 너구리 (근현대) | 1024×1024 | `i085` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/146.png` | `i146.webp` | 그물추 스티커 아이콘 | 1024×1024 | `net-sinker` 현재 `icon: null` |
+| ☐ 미생성 | `source-assets/01-icons-original/147.png` | `i147.webp` | 금속활자 낱개 (한자 `直` 양각 거울상) | 1024×1024 | `i063` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/148.png` | `i148.webp` | 마스코트 — 탐사 두더지 (선사) | 1024×1024 | `i041` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/149.png` | `i149.webp` | 마스코트 — 수호 해치 사자 (삼국) | 1024×1024 | `i051` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/150.png` | `i150.webp` | 마스코트 — 청자 용거북 (고려) | 1024×1024 | `i060` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/151.png` | `i151.webp` | 마스코트 — 학자 토끼 (조선) | 1024×1024 | `i068` 대체 |
+| ☐ 미생성 | `source-assets/01-icons-original/152.png` | `i152.webp` | 마스코트 — 사서 너구리 (근현대) | 1024×1024 | `i085` 대체 |
 
 ## B. 다이어리 배경·장식 35종 — `ASSET-PROMPTS-DIARY.md`
 

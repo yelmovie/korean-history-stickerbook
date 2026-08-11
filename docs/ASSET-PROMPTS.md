@@ -25,7 +25,7 @@
 ---
 
 현재 아이콘이 없어 이름 칩으로 표시되는 스티커 29종 + 배포용 이미지 1종.
-생성 후 `source-assets/icons-numbered/`에 117.png부터 번호를 이어 넣고 `scripts/optimize_assets.py`를 다시 돌린 뒤, `src/data/stickers.ts`의 `icon` 필드만 채우면 된다.
+생성 후 `source-assets/01-icons-original/`에 117.png부터 번호를 이어 넣고 `scripts/optimize_assets.py`를 다시 돌린 뒤, `src/data/stickers.ts`의 `icon` 필드만 채우면 된다.
 
 ## 공통 프롬프트 (모든 유물 스티커 앞에 붙일 것)
 
@@ -78,7 +78,7 @@
 ## 생성 후 할 일 체크리스트
 
 1. 진짜 알파 채널인지 확인 (PIL: `Image.open(f).mode == 'RGBA'`)
-2. `source-assets/icons-numbered/117.png ~` 로 저장
+2. `source-assets/01-icons-original/117.png ~` 로 저장
 3. `python scripts/optimize_assets.py` 재실행 (재실행 안전함)
 4. `src/data/stickers.ts` 해당 스티커의 `icon: 'i117'` 식으로 연결
 5. `docs/asset-catalog.md`에 한 줄 추가
@@ -118,8 +118,8 @@ A single sticker-style illustration of a Joseon dynasty white porcelain moon jar
 ## 실물 자료 파이프라인 (2026-08-09, AI 유물 이미지 대체 방침)
 
 ### 사진 (적용됨)
-`국가유산청 OpenAPI` 검색→이미지 목록→다운로드→1024px webp. 절차는 이 세션의 커밋 참고. 남은 유물(빗살무늬 토기, 주먹도끼 등 비지정·박물관 소장품)은 **e뮤지엄(emuseum.go.kr)** 에서 공공누리 1유형 사진을 수동 확인 후 `source-assets/photos-original/{stickerId}.jpg`로 넣고 아래 명령으로 변환:
-`python -c "from PIL import Image; im=Image.open('source-assets/photos-original/ID.jpg'); im.thumbnail((1024,1024)); im.save('public/assets/photo/ID.webp','WEBP',quality=82)"`
+`국가유산청 OpenAPI` 검색→이미지 목록→다운로드→1024px webp. 절차는 이 세션의 커밋 참고. 남은 유물(빗살무늬 토기, 주먹도끼 등 비지정·박물관 소장품)은 **e뮤지엄(emuseum.go.kr)** 에서 공공누리 1유형 사진을 수동 확인 후 `source-assets/03-photos-original/{stickerId}.jpg`로 넣고 아래 명령으로 변환:
+`python -c "from PIL import Image; im=Image.open('source-assets/03-photos-original/ID.jpg'); im.thumbnail((1024,1024)); im.save('public/assets/photo/ID.webp','WEBP',quality=82)"`
 그 뒤 `src/data/assets.ts`의 REAL_PHOTOS에 id 추가 + CREDITS.md 표에 한 줄 추가.
 
 ### 3D (준비됨, 모델 대기)
@@ -134,17 +134,17 @@ A single sticker-style illustration of a Joseon dynasty white porcelain moon jar
 
 위 **"공통 규칙 (2026-08-11 개정)"** 이 전부 적용된다. 프롬프트 본문에도 이미 반영해 두었으니 아래 코드블록을 **그대로 복붙**하면 된다.
 
-**원본 파일을 덮어쓰지 말 것.** 기존 `source-assets/icons-numbered/NNN.png`는 그대로 두고 새 번호(146~152)로 저장한 뒤, `src/data/assets.ts` / `src/data/stickers.ts`의 id만 새 번호로 바꾼다. 마음에 안 들면 id만 되돌리면 원상복구된다.
+**원본 파일을 덮어쓰지 말 것.** 기존 `source-assets/01-icons-original/NNN.png`는 그대로 두고 새 번호(146~152)로 저장한 뒤, `src/data/assets.ts` / `src/data/stickers.ts`의 id만 새 번호로 바꾼다. 마음에 안 들면 id만 되돌리면 원상복구된다.
 
 | # | 원본 파일명 | 앱 경로 | 용도 | 권장 해상도 | 교체 대상 |
 |---|---|---|---|---|---|
-| 1 | `source-assets/icons-numbered/146.png` | `/assets/opt/icons/i146.webp` | 그물추 스티커 아이콘 (`net-sinker`, 현재 `icon: null`) | 1024×1024 (1:1) | 신규 |
-| 2 | `source-assets/icons-numbered/147.png` | `/assets/opt/icons/i147.webp` | 금속활자 스티커 아이콘 (`metal-type`) | 1024×1024 (1:1) | `i063` 대체 |
-| 3 | `source-assets/icons-numbered/148.png` | `/assets/opt/icons/i148.webp` | 선사 마스코트 — 탐사 두더지 | 1024×1024 (1:1) | `i041` 대체 |
-| 4 | `source-assets/icons-numbered/149.png` | `/assets/opt/icons/i149.webp` | 삼국 마스코트 — 수호 해치 사자 | 1024×1024 (1:1) | `i051` 대체 |
-| 5 | `source-assets/icons-numbered/150.png` | `/assets/opt/icons/i150.webp` | 고려 마스코트 — 청자 용거북 | 1024×1024 (1:1) | `i060` 대체 |
-| 6 | `source-assets/icons-numbered/151.png` | `/assets/opt/icons/i151.webp` | 조선 마스코트 — 학자 토끼 | 1024×1024 (1:1) | `i068` 대체 |
-| 7 | `source-assets/icons-numbered/152.png` | `/assets/opt/icons/i152.webp` | 근현대 마스코트 — 사서 너구리 | 1024×1024 (1:1) | `i085` 대체 |
+| 1 | `source-assets/01-icons-original/146.png` | `/assets/opt/icons/i146.webp` | 그물추 스티커 아이콘 (`net-sinker`, 현재 `icon: null`) | 1024×1024 (1:1) | 신규 |
+| 2 | `source-assets/01-icons-original/147.png` | `/assets/opt/icons/i147.webp` | 금속활자 스티커 아이콘 (`metal-type`) | 1024×1024 (1:1) | `i063` 대체 |
+| 3 | `source-assets/01-icons-original/148.png` | `/assets/opt/icons/i148.webp` | 선사 마스코트 — 탐사 두더지 | 1024×1024 (1:1) | `i041` 대체 |
+| 4 | `source-assets/01-icons-original/149.png` | `/assets/opt/icons/i149.webp` | 삼국 마스코트 — 수호 해치 사자 | 1024×1024 (1:1) | `i051` 대체 |
+| 5 | `source-assets/01-icons-original/150.png` | `/assets/opt/icons/i150.webp` | 고려 마스코트 — 청자 용거북 | 1024×1024 (1:1) | `i060` 대체 |
+| 6 | `source-assets/01-icons-original/151.png` | `/assets/opt/icons/i151.webp` | 조선 마스코트 — 학자 토끼 | 1024×1024 (1:1) | `i068` 대체 |
+| 7 | `source-assets/01-icons-original/152.png` | `/assets/opt/icons/i152.webp` | 근현대 마스코트 — 사서 너구리 | 1024×1024 (1:1) | `i085` 대체 |
 
 ---
 
@@ -184,7 +184,7 @@ A single piece of Korean metal movable type (geumsok hwalja) from the Goryeo-to-
 3. 글자가 파인 게 아니라 **도드라져(양각)** 있는가
 
 - 연결: `src/data/stickers.ts` → `{ id: 'metal-type', ... icon: 'i147' }`, `src/data/questions.ts` `q-s3-05`의 `artifactIcon: 'i147'`
-- `i063`(활자 배지)은 지우지 말고 그대로 둔다. 참조가 사라지면 `source-assets/unused-webp/`로 옮기면 된다.
+- `i063`(활자 배지)은 지우지 말고 그대로 둔다. 참조가 사라지면 `source-assets/11-unused/`로 옮기면 된다.
 
 ---
 
@@ -236,8 +236,8 @@ A cute librarian raccoon dog mascot for the modern-history chapter of a Korean h
 
 ## 7종 생성 후 할 일
 
-1. 알파 채널 확인 — `python -c "from PIL import Image; print(Image.open('source-assets/icons-numbered/146.png').mode)"` → `RGBA`
-2. `source-assets/icons-numbered/146.png ~ 152.png` 로 저장 (**기존 번호 덮어쓰기 금지**)
+1. 알파 채널 확인 — `python -c "from PIL import Image; print(Image.open('source-assets/01-icons-original/146.png').mode)"` → `RGBA`
+2. `source-assets/01-icons-original/146.png ~ 152.png` 로 저장 (**기존 번호 덮어쓰기 금지**)
 3. `python scripts/optimize_assets.py` 재실행 → `public/assets/opt/icons/i146.webp ~ i152.webp`
 4. id 연결 (총 7줄)
    - `src/data/stickers.ts`: `net-sinker` → `icon: 'i146'`, `metal-type` → `icon: 'i147'`

@@ -1,7 +1,7 @@
 # 공공누리(KOGL) 유형 감사 — 실물 유물 사진
 
 작성일: 2026-08-11
-대상: `public/assets/photo/*.webp` 40장 (원본 `source-assets/photos-original/*.jpg`)
+대상: `public/assets/photo/*.webp` 40장 (원본 `source-assets/03-photos-original/*.jpg`)
 방법: 아래 "확인 방법" 참조. **추측 없이 기관이 기계적으로 고지한 값만 기록**
 
 ---
@@ -64,7 +64,7 @@ e뮤지엄 경로 16장은 수집 시 `publicType=1`(제1유형) 필터를 적�
 
 1. 유산명으로 `SearchKindOpenapiList.do` → 후보 유산의 `ccbaKdcd`/`ccbaAsno`/`ccbaCtcd` 획득
 2. 각 유산의 `SearchImageOpenapi.do` → `(imageNuri, imageUrl)` 쌍 전량 수집 (총 719장 다운로드)
-3. `source-assets/photos-original/*.jpg` 와 **MD5 바이트 완전 일치**로 원본 사진 특정 (23/23 전부 일치)
+3. `source-assets/03-photos-original/*.jpg` 와 **MD5 바이트 완전 일치**로 원본 사진 특정 (23/23 전부 일치)
 4. 일치한 `imageUrl` 과 같은 `<item>` 안의 `imageNuri` 를 그 사진의 유형으로 확정
 
 즉 아래 표의 유형은 추정이 아니라 **바이트 단위로 동일함이 확인된 그 사진에 국가유산청이 붙여둔 값**이다.

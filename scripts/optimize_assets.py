@@ -20,8 +20,8 @@ BG_MAX_W = 1600
 
 asset_map = {"icons": {}, "backgrounds": {}}
 
-for d in [SRC_ASSETS / "icons-numbered", SRC_ASSETS / "icons-originalimg",
-          SRC_ASSETS / "samplepages", OPT_ICONS, OPT_BG, SOUND_DST, DOCS]:
+for d in [SRC_ASSETS / "01-icons-original", SRC_ASSETS / "02-backgrounds-original",
+          SRC_ASSETS / "04-design-reference", OPT_ICONS, OPT_BG, SOUND_DST, DOCS]:
     d.mkdir(parents=True, exist_ok=True)
 
 icons_dir = PUB / "icons"
@@ -37,7 +37,7 @@ for p in numbered:
         im.thumbnail((ICON_MAX, ICON_MAX), Image.LANCZOS)
         im.save(out, "WEBP", quality=85, method=6)
     asset_map["icons"][f"i{n:03d}"] = {"opt": f"/assets/opt/icons/i{n:03d}.webp", "original": p.name}
-    shutil.move(str(p), SRC_ASSETS / "icons-numbered" / p.name)
+    shutil.move(str(p), SRC_ASSETS / "01-icons-original" / p.name)
 
 # 2) ChatGPT 원본 중 16:9(1672x941) → bg##.webp, 나머지는 이동만
 bg_idx = 0
@@ -53,13 +53,13 @@ for p in chatgpt:
                     im = im.resize((BG_MAX_W, int(h * BG_MAX_W / w)), Image.LANCZOS)
                 im.convert("RGB").save(out, "WEBP", quality=80, method=6)
             asset_map["backgrounds"][f"bg{bg_idx:02d}"] = {"opt": f"/assets/opt/bg/bg{bg_idx:02d}.webp", "original": p.name}
-    shutil.move(str(p), SRC_ASSETS / "icons-originalimg" / p.name)
+    shutil.move(str(p), SRC_ASSETS / "02-backgrounds-original" / p.name)
 
 # 3) 샘플 화면 → source-assets (디자인 참고용, 앱 미사용)
 sp = PUB / "samplepages"
 if sp.exists():
     for p in sp.glob("*.png"):
-        shutil.move(str(p), SRC_ASSETS / "samplepages" / p.name)
+        shutil.move(str(p), SRC_ASSETS / "04-design-reference" / p.name)
     sp.rmdir()
 
 # 4) 사운드 이동, 설계 JSON → docs, 빈 폴더 정리
