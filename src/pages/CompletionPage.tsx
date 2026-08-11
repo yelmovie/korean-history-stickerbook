@@ -3,7 +3,6 @@ import { AssetImage } from '../components/AssetImage'
 import { Confetti } from '../components/Confetti'
 import { AppButton, Modal, PaperCard } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG, A } from '../data/assets'
-import { QUESTIONS } from '../data/questions'
 import { STAGES } from '../data/stages'
 import { STICKERS } from '../data/stickers'
 import { useGame } from '../game/GameContext'
@@ -30,9 +29,26 @@ function loadImage(src: string): Promise<HTMLImageElement | null> {
   })
 }
 
+/** 문장을 주어진 폭에 맞춰 줄바꿈한다. 캔버스에는 자동 줄바꿈이 없다. */
+function wrapText(ctx: CanvasRenderingContext2D, text: string, maxW: number): string[] {
+  const lines: string[] = []
+  let line = ''
+  for (const word of text.split(' ')) {
+    const next = line ? `${line} ${word}` : word
+    if (ctx.measureText(next).width > maxW && line) {
+      lines.push(line)
+      line = word
+    } else {
+      line = next
+    }
+  }
+  if (line) lines.push(line)
+  return lines
+}
+
 /** 화면에 보이는 수료증을 그대로 PNG로 그려 내려받는다.
- *  배경·도장 이미지가 없어도(로드 실패해도) 글자는 그려지도록 null을 허용한다. */
-async function downloadCertificate(title: string, stats: { label: string; value: string }[]) {
+ *  배경·그림 글자·도장이 없어도(로드 실패해도) 글자는 그려지도록 null을 허용한다. */
+async function downloadCertificate(citation: string, issued: string) {
   const W = 1200
   const H = 900
   const canvas = document.createElement('canvas')
@@ -41,7 +57,11 @@ async function downloadCertificate(title: string, stats: { label: string; value:
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  const [bg, seal] = await Promise.all([loadImage(CERT_BG), loadImage(iconSrc(A.stamp) ?? '')])
+  const [bg, logo, seal] = await Promise.all([
+    loadImage(CERT_BG),
+    loadImage(iconSrc(A.curatorLogo) ?? ''),
+    loadImage(iconSrc(A.stamp) ?? ''),
+  ])
 
   if (bg) {
     ctx.drawImage(bg, 0, 0, W, H)
@@ -64,19 +84,35 @@ async function downloadCertificate(title: string, stats: { label: string; value:
   ctx.textAlign = 'center'
   ctx.textBaseline = 'alphabetic'
   ctx.fillStyle = '#2e6e6a'
-  ctx.font = 'bold 34px "Malgun Gothic", sans-serif'
-  ctx.fillText('수 료 증', midX, 195)
-  ctx.fillStyle = '#10233f'
-  ctx.font = 'bold 60px "Malgun Gothic", sans-serif'
-  ctx.fillText(title, midX, 285)
+  ctx.font = 'bold 38px "Malgun Gothic", sans-serif'
+  ctx.fillText('수 료 증', midX, 208)
+
+  // 칭호는 글자 대신 그림 글자를 얹는다 (화면과 동일)
+  let cursorY = 244
+  if (logo) {
+    const h = 148
+    const w = (logo.naturalWidth / logo.naturalHeight) * h
+    ctx.drawImage(logo, midX - w / 2, cursorY, w, h)
+    cursorY += h + 42
+  } else {
+    ctx.fillStyle = '#10233f'
+    ctx.font = 'bold 56px "Malgun Gothic", sans-serif'
+    ctx.fillText('어린이 역사 큐레이터', midX, cursorY + 54)
+    cursorY += 96
+  }
+
+  // 본문 서술 — 숫자 나열 대신 한 문단으로
   ctx.fillStyle = '#2b2118'
-  ctx.font = '28px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', midX, 340)
+  ctx.font = '25px "Malgun Gothic", sans-serif'
+  for (const ln of wrapText(ctx, citation, SAFE.right - SAFE.left - 30)) {
+    ctx.fillText(ln, midX, cursorY)
+    cursorY += 39
+  }
 
   // 손으로 쓰는 칸 — 밑줄과 글자를 한 덩어리로 재서 가운데에 맞춘다
   ctx.font = '30px "Malgun Gothic", sans-serif'
   ctx.textAlign = 'left'
-  const FIELD_Y = 424
+  const FIELD_Y = cursorY + 34
   /* 학년·반·번은 '밑줄 뒤에 이름표', 이름은 '이름표 뒤에 밑줄' 순서다(화면과 동일).
    * 이름의 순서를 뒤집어야 덩어리가 밑줄로 시작해 밑줄로 끝나고, 그래야 밑줄이 가운데 보인다.
    * (전부 '밑줄 뒤 이름표'로 두면 오른쪽 끝이 글자라 밑줄만 왼쪽으로 치우쳐 보였다.) */
@@ -115,25 +151,14 @@ async function downloadCertificate(title: string, stats: { label: string; value:
     cursor += GAP_BETWEEN
   }
 
-  // 기록 4칸
+  // 발급일과 발급 주체
   ctx.textAlign = 'center'
-  const statGap = (SAFE.right - SAFE.left) / stats.length
-  stats.forEach((st, i) => {
-    const x = midX + (i - (stats.length - 1) / 2) * statGap
-    ctx.fillStyle = '#10233f'
-    ctx.font = 'bold 28px "Malgun Gothic", sans-serif'
-    ctx.fillText(st.value, x, 520)
-    ctx.fillStyle = '#6b4528'
-    ctx.font = '21px "Malgun Gothic", sans-serif'
-    ctx.fillText(st.label, x, 558)
-  })
-
-  ctx.fillStyle = '#2b2118'
-  ctx.font = '28px "Malgun Gothic", sans-serif'
-  ctx.fillText('위 어린이는 한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.', midX, 612)
+  ctx.fillStyle = '#6b4528'
+  ctx.font = 'bold 24px "Malgun Gothic", sans-serif'
+  ctx.fillText(issued, midX, FIELD_Y + 64)
   ctx.fillStyle = '#b04a3a'
   ctx.font = 'bold 26px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북', midX, 694)
+  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', midX, FIELD_Y + 106)
 
   /* 도장은 확인 문장 아래·기관명 오른쪽의 빈 자리에 찍는다.
    * 회전 때문에 실제 차지하는 폭이 커지므로 그만큼 안쪽으로 당겨 배치한다. */
@@ -154,14 +179,63 @@ async function downloadCertificate(title: string, stats: { label: string; value:
   a.click()
 }
 
+/** 모은 기록을 숫자 나열이 아니라 한 문단의 서술로 바꾼다.
+ *  수료증은 성적표가 아니라 "무엇을 해냈는지"를 말해 주는 문서라야 한다. */
+function citationFor(v: {
+  stages: number
+  totalStages: number
+  stickers: number
+  totalStickers: number
+  answered: number
+  correct: number
+  notes: number
+}): string {
+  const parts: string[] = []
+
+  parts.push(
+    v.stages >= v.totalStages
+      ? `선사부터 근현대까지 ${v.totalStages}개 시대를 모두 돌아보며`
+      : `${v.stages}개 시대를 탐험하며`,
+  )
+  parts.push(`유물 스티커 ${v.stickers}개를 모았고`)
+
+  if (v.answered > 0) {
+    parts.push(`${v.answered}개의 물음 가운데 ${v.correct}개를 첫 도전에 스스로 풀어냈습니다.`)
+  } else {
+    parts.push('유물을 하나하나 살펴보았습니다.')
+  }
+
+  const second =
+    v.notes > 0
+      ? `특히 다이어리 ${v.notes}쪽에 자기 말로 설명을 남겨, 본 것을 남에게 전할 수 있음을 보였습니다.`
+      : '유물을 관찰하고 그렇게 생각한 까닭을 찾아가는 태도를 보였습니다.'
+
+  return `${parts.join(' ')} ${second} 이에 유물을 관찰하고 근거를 들어 설명할 수 있으므로, 위 어린이가 어린이 역사 큐레이터의 자격을 갖추었음을 확인합니다.`
+}
+
+/** 발급일. 수료증답게 오늘 날짜를 찍는다 */
+function todayText(): string {
+  const d = new Date()
+  return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`
+}
+
 export function CompletionPage() {
   const { save, goTo, resetAll } = useGame()
   const [confirmReset, setConfirmReset] = useState(false)
 
   const answered = Object.values(save.questionResults)
-  const correctRate = answered.length > 0 ? Math.round((answered.filter(Boolean).length / answered.length) * 100) : 0
+  const correctCount = answered.filter(Boolean).length
   const diaryNotes = Object.values(save.diary).filter((p) => p.note.trim().length > 0).length
   const title = titleFor(save.completedStages.length)
+  const citation = citationFor({
+    stages: save.completedStages.length,
+    totalStages: STAGES.length,
+    stickers: save.earnedStickers.length,
+    totalStickers: STICKERS.length,
+    answered: answered.length,
+    correct: correctCount,
+    notes: diaryNotes,
+  })
 
   return (
     <div className="screen completion">
@@ -174,7 +248,7 @@ export function CompletionPage() {
           <h1 className="completion__title">
             <AssetImage src={iconSrc(A.curatorLogo)} alt={title} className="completion__logo" />
           </h1>
-          <p className="completion__desc">한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.</p>
+          <p className="completion__citation">{citation}</p>
           <div className="cert-fields" aria-label="학년 반 번호 이름 적는 곳">
             <span className="cert-field">
               <span className="cert-field__line" /> 학년
@@ -189,30 +263,10 @@ export function CompletionPage() {
               이름 <span className="cert-field__line cert-field__line--long" />
             </span>
           </div>
-          <div className="completion__stats">
-            <div className="completion__stat">
-              <span className="completion__stat-num">
-                {save.earnedStickers.length}/{STICKERS.length}
-              </span>
-              <span className="completion__stat-label">모은 스티커</span>
-            </div>
-            <div className="completion__stat">
-              <span className="completion__stat-num">
-                {save.completedStages.length}/{STAGES.length}
-              </span>
-              <span className="completion__stat-label">완료한 시대</span>
-            </div>
-            <div className="completion__stat">
-              <span className="completion__stat-num">{correctRate}%</span>
-              <span className="completion__stat-label">
-                첫 도전 정답률 ({answered.length}/{QUESTIONS.length}문제)
-              </span>
-            </div>
-            <div className="completion__stat">
-              <span className="completion__stat-num">{diaryNotes}/5</span>
-              <span className="completion__stat-label">다이어리 한 줄 설명</span>
-            </div>
-          </div>
+          <p className="completion__issued">
+            <span className="completion__date">{todayText()}</span>
+            <span className="completion__issuer">한국사 스티커북 · 시간여행 다이어리</span>
+          </p>
           <div className="completion__seal" aria-hidden="true">
             <AssetImage src={iconSrc(A.stamp)} alt="" className="completion__seal-img" />
           </div>
@@ -220,12 +274,7 @@ export function CompletionPage() {
         <div className="completion__actions">
           <AppButton
             onClick={() =>
-              downloadCertificate(title, [
-                { label: '모은 스티커', value: `${save.earnedStickers.length}/${STICKERS.length}` },
-                { label: '완료한 시대', value: `${save.completedStages.length}/${STAGES.length}` },
-                { label: '첫 도전 정답률', value: `${correctRate}%` },
-                { label: '다이어리 한 줄 설명', value: `${diaryNotes}/5` },
-              ])
+              downloadCertificate(citation, todayText())
             }
           >
             🏅 수료증 저장하기

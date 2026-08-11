@@ -953,3 +953,111 @@
     animation: none;
   }
 }
+
+/* ================= 수료증 재설계 ================= */
+
+/* 성적표처럼 보이던 숫자 4칸을 걷어내고, 한 문단의 서술로 바꿨다.
+ * 그만큼 세로 공간이 생겨 로고를 키우고 여백을 다시 나눈다. */
+.completion__cert {
+  padding: 3.5cqh 8cqw 9cqh;
+  gap: 1.2cqh;
+}
+
+/* 상단 "수료증" — 크게, 그리고 액자 안쪽으로 조금 내려서 */
+.completion__cert-head {
+  margin-top: 2.4cqh;
+  font-size: 3.4cqh;
+  font-weight: 800;
+  letter-spacing: 0.7cqw;
+  color: var(--color-teal);
+  text-align: center;
+}
+
+/* 그림 글자 1.5배 */
+.completion__logo {
+  height: 28cqh;
+  max-width: 62cqw;
+}
+
+/* 본문 서술 — 수료증의 중심 문장이므로 읽기 좋게 */
+.completion__citation {
+  margin: 0 auto;
+  max-width: 62cqw;
+  font-size: 2.25cqh;
+  line-height: 1.75;
+  color: var(--color-ink);
+  text-align: center;
+  text-wrap: pretty;
+  word-break: keep-all;
+}
+
+.cert-fields {
+  margin-top: 0.6cqh;
+  font-size: 2.4cqh;
+}
+
+/* 발급일과 발급 주체 */
+.completion__issued {
+  margin: 0.6cqh 0 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.2cqh;
+  text-align: center;
+}
+
+.completion__date {
+  font-size: 2.1cqh;
+  font-weight: 700;
+  color: var(--color-wood);
+  letter-spacing: 0.2cqw;
+}
+
+.completion__issuer {
+  font-size: 2.2cqh;
+  font-weight: 800;
+  color: #b04a3a;
+}
+
+.completion__seal {
+  right: 7cqw;
+  bottom: 2.5cqh;
+}
+
+.completion__seal-img {
+  width: 11cqh;
+  height: 11cqh;
+}
+
+/* 서술 문장이 들어오며 세로가 길어져 4:3 액자가 찌그러졌다.
+ * 폭을 키워 비례를 되돌리고, 안쪽 여백·자간을 그만큼 조인다. */
+.completion__cert {
+  width: min(86cqw, 80cqh * 4 / 3);
+  padding: 3cqh 6.5cqw 7.5cqh;
+  gap: 0.9cqh;
+}
+
+.completion__cert-head {
+  margin-top: 1.6cqh;
+  font-size: 3.2cqh;
+}
+
+.completion__logo {
+  height: 24cqh;
+}
+
+.completion__citation {
+  max-width: 58cqw;
+  font-size: 2.15cqh;
+  line-height: 1.65;
+}
+
+/* 도장이 발급 주체 글자를 물지 않게 안쪽으로 */
+.completion__seal {
+  right: 3.5cqw;
+  bottom: 1.5cqh;
+}
+
+.completion__seal-img {
+  width: 9.5cqh;
+  height: 9.5cqh;
+}

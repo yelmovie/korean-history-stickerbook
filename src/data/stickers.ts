@@ -65,9 +65,10 @@ export const STICKERS: Sticker[] = [
  *  "모은 스티커 n/m" 집계(STICKERS)에는 들어가지 않는다. */
 export const DECO_STICKERS: Sticker[] = [
   // ----- 선사 -----
-  { id: 'deco-stone-tower', period: 'prehistoric', name: '돌탑', icon: 'i153', hintLine: '돌을 쌓아 소원을 빌던 마음을 떠올리며 꾸며 보세요.' },
-  { id: 'deco-footprint', period: 'prehistoric', name: '발자국 화석', icon: 'i154', hintLine: '땅에 남은 발자국도 옛사람을 알려 주는 자료가 돼요.' },
-  { id: 'deco-campfire', period: 'prehistoric', name: '모닥불', icon: 'i155', hintLine: '불을 다루게 되면서 사람들의 생활이 크게 달라졌어요.' },
+  { id: 'deco-shell-necklace', period: 'prehistoric', name: '조개 목걸이', icon: 'i181', hintLine: '조개껍데기에 구멍을 뚫어 꿴 장신구예요. 조개더미 유적에서 함께 나와요.' },
+  { id: 'deco-grinding-stone', period: 'prehistoric', name: '갈돌과 갈판', icon: 'i182', hintLine: '곡식이나 도토리를 갈아 먹던 도구예요.' },
+  { id: 'deco-pit-house', period: 'prehistoric', name: '움집', icon: 'i183', hintLine: '땅을 파고 지은 집이에요. 한곳에 머물러 살기 시작했다는 뜻이지요.' },
+  { id: 'deco-bone-harpoon', period: 'prehistoric', name: '뼈작살', icon: 'i184', hintLine: '뼈를 갈아 만든 작살로 물고기를 잡았어요.' },
   { id: 'deco-petroglyph', period: 'prehistoric', name: '바위그림', icon: 'i175', hintLine: '바위에 새긴 그림에는 그때 사람들이 무엇을 잡고 살았는지 담겨 있어요.' },
   // ----- 삼국·통일신라 -----
   { id: 'deco-roof-tile', period: 'threeKingdoms', name: '연꽃무늬 수막새', icon: 'i161', hintLine: '기와 끝을 막던 수막새에는 연꽃무늬가 자주 쓰였어요.' },
@@ -79,6 +80,8 @@ export const DECO_STICKERS: Sticker[] = [
   { id: 'deco-celadon-medallion', period: 'goryeo', name: '국화무늬 청자판', icon: 'i167', hintLine: '상감으로 국화무늬를 새겨 넣은 청자의 빛깔이에요.' },
   { id: 'deco-najeon-box', period: 'goryeo', name: '나전칠기 상자', icon: 'i177', hintLine: '조개껍데기를 얇게 갈아 붙여 무늬를 낸 공예품이에요.' },
   { id: 'deco-cloud-jade', period: 'goryeo', name: '비색 구름무늬', icon: 'i164', hintLine: '청자의 푸른빛을 닮은 구름무늬예요.' },
+  { id: 'deco-duck-dropper', period: 'goryeo', name: '청자 오리 연적', icon: 'i185', hintLine: '오리 모양으로 빚은 청자예요. 붓글씨를 쓸 때 물을 따르던 그릇이지요.' },
+  { id: 'deco-bronze-mirror', period: 'goryeo', name: '청동 거울', icon: 'i186', hintLine: '뒷면에 무늬를 새긴 청동 거울이에요. 무덤에서 자주 나와요.' },
   // ----- 조선 -----
   { id: 'deco-brush', period: 'joseon', name: '붓', icon: 'i168', hintLine: '붓과 먹으로 글을 쓰고 그림을 그렸어요.' },
   { id: 'deco-inkstone', period: 'joseon', name: '벼루', icon: 'i178', hintLine: '먹을 갈아 쓰던 벼루예요. 글과 그림이 여기에서 시작됐어요.' },
@@ -86,11 +89,19 @@ export const DECO_STICKERS: Sticker[] = [
   { id: 'deco-seal', period: 'joseon', name: '도장', icon: 'i173', hintLine: '이름을 새긴 도장을 찍어 문서를 확인했어요.' },
   { id: 'deco-knot', period: 'joseon', name: '매듭', icon: 'i172', hintLine: '실을 엮어 만든 매듭으로 옷과 물건을 꾸몄어요.' },
   { id: 'deco-leaf', period: 'joseon', name: '단풍잎', icon: 'i160', hintLine: '선비들은 계절의 풍경을 시와 그림에 즐겨 담았어요.' },
+  { id: 'deco-gat', period: 'joseon', name: '갓', icon: 'i187', hintLine: '말총으로 짜서 비쳐 보이는 조선 선비의 모자예요.' },
+  { id: 'deco-jogakbo', period: 'joseon', name: '조각보', icon: 'i188', hintLine: '자투리 천을 이어 만든 보자기예요. 아끼는 마음이 무늬가 되었지요.' },
+  { id: 'deco-fan', period: 'joseon', name: '합죽선', icon: 'i189', hintLine: '대나무와 한지로 만든 접부채예요. 그림과 글씨를 담기도 했어요.' },
   // ----- 근현대 -----
   { id: 'deco-independence-gate', period: 'modern', name: '독립문', icon: 'i171', hintLine: '자주 독립의 뜻을 담아 세운 문이에요.' },
   { id: 'deco-stamp-paper', period: 'modern', name: '옛 우표', icon: 'i174', hintLine: '우표 한 장에도 그때의 풍경이 남아 있어요.' },
   { id: 'deco-filmstrip', period: 'modern', name: '필름', icon: 'i180', hintLine: '사진과 영상으로 그때의 모습을 남길 수 있게 됐어요.' },
   { id: 'deco-ribbon', period: 'modern', name: '기념 리본', icon: 'i179', hintLine: '기념식과 표창에 쓰이던 리본이에요.' },
+  { id: 'deco-postbox', period: 'modern', name: '우체통', icon: 'i190', hintLine: '우편 제도가 생기면서 멀리 소식을 주고받게 됐어요.' },
+  { id: 'deco-camera', period: 'modern', name: '옛 사진기', icon: 'i191', hintLine: '사진기가 들어오면서 그날의 모습을 그대로 남길 수 있었어요.' },
+  { id: 'deco-radio', period: 'modern', name: '라디오', icon: 'i192', hintLine: '방송을 통해 온 나라가 같은 소식을 함께 듣게 됐어요.' },
+  { id: 'deco-fountain-pen', period: 'modern', name: '만년필', icon: 'i193', hintLine: '붓 대신 펜으로 쓰게 되면서 글 쓰는 모습이 달라졌어요.' },
+  { id: 'deco-school-bell', period: 'modern', name: '학교 종', icon: 'i194', hintLine: '학교가 세워지면서 정해진 시간에 함께 배우기 시작했어요.' },
 ]
 
 export const stickerById = new Map([...STICKERS, ...DECO_STICKERS].map((s) => [s.id, s]))
