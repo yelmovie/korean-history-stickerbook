@@ -82,7 +82,20 @@
 .stage-deco__mascot,
 .stage-deco--swap .stage-deco__mascot {
   height: var(--deco-mascot-h);
+  width: var(--deco-mascot-w);
   max-width: var(--deco-mascot-w);
+}
+
+/* 메인·전시 화면 캐릭터는 자체 크기를 유지 */
+.main-page__character.char-talk {
+  width: 26cqw;
+  height: 62cqh;
+  left: 5cqw;
+}
+
+.diary-show__presenter.char-talk {
+  width: 22cqw;
+  height: 44cqh;
 }
 
 /* 연표 보드: 칸이 보드 밖으로 삐져나오지 않게 폭을 나눠 갖는다 */
@@ -146,7 +159,17 @@
 
 .char-talk {
   position: absolute;
+  bottom: 0;
   pointer-events: auto;
+  /* div 래퍼라 폭을 명시해야 이미지가 흐르지 않는다 */
+  width: var(--deco-w);
+  height: var(--deco-h);
+  background: none;
+}
+
+.char-talk .char-talk__img,
+.char-talk .char-talk__btn {
+  background: none;
 }
 
 .char-talk__btn {
@@ -259,4 +282,49 @@
   .char-talk__caret {
     animation: none;
   }
+}
+
+/* ================= 출처 표기·확대 버튼·비교형 정리 ================= */
+
+/* 출처는 설정 → 정보와 확대 화면에만 두고, 문제 화면에서는 숨긴다 */
+.artifact-photo-frame > .artifact-photo-credit,
+.placement-artifact .artifact-photo-credit,
+.reward__photo-wrap .artifact-photo-credit,
+.compare-card .artifact-photo-credit {
+  display: none;
+}
+
+/* 크게 보기 버튼: 작고 단정하게 */
+.photo-zoom-btn {
+  height: max(40px, 3.6cqh);
+  min-width: 40px;
+  padding: 0 0.6cqw;
+  font-size: 1.9cqh;
+  border-radius: 0.8cqh;
+  right: 0.4cqw;
+  top: 0.4cqh;
+}
+
+.photo-zoom-btn__label {
+  font-size: 1.7cqh;
+}
+
+/* 비교형: 유물 두 개를 세로로 쌓고, 문제·선택지는 넓게 가로로 */
+.qv-choice__left--compare {
+  flex: 0 0 17cqw;
+  flex-direction: column;
+  gap: 1.2cqh;
+}
+
+.compare-card .artifact-photo {
+  max-width: 15cqw;
+  max-height: 17cqh;
+}
+
+.qv-choice__left--compare + .qv-choice__right .choice-list {
+  grid-template-columns: 1fr 1fr;
+}
+
+.qv-choice__left--compare + .qv-choice__right .qv__prompt-card {
+  max-width: 100%;
 }
