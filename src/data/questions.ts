@@ -88,7 +88,7 @@ export const QUESTIONS: Question[] = [
     answerIndex: 2,
     wrongHint: '사진에서 두 토기의 바닥 모양을 다시 비교해 보세요. 무늬가 없어진 것을 기술이 사라진 탓으로만 볼 수 있을까요?',
     explanation: '민무늬 토기는 평평한 바닥이 많아지고 크기도 다양해졌다고 알려져 있어요. 농사가 자리 잡으며 곡식을 담고 저장하는 쓰임이 늘어난 변화와 연결해 볼 수 있어요.',
-    rewardStickerId: 'plain-pottery',
+    rewardStickerId: 'bipa-dagger',
     contentReviewNeeded: true, sourceNote: '비교 기준 서술 검수 필요',
   },
   {

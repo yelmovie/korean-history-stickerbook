@@ -11,7 +11,6 @@ export const STICKERS: Sticker[] = [
   { id: 'spindle-whorl', period: 'prehistoric', name: '가락바퀴', icon: 'i118', hintLine: '가락바퀴는 실을 뽑을 때 쓰던 신석기 시대 도구이다.', contentReviewNeeded: true },
   { id: 'bone-needle', period: 'prehistoric', name: '뼈바늘', icon: 'i119', hintLine: '뼈바늘은 가죽이나 옷감을 꿰매는 데 쓰던 도구이다.', contentReviewNeeded: true },
   { id: 'polished-stone', period: 'prehistoric', name: '간석기', icon: 'i120', hintLine: '간석기는 돌을 갈아 만든 도구로 신석기 시대부터 널리 쓰였다.', contentReviewNeeded: true },
-  { id: 'plain-pottery', period: 'prehistoric', name: '민무늬 토기', icon: 'i121', hintLine: '민무늬 토기는 청동기 시대에 널리 쓰인 무늬 없는 토기이다.', contentReviewNeeded: true },
   { id: 'half-moon-knife', period: 'prehistoric', name: '반달돌칼', icon: 'i122', hintLine: '반달돌칼은 곡식의 이삭을 자르는 데 쓰던 청동기 시대 도구이다.', contentReviewNeeded: true },
   { id: 'bipa-dagger', period: 'prehistoric', name: '비파형 동검', icon: 'i123', hintLine: '비파형 동검은 비파를 닮은 모양의 청동기 시대 검이다.', contentReviewNeeded: true },
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },

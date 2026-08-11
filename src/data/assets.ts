@@ -31,7 +31,13 @@ export const PHOTO_CREDITS: Record<string, string> = {
 }
 
 /** 스티커가 아닌 '자료용 사진'의 이름·설명 (PhotoViewer가 스티커에서 못 찾을 때 사용) */
-export const PHOTO_ONLY_INFO: Record<string, { name: string; desc: string }> = {}
+export const PHOTO_ONLY_INFO: Record<string, { name: string; desc: string }> = {
+  // 스티커에서는 뺐지만 비교 문항의 자료 사진으로는 계속 쓴다
+  'plain-pottery': {
+    name: '민무늬 토기',
+    desc: '민무늬 토기는 겉에 무늬가 거의 없고 바닥이 평평한 청동기 시대 토기예요. 무늬가 촘촘한 빗살무늬 토기와 견주어 보면 시대에 따른 변화를 알 수 있어요.',
+  },
+}
 
 export function photoSrc(stickerId: string | null | undefined): string | null {
   return stickerId && stickerId in PHOTO_CREDITS ? `/assets/photo/${stickerId}.webp` : null
