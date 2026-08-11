@@ -3,7 +3,7 @@ import { AssetImage } from '../components/AssetImage'
 import { AppButton } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { PERIOD_LABELS } from '../data/stages'
-import { DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
+import { DECO_COMMON, DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
 import { useGame } from '../game/GameContext'
 import type { DiaryPlacedSticker, PeriodId } from '../types'
 import { audio } from '../utils/audio'
@@ -48,6 +48,7 @@ export function DiaryEditorPage() {
     ...STICKERS.filter((s) => s.period === period && save.earnedStickers.includes(s.id)),
     // 꾸미기 스티커는 모으지 않아도 늘 쓸 수 있다
     ...DECO_STICKERS.filter((s) => s.period === period),
+    ...DECO_COMMON,
   ]
   const placedIds = page.stickers.map((p) => p.stickerId)
 

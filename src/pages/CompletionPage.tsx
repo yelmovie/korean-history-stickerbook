@@ -17,66 +17,98 @@ function titleFor(completed: number): string {
 }
 
 /** 수료증을 그림 파일로 저장한다 (외부 라이브러리 없이 캔버스로 직접 그린다) */
-function downloadCertificate(title: string, stats: { label: string; value: string }[]) {
+/** 수료증 배경 (docs/ASSET-PROMPTS-DIARY.md 참조). 없으면 CSS/캔버스 기본 테두리로 대체된다 */
+const CERT_BG = '/assets/opt/cert/cert_bg.webp'
+
+function loadImage(src: string): Promise<HTMLImageElement | null> {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = () => resolve(null)
+    img.src = src
+  })
+}
+
+/** 화면에 보이는 수료증을 그대로 PNG로 그려 내려받는다.
+ *  배경·도장 이미지가 없어도(로드 실패해도) 글자는 그려지도록 null을 허용한다. */
+async function downloadCertificate(title: string, stats: { label: string; value: string }[]) {
   const W = 1200
-  const H = 850
+  const H = 900
   const canvas = document.createElement('canvas')
   canvas.width = W
   canvas.height = H
   const ctx = canvas.getContext('2d')
   if (!ctx) return
-  // 종이 바탕
-  ctx.fillStyle = '#fdf6e5'
-  ctx.fillRect(0, 0, W, H)
-  ctx.strokeStyle = '#d6a84f'
-  ctx.lineWidth = 10
-  ctx.strokeRect(28, 28, W - 56, H - 56)
-  ctx.strokeStyle = '#10233f'
-  ctx.lineWidth = 3
-  ctx.strokeRect(46, 46, W - 92, H - 92)
+
+  const [bg, seal] = await Promise.all([loadImage(CERT_BG), loadImage(iconSrc(A.stamp) ?? '')])
+
+  if (bg) {
+    ctx.drawImage(bg, 0, 0, W, H)
+  } else {
+    ctx.fillStyle = '#fdf6e5'
+    ctx.fillRect(0, 0, W, H)
+    ctx.strokeStyle = '#d6a84f'
+    ctx.lineWidth = 10
+    ctx.strokeRect(28, 28, W - 56, H - 56)
+    ctx.strokeStyle = '#10233f'
+    ctx.lineWidth = 3
+    ctx.strokeRect(46, 46, W - 92, H - 92)
+  }
+
   ctx.textAlign = 'center'
   ctx.fillStyle = '#2e6e6a'
   ctx.font = 'bold 34px "Malgun Gothic", sans-serif'
-  ctx.fillText('수 료 증', W / 2, 140)
+  ctx.fillText('수 료 증', W / 2, 175)
   ctx.fillStyle = '#10233f'
   ctx.font = 'bold 64px "Malgun Gothic", sans-serif'
-  ctx.fillText(title, W / 2, 235)
+  ctx.fillText(title, W / 2, 272)
   ctx.fillStyle = '#2b2118'
   ctx.font = '30px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', W / 2, 300)
+  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', W / 2, 336)
+
   // 손으로 쓰는 칸
   ctx.textAlign = 'left'
   ctx.font = '32px "Malgun Gothic", sans-serif'
-  ctx.fillText('학년        반        번    이름', 210, 400)
+  ctx.fillText('학년        반        번    이름', 210, 440)
   ctx.strokeStyle = '#6b4528'
   ctx.lineWidth = 2
   for (const [x, w] of [[150, 55], [300, 55], [430, 55], [590, 320]] as const) {
     ctx.beginPath()
-    ctx.moveTo(x, 410)
-    ctx.lineTo(x + w, 410)
+    ctx.moveTo(x, 450)
+    ctx.lineTo(x + w, 450)
     ctx.stroke()
   }
+
   // 기록
   ctx.textAlign = 'center'
-  ctx.font = 'bold 28px "Malgun Gothic", sans-serif'
   stats.forEach((s, i) => {
     const x = W / 2 + (i - (stats.length - 1) / 2) * 250
     ctx.fillStyle = '#10233f'
-    ctx.fillText(s.value, x, 540)
+    ctx.font = 'bold 28px "Malgun Gothic", sans-serif'
+    ctx.fillText(s.value, x, 585)
     ctx.fillStyle = '#6b4528'
     ctx.font = '22px "Malgun Gothic", sans-serif'
-    ctx.fillText(s.label, x, 580)
-    ctx.font = 'bold 28px "Malgun Gothic", sans-serif'
+    ctx.fillText(s.label, x, 625)
   })
+
   ctx.fillStyle = '#2b2118'
   ctx.font = '30px "Malgun Gothic", sans-serif'
-  ctx.fillText('위 어린이는 한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.', W / 2, 680)
+  ctx.fillText('위 어린이는 한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.', W / 2, 725)
   ctx.fillStyle = '#b04a3a'
   ctx.font = 'bold 26px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북', W / 2, 760)
-  const url = canvas.toDataURL('image/png')
+  ctx.fillText('한국사 스티커북', W / 2, 800)
+
+  if (seal) {
+    const size = 150
+    ctx.save()
+    ctx.translate(W - 200, 770)
+    ctx.rotate((-10 * Math.PI) / 180)
+    ctx.drawImage(seal, -size / 2, -size / 2, size, size)
+    ctx.restore()
+  }
+
   const a = document.createElement('a')
-  a.href = url
+  a.href = canvas.toDataURL('image/png')
   a.download = '한국사스티커북_수료증.png'
   a.click()
 }

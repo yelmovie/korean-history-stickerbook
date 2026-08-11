@@ -17,7 +17,7 @@ export const STICKERS: Sticker[] = [
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },
   // ----- 삼국·통일신라 -----
   { id: 'goguryeo-mural', period: 'threeKingdoms', name: '고구려 고분벽화', icon: 'i057', hintLine: '고구려 고분벽화에는 당시 사람들의 생활과 생각이 그림으로 남아 있다.', contentReviewNeeded: true },
-  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i124', hintLine: '광개토대왕릉비는 광개토대왕의 업적을 새긴 고구려의 비석이고, 사진 속 글씨는 비석에 종이를 대고 떠낸 탁본이다.', contentReviewNeeded: true, sourceNote: '사진은 국립중앙박물관 소장 원석탁본 — 비석 실물 사진 아님. 학생 오해 방지 문구 포함' },
+  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i158', hintLine: '광개토대왕릉비는 광개토대왕의 업적을 새긴 고구려의 비석이고, 사진 속 글씨는 비석에 종이를 대고 떠낸 탁본이다.', contentReviewNeeded: true, sourceNote: '사진은 국립중앙박물관 소장 원석탁본 — 비석 실물 사진 아님. 학생 오해 방지 문구 포함' },
   { id: 'baekje-incense-burner', period: 'threeKingdoms', name: '백제 금동대향로', icon: 'i052', hintLine: '백제 금동대향로는 백제의 섬세한 공예 기술을 보여 주는 향로이다.', contentReviewNeeded: true },
   { id: 'muryeong-ornament', period: 'threeKingdoms', name: '무령왕 금제관식', icon: 'i143', hintLine: '무령왕릉에서 나온 금제관식은 백제 왕실의 화려한 문화를 보여 준다.', contentReviewNeeded: true },
   { id: 'silla-crown', period: 'threeKingdoms', name: '신라 금관', icon: 'i053', hintLine: '신라 금관은 신라 왕의 권위를 보여 주는 금으로 만든 관이다.', contentReviewNeeded: true },
@@ -43,7 +43,7 @@ export const STICKERS: Sticker[] = [
   { id: 'cheugugi', period: 'joseon', name: '측우기', icon: 'i071', hintLine: '측우기는 비가 내린 양을 재어 농사에 도움을 주고자 만든 기구이다.', contentReviewNeeded: true },
   { id: 'jagyeongnu', period: 'joseon', name: '자격루', icon: 'i073', hintLine: '자격루는 물의 힘으로 스스로 시각을 알려 주던 물시계이다.', contentReviewNeeded: true },
   { id: 'angbuilgu', period: 'joseon', name: '앙부일구', icon: 'i072', hintLine: '앙부일구는 해의 그림자로 시각을 읽던 해시계이다.', contentReviewNeeded: true },
-  { id: 'honcheonui', period: 'joseon', name: '혼천의', icon: 'i021', hintLine: '혼천의는 해와 달, 별의 움직임을 관측하기 위해 만든 기구이다.', contentReviewNeeded: true },
+  { id: 'honcheonui', period: 'joseon', name: '혼천의', icon: 'i157', hintLine: '혼천의는 해와 달, 별의 움직임을 관측하기 위해 만든 기구이다.', contentReviewNeeded: true },
   { id: 'geobukseon', period: 'joseon', name: '거북선', icon: 'i003', hintLine: '거북선은 임진왜란 때 활약한 것으로 알려진 조선의 배이다.', contentReviewNeeded: true },
   { id: 'donguibogam', period: 'joseon', name: '동의보감', icon: 'i135', hintLine: '동의보감은 허준이 정리한 조선의 의학 책이다.', contentReviewNeeded: true },
   { id: 'daedongyeojido', period: 'joseon', name: '대동여지도', icon: 'i144', hintLine: '대동여지도는 김정호가 만든 조선의 상세한 전국 지도이다.', contentReviewNeeded: true },
@@ -64,9 +64,36 @@ export const STICKERS: Sticker[] = [
 /** 꾸미기 전용 스티커. 학습 보상이 아니라 처음부터 열려 있고,
  *  "모은 스티커 n/m" 집계(STICKERS)에는 들어가지 않는다. */
 export const DECO_STICKERS: Sticker[] = [
+  // ----- 선사 -----
   { id: 'deco-stone-tower', period: 'prehistoric', name: '돌탑', icon: 'i153', hintLine: '돌을 쌓아 소원을 빌던 마음을 떠올리며 꾸며 보세요.' },
   { id: 'deco-footprint', period: 'prehistoric', name: '발자국 화석', icon: 'i154', hintLine: '땅에 남은 발자국도 옛사람을 알려 주는 자료가 돼요.' },
   { id: 'deco-campfire', period: 'prehistoric', name: '모닥불', icon: 'i155', hintLine: '불을 다루게 되면서 사람들의 생활이 크게 달라졌어요.' },
+  { id: 'deco-petroglyph', period: 'prehistoric', name: '바위그림', icon: 'i175', hintLine: '바위에 새긴 그림에는 그때 사람들이 무엇을 잡고 살았는지 담겨 있어요.' },
+  // ----- 삼국·통일신라 -----
+  { id: 'deco-roof-tile', period: 'threeKingdoms', name: '연꽃무늬 수막새', icon: 'i161', hintLine: '기와 끝을 막던 수막새에는 연꽃무늬가 자주 쓰였어요.' },
+  { id: 'deco-gogok', period: 'threeKingdoms', name: '곡옥', icon: 'i162', hintLine: '굽은 옥은 목걸이나 금관을 꾸미는 데 쓰였어요.' },
+  { id: 'deco-cheonmado', period: 'threeKingdoms', name: '천마 그림', icon: 'i176', hintLine: '하늘을 달리는 말 그림에는 옛사람들의 바람이 담겨 있어요.' },
+  // ----- 고려 -----
+  { id: 'deco-lotus', period: 'goryeo', name: '연꽃', icon: 'i166', hintLine: '연꽃은 불교 문화가 널리 퍼지면서 즐겨 쓰인 무늬예요.' },
+  { id: 'deco-celadon-medallion', period: 'goryeo', name: '국화무늬 청자판', icon: 'i167', hintLine: '상감으로 국화무늬를 새겨 넣은 청자의 빛깔이에요.' },
+  { id: 'deco-najeon-box', period: 'goryeo', name: '나전칠기 상자', icon: 'i177', hintLine: '조개껍데기를 얇게 갈아 붙여 무늬를 낸 공예품이에요.' },
+  // ----- 조선 -----
+  { id: 'deco-brush', period: 'joseon', name: '붓', icon: 'i168', hintLine: '붓과 먹으로 글을 쓰고 그림을 그렸어요.' },
+  { id: 'deco-geojunggi', period: 'joseon', name: '거중기', icon: 'i170', hintLine: '무거운 돌을 적은 힘으로 들어 올리던 기구예요.' },
+  { id: 'deco-seal', period: 'joseon', name: '도장', icon: 'i173', hintLine: '이름을 새긴 도장을 찍어 문서를 확인했어요.' },
+  { id: 'deco-knot', period: 'joseon', name: '매듭', icon: 'i172', hintLine: '실을 엮어 만든 매듭으로 옷과 물건을 꾸몄어요.' },
+  // ----- 근현대 -----
+  { id: 'deco-independence-gate', period: 'modern', name: '독립문', icon: 'i171', hintLine: '자주 독립의 뜻을 담아 세운 문이에요.' },
+  { id: 'deco-stamp-paper', period: 'modern', name: '옛 우표', icon: 'i174', hintLine: '우표 한 장에도 그때의 풍경이 남아 있어요.' },
 ]
 
-export const stickerById = new Map([...STICKERS, ...DECO_STICKERS].map((s) => [s.id, s]))
+/** 시대와 상관없이 어느 페이지에서나 쓸 수 있는 꾸미기 조각 */
+export const DECO_COMMON: Sticker[] = [
+  { id: 'deco-leaf', period: 'prehistoric', name: '단풍잎', icon: 'i160', hintLine: '' },
+  { id: 'deco-heart', period: 'prehistoric', name: '금빛 하트', icon: 'i163', hintLine: '' },
+  { id: 'deco-cloud-jade', period: 'prehistoric', name: '푸른 구름', icon: 'i164', hintLine: '' },
+  { id: 'deco-crane', period: 'prehistoric', name: '학', icon: 'i165', hintLine: '' },
+  { id: 'deco-cloud-gold', period: 'prehistoric', name: '노을 구름', icon: 'i169', hintLine: '' },
+]
+
+export const stickerById = new Map([...STICKERS, ...DECO_STICKERS, ...DECO_COMMON].map((s) => [s.id, s]))
