@@ -114,7 +114,11 @@ export function PlacementView({ question, onSolved }: Props) {
             onClick={() => armed && trySlot(s.id)}
             aria-label={`${s.label} 자리에 놓기`}
           >
-            {s.label}
+            {/* "평양 (고구려 중심지)"처럼 괄호가 붙은 이름은 괄호부터 다음 줄로 내려 균형을 맞춘다 */}
+            <span className="placement-slot__name">{s.label.replace(/\s*\(.*\)\s*$/, '')}</span>
+            {/\(.*\)\s*$/.test(s.label) && (
+              <span className="placement-slot__note">{s.label.match(/\((.*)\)\s*$/)![1]}</span>
+            )}
           </button>
         ))}
       </div>

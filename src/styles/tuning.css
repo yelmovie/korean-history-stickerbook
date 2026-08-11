@@ -462,3 +462,82 @@
     animation: none;
   }
 }
+
+/* ================= 상단 제목 내리기 + 캐릭터 말풍선 ================= */
+
+/* 제목·소제목이 화면 맨 위에 붙어 보여서 한 뼘(약 0.5cm) 내린다.
+ * 나가기·소리 버튼은 absolute라 헤더 padding에 딸려 내려가지 않는다. */
+.stage-header {
+  padding-top: 4.2cqh;
+}
+
+.stage-select__header,
+.diary-edit__header {
+  padding-top: 3.4cqh;
+}
+
+.main-page__title-area {
+  padding-top: 9.9cqh;
+}
+
+/* 캐릭터 레이어가 문제 영역(z-index 2) 아래에 깔려 있어서
+ * 여백 위의 캐릭터를 눌러도 클릭이 문제 영역에 먹히고 말풍선도 가려졌다.
+ * 레이어 자체는 pointer-events:none이라 위로 올려도 문제 풀이를 막지 않는다. */
+.stage-deco,
+.main-page__scene {
+  z-index: 4;
+}
+
+/* 말풍선은 캐릭터보다도 위에 */
+.char-talk__bubble {
+  z-index: 40;
+}
+
+/* 근현대 기록실 너구리만 1.5배 (화면 밖으로 안 나가게 아래 정렬 유지) */
+.stage-deco[data-stage='stage5'] .stage-deco__mascot {
+  height: calc(var(--deco-mascot-h) * 1.5);
+  width: calc(var(--deco-mascot-w) * 1.5);
+  max-width: calc(var(--deco-mascot-w) * 1.5);
+}
+
+/* ================= 비교형 두 사진 겹침 해결 ================= */
+
+/* grid 아이템의 자동 최소 높이 때문에 세로로 긴 사진이 액자를 밀어내
+ * 아래 카드와 겹쳤다. 최소 높이를 풀고 액자 안에서만 맞춘다. */
+.compare-card .artifact-photo-frame {
+  height: 20cqh;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.6cqh;
+}
+
+.compare-card .artifact-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.qv-choice__left--compare {
+  flex: 0 0 18cqw;
+  align-self: center;
+  gap: 1.6cqh;
+}
+
+/* ================= 배치형 슬롯 라벨 두 줄 ================= */
+
+.placement-slot {
+  display: grid;
+  justify-items: center;
+  gap: 0.1cqh;
+  line-height: 1.25;
+}
+
+.placement-slot__name {
+  font-weight: 800;
+}
+
+.placement-slot__note {
+  font-size: 0.82em;
+  opacity: 0.9;
+}

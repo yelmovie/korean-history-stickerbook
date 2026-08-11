@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { iconSrc } from '../../data/assets'
 import type { OrderingQuestion } from '../../types'
 import { audio } from '../../utils/audio'
+import { derange } from '../../utils/shuffle'
 import { AssetImage } from '../AssetImage'
 import { AppButton, PaperCard } from '../common'
 import { HintBubble } from './shared'
@@ -20,7 +21,9 @@ export function OrderingView({ question, onSolved }: Props) {
 
   const itemById = new Map(question.items.map((i) => [i.id, i]))
   const placedIds = slots.filter((s): s is string => s !== null)
-  const trayItems = question.items.filter((i) => !placedIds.includes(i.id))
+  // 데이터는 정답 순서로 적혀 있어 그대로 두면 왼쪽부터 차례로 끌기만 하면 된다 → 어긋나게 섞는다
+  const shuffled = useMemo(() => derange(question.items, question.id), [question])
+  const trayItems = shuffled.filter((i) => !placedIds.includes(i.id))
   const full = placedIds.length === slots.length
 
   /* ---- 카드를 끌어서 칸에 놓기 ---- */

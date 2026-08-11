@@ -97,7 +97,7 @@ export function StagePage({ stageId }: Props) {
             </>
           )}
         </main>
-        <div className={`stage-deco ${stage.swapSides ? 'stage-deco--swap' : ''}`}>
+        <div className={`stage-deco ${stage.swapSides ? 'stage-deco--swap' : ''}`} data-stage={stageId}>
           <CharacterTalk
             icon={stage.character}
             lines={STAGE_LINES[stageId].character}

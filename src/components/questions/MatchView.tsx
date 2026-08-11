@@ -1,7 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { iconSrc } from '../../data/assets'
 import type { MatchQuestion } from '../../types'
 import { audio } from '../../utils/audio'
+import { derange } from '../../utils/shuffle'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
 import { HintBubble } from './shared'
@@ -31,6 +32,8 @@ export function MatchView({ question, onSolved }: Props) {
   const areaRef = useRef<HTMLDivElement>(null)
   const leftRefs = useRef(new Map<string, HTMLButtonElement>())
   const rightRefs = useRef(new Map<string, HTMLButtonElement>())
+  // 데이터는 정답 짝 순서로 적혀 있어 그대로 두면 선이 一자 세 줄이 된다 → 오른쪽만 어긋나게 섞는다
+  const rightItems = useMemo(() => derange(question.right, question.id), [question])
 
   const recalcLines = (current: Record<string, string>) => {
     const area = areaRef.current
@@ -176,7 +179,7 @@ export function MatchView({ question, onSolved }: Props) {
           })}
         </div>
         <div className="match-col">
-          {question.right.map((item) => {
+          {rightItems.map((item) => {
             const done = Object.values(links).includes(item.id)
             return (
               <button
