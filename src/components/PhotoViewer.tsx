@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, useContext, type ReactNode } from 'react'
-import { photoCredit, photoSrc } from '../data/assets'
+import { photoCredit, photoSrc, PHOTO_ONLY_INFO } from '../data/assets'
 import { stickerById } from '../data/stickers'
 import { PERIOD_LABELS } from '../data/stages'
 import { AssetImage } from './AssetImage'
@@ -55,11 +55,12 @@ export function PhotoViewerProvider({ children }: { children: ReactNode }) {
             <aside className="photo-viewer__info">
               {(() => {
                 const s = stickerById.get(shown.id)
+                const extra = PHOTO_ONLY_INFO[shown.id]
                 return (
                   <>
-                    <p className="photo-viewer__title">{s?.name ?? shown.title}</p>
+                    <p className="photo-viewer__title">{s?.name ?? extra?.name ?? shown.title}</p>
                     {s && <p className="photo-viewer__period">{PERIOD_LABELS[s.period]}</p>}
-                    {s && <p className="photo-viewer__desc">{s.hintLine}</p>}
+                    {(s || extra) && <p className="photo-viewer__desc">{s?.hintLine ?? extra?.desc}</p>}
                     <p className="photo-viewer__hint">재료·모양·쓰임이 그 시대를 알려 줘요.</p>
                     <p className="photo-viewer__zoomhint">
                       🔍 사진을 누르거나 마우스 휠을 굴리면 더 크게 볼 수 있어요 (현재 {Math.round(scale * 100)}%)
@@ -92,7 +93,8 @@ export function PhotoZoomButton({ stickerId, title }: { stickerId: string; title
       }}
       aria-label={`${title} 실물 사진 크게 보기`}
     >
-      ⛶
+      <span aria-hidden="true">⛶</span>
+      <span className="photo-zoom-btn__label">크게 보기</span>
     </button>
   )
 }

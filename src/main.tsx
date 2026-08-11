@@ -5,6 +5,7 @@ import './styles/tokens.css'
 import './styles/layout.css'
 import './styles/components.css'
 import './styles/pages.css'
+import './styles/tuning.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

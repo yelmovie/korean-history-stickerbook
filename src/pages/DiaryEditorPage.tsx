@@ -12,6 +12,24 @@ const PERIOD_ORDER: PeriodId[] = ['prehistoric', 'threeKingdoms', 'goryeo', 'jos
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
+const SCALE_MIN = 0.5
+const SCALE_MAX = 1.8
+const ROT_MIN = -60
+const ROT_MAX = 60
+
+/** 핸들 조작 중인 스티커의 실시간 크기·각도 (화면 미리보기용) */
+type Gesture = { id: string; scale: number; rotation: number }
+/** 핸들 조작의 기준값 — 스티커 중심 좌표와 누른 순간의 거리·각도를 담는다 */
+type GestureRef = Gesture & {
+  mode: 'scale' | 'rotate'
+  cx: number
+  cy: number
+  startDist: number
+  startAngle: number
+  startScale: number
+  startRotation: number
+}
+
 export function DiaryEditorPage() {
   const { save, update, goTo } = useGame()
   const [period, setPeriod] = useState<PeriodId>('prehistoric')
@@ -21,6 +39,9 @@ export function DiaryEditorPage() {
   const [dragPos, setDragPos] = useState<{ id: string; x: number; y: number } | null>(null)
   const pageRef = useRef<HTMLDivElement>(null)
   const dragOffset = useRef({ dx: 0, dy: 0 })
+  // 크기·회전 핸들도 같은 이유로 ref 동기 추적 + state는 미리보기 용도로만 쓴다
+  const gestureRef = useRef<GestureRef | null>(null)
+  const [gesture, setGesture] = useState<Gesture | null>(null)
 
   const page = save.diary[period]
   const earnedInPeriod = STICKERS.filter(
@@ -48,15 +69,9 @@ export function DiaryEditorPage() {
     setSelectedId(stickerId)
   }
 
-  const changeSelected = (fn: (s: DiaryPlacedSticker) => DiaryPlacedSticker) => {
-    if (!selectedId) return
-    mutatePage((stickers) => stickers.map((s) => (s.stickerId === selectedId ? fn(s) : s)))
-  }
-
-  const removeSelected = () => {
-    if (!selectedId) return
-    mutatePage((stickers) => stickers.filter((s) => s.stickerId !== selectedId))
-    setSelectedId(null)
+  const removeById = (id: string) => {
+    mutatePage((stickers) => stickers.filter((s) => s.stickerId !== id))
+    setSelectedId((cur) => (cur === id ? null : cur))
   }
 
   const onStickerPointerDown = (s: DiaryPlacedSticker) => (e: React.PointerEvent) => {
@@ -96,6 +111,98 @@ export function DiaryEditorPage() {
     dragRef.current = null
     setDragPos(null)
     changeSelectedById(d.id, (s) => ({ ...s, x: d.x, y: d.y }))
+  }
+
+  /** 스티커 중심의 화면 좌표 (핸들 각도·거리 계산 기준점) */
+  const centerOf = (s: DiaryPlacedSticker) => {
+    const rect = pageRef.current!.getBoundingClientRect()
+    return { cx: rect.left + s.x * rect.width, cy: rect.top + s.y * rect.height }
+  }
+
+  const onHandlePointerDown =
+    (s: DiaryPlacedSticker, mode: 'scale' | 'rotate') => (e: React.PointerEvent) => {
+      // 본체 드래그(이동)가 같이 시작되지 않도록 차단
+      e.stopPropagation()
+      e.currentTarget.setPointerCapture(e.pointerId)
+      const { cx, cy } = centerOf(s)
+      const dx = e.clientX - cx
+      const dy = e.clientY - cy
+      gestureRef.current = {
+        id: s.stickerId,
+        mode,
+        cx,
+        cy,
+        startDist: Math.max(Math.hypot(dx, dy), 1),
+        startAngle: Math.atan2(dy, dx),
+        startScale: s.scale,
+        startRotation: s.rotation,
+        scale: s.scale,
+        rotation: s.rotation,
+      }
+      setSelectedId(s.stickerId)
+      setGesture({ id: s.stickerId, scale: s.scale, rotation: s.rotation })
+    }
+
+  const onHandlePointerMove = (e: React.PointerEvent) => {
+    const g = gestureRef.current
+    if (!g) return
+    e.stopPropagation()
+    const dx = e.clientX - g.cx
+    const dy = e.clientY - g.cy
+    if (g.mode === 'scale') {
+      // 중심에서 멀어진 비율만큼 커진다
+      g.scale = clamp((g.startScale * Math.hypot(dx, dy)) / g.startDist, SCALE_MIN, SCALE_MAX)
+    } else {
+      let deg = ((Math.atan2(dy, dx) - g.startAngle) * 180) / Math.PI
+      if (deg > 180) deg -= 360
+      if (deg < -180) deg += 360
+      g.rotation = clamp(g.startRotation + deg, ROT_MIN, ROT_MAX)
+    }
+    setGesture({ id: g.id, scale: g.scale, rotation: g.rotation })
+  }
+
+  const onHandlePointerUp = (e: React.PointerEvent) => {
+    const g = gestureRef.current
+    if (!g) return
+    e.stopPropagation()
+    gestureRef.current = null
+    setGesture(null)
+    changeSelectedById(g.id, (s) => ({ ...s, scale: g.scale, rotation: g.rotation }))
+  }
+
+  /** 선택된 스티커를 키보드로 조작 — 방향키 이동, +/- 크기, [/] 회전, Delete 삭제 */
+  const onStickerKeyDown = (s: DiaryPlacedSticker) => (e: React.KeyboardEvent) => {
+    const step = e.shiftKey ? 0.05 : 0.02
+    const move = (dx: number, dy: number) =>
+      changeSelectedById(s.stickerId, (st) => ({
+        ...st,
+        x: clamp(st.x + dx, 0.06, 0.94),
+        y: clamp(st.y + dy, 0.08, 0.92),
+      }))
+    const resize = (d: number) =>
+      changeSelectedById(s.stickerId, (st) => ({
+        ...st,
+        scale: clamp(st.scale + d, SCALE_MIN, SCALE_MAX),
+      }))
+    const rotate = (d: number) =>
+      changeSelectedById(s.stickerId, (st) => ({
+        ...st,
+        rotation: clamp(st.rotation + d, ROT_MIN, ROT_MAX),
+      }))
+
+    switch (e.key) {
+      case 'ArrowLeft': move(-step, 0); break
+      case 'ArrowRight': move(step, 0); break
+      case 'ArrowUp': move(0, -step); break
+      case 'ArrowDown': move(0, step); break
+      case '+': case '=': resize(0.15); break
+      case '-': case '_': resize(-0.15); break
+      case '[': rotate(-15); break
+      case ']': rotate(15); break
+      case 'Delete': case 'Backspace': removeById(s.stickerId); break
+      default: return
+    }
+    e.preventDefault()
   }
 
   const setNote = (content: string) => {
@@ -156,24 +263,66 @@ export function DiaryEditorPage() {
                 const sticker = stickerById.get(s.stickerId)
                 if (!sticker) return null
                 const pos = dragPos && dragPos.id === s.stickerId ? dragPos : s
+                // 핸들 조작 중이면 저장값 대신 실시간 값으로 그린다
+                const live = gesture && gesture.id === s.stickerId ? gesture : s
+                const isSelected = selectedId === s.stickerId
                 return (
                   <div
                     key={s.stickerId}
-                    className={`diary-sticker ${selectedId === s.stickerId ? 'diary-sticker--selected' : ''}`}
+                    className={`diary-sticker ${isSelected ? 'diary-sticker--selected' : ''}`}
                     style={{
                       left: `${pos.x * 100}%`,
                       top: `${pos.y * 100}%`,
-                      transform: `translate(-50%, -50%) scale(${s.scale}) rotate(${s.rotation}deg)`,
+                      transform: `translate(-50%, -50%) scale(${live.scale}) rotate(${live.rotation}deg)`,
                       zIndex: s.z,
+                      // 핸들이 스티커 크기와 무관하게 항상 같은 크기로 보이도록 역보정
+                      ['--sticker-inv' as string]: `${1 / live.scale}`,
                     }}
                     onPointerDown={onStickerPointerDown(s)}
                     onPointerMove={onStickerPointerMove}
                     onPointerUp={onStickerPointerUp}
                     onPointerCancel={onStickerPointerUp}
+                    onKeyDown={onStickerKeyDown(s)}
                     role="button"
-                    aria-label={`${sticker.name} 스티커 — 끌어서 이동`}
+                    tabIndex={0}
+                    aria-label={`${sticker.name} 스티커 — 끌어서 이동, 방향키로 이동, + - 로 크기, 대괄호로 회전, Delete로 떼기`}
                   >
                     <AssetImage src={iconSrc(sticker.icon)} alt={sticker.name} className="diary-sticker__img" fallbackLabel={sticker.name} />
+                    {isSelected && (
+                      <>
+                        <button
+                          type="button"
+                          className="diary-handle diary-handle--delete"
+                          aria-label={`${sticker.name} 스티커 떼기`}
+                          onPointerDown={(e) => e.stopPropagation()}
+                          onClick={() => removeById(s.stickerId)}
+                        >
+                          ✕
+                        </button>
+                        <button
+                          type="button"
+                          className="diary-handle diary-handle--rotate"
+                          aria-label={`${sticker.name} 스티커 돌리기 — 끌어서 회전`}
+                          onPointerDown={onHandlePointerDown(s, 'rotate')}
+                          onPointerMove={onHandlePointerMove}
+                          onPointerUp={onHandlePointerUp}
+                          onPointerCancel={onHandlePointerUp}
+                        >
+                          ↻
+                        </button>
+                        <button
+                          type="button"
+                          className="diary-handle diary-handle--resize"
+                          aria-label={`${sticker.name} 스티커 크기 조절 — 끌어서 크게`}
+                          onPointerDown={onHandlePointerDown(s, 'scale')}
+                          onPointerMove={onHandlePointerMove}
+                          onPointerUp={onHandlePointerUp}
+                          onPointerCancel={onHandlePointerUp}
+                        >
+                          ⤡
+                        </button>
+                      </>
+                    )}
                   </div>
                 )
               })}
@@ -216,13 +365,9 @@ export function DiaryEditorPage() {
               })}
             </div>
             {selected && (
-              <div className="diary-controls" aria-label="선택한 스티커 조절">
-                <AppButton variant="ghost" ariaLabel="크게" onClick={() => changeSelected((s) => ({ ...s, scale: clamp(s.scale + 0.15, 0.5, 1.8) }))}>➕</AppButton>
-                <AppButton variant="ghost" ariaLabel="작게" onClick={() => changeSelected((s) => ({ ...s, scale: clamp(s.scale - 0.15, 0.5, 1.8) }))}>➖</AppButton>
-                <AppButton variant="ghost" ariaLabel="왼쪽으로 회전" onClick={() => changeSelected((s) => ({ ...s, rotation: clamp(s.rotation - 15, -60, 60) }))}>↺</AppButton>
-                <AppButton variant="ghost" ariaLabel="오른쪽으로 회전" onClick={() => changeSelected((s) => ({ ...s, rotation: clamp(s.rotation + 15, -60, 60) }))}>↻</AppButton>
-                <AppButton variant="ghost" ariaLabel="스티커 떼기" onClick={removeSelected}>🗑</AppButton>
-              </div>
+              <p className="diary-tray__hint">
+                스티커를 누르면 둘레에 단추가 나와요. ✕ 떼기 · ↻ 끌어서 돌리기 · ⤡ 끌어서 크기
+              </p>
             )}
           </aside>
         </div>

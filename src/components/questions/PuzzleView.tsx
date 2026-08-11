@@ -80,13 +80,18 @@ export function PuzzleView({ question, onSolved }: Props) {
       setArmedPiece(armedPiece === piece ? null : piece)
       return
     }
+    // 손가락이 살짝 빗나가도 놓이도록, 놓은 지점에서 가장 가까운 슬롯을 찾는다
+    let best: { slot: number; dist: number } | null = null
     for (const [slot, el] of slotRefs.current) {
       const r = el.getBoundingClientRect()
-      if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-        tryPlace(piece, slot)
-        return
-      }
+      const cx = r.left + r.width / 2
+      const cy = r.top + r.height / 2
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy)
+      // 슬롯 크기의 0.8배 안이면 그 슬롯에 놓으려는 것으로 본다
+      const reach = Math.max(r.width, r.height) * 0.8
+      if (dist <= reach && (!best || dist < best.dist)) best = { slot, dist }
     }
+    if (best) tryPlace(piece, best.slot)
   }
 
   const pickReason = (i: number) => {
