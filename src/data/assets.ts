@@ -18,8 +18,9 @@ export const PHOTO_CREDITS: Record<string, string> = {
   cheugugi: KHS, 'silla-crown': KHS, 'baekje-incense-burner': KHS, 'celadon-maebyeong': KHS,
   angbuilgu: KHS, cheomseongdae: KHS, dabotap: KHS, seokgatap: KHS, tripitaka: KHS, jagyeongnu: KHS,
   'muryeong-ornament': KHS, 'moon-jar': KHS, daedongyeojido: KHS, donguibogam: KHS, sillok: KHS,
-  dolmen: KHS, honcheonui: KHS, hunminjeongeum: KHS, 'celadon-melon': KHS, seokguram: KHS,
-  'janggyeong-panjeon': KHS, bulguksa: KHS, 'goryeo-celadon': KHS,
+  dolmen: KHS, 'celadon-melon': KHS, seokguram: KHS, 'goryeo-celadon': KHS,
+  // 내림(공공누리 제4유형 = 변경 금지): honcheonui, hunminjeongeum, janggyeong-panjeon, bulguksa
+  // 리사이즈·재인코딩이 조건 위반이라 사진을 빼고 스티커 아이콘으로 되돌렸다. docs/KOGL-AUDIT.md 참조
   'comb-pottery': EMU, 'hand-axe': EMU, 'plain-pottery': EMU, 'half-moon-knife': EMU,
   'bipa-dagger': EMU, 'spindle-whorl': EMU, 'bone-needle': EMU, 'sumbe-point': EMU,
   'polished-stone': EMU, 'goguryeo-mural': EMU, 'gwanggaeto-stele': EMU, 'metal-type': EMU,
