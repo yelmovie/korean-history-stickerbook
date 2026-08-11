@@ -14,6 +14,10 @@
 
 ## 공통 규칙 (모든 프롬프트 공통)
 
+> `docs/ASSET-PROMPTS.md`의 **"공통 규칙 (2026-08-11 개정)"** 도 함께 적용된다.
+> 특히 4번(**생성 결과는 아이콘/일러스트이며 유물 실물 사진이 아니다** — CREDITS.md 분리 표기)은 이 문서의 35종에도 그대로 해당된다.
+> 배경류(`diarybg_*`·`traybg_*`·`cert_bg`)는 공통 문구에서 `transparent background`만 빼고 나머지(`no text, no letters, no watermark, no collage, no grid, no asset sheet, no drop shadow`)를 적용한다.
+
 - **한 이미지 = 에셋 1개.** 콜라주·에셋시트·그리드·여러 변형 나열 절대 금지.
 - 화면 톤: navy / gold / teal / warm-wood 팔레트, 초등 5~6학년용 프리미엄 교육앱, 유치하지 않게.
 - 글자 금지 (한글·한자·영문·워터마크 전부).

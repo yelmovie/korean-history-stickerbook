@@ -123,6 +123,8 @@ export function PlacementView({ question, onSolved }: Props) {
         ))}
       </div>
       <div className="placement-tray">
+        {/* 확대 버튼은 끌기용 버튼 밖에 둔다 — button 안에 button은 중첩 오류라 클릭도 새어 나간다 */}
+        <div className="placement-artifact-wrap">
         <button
           type="button"
           className={`placement-artifact ${armed ? 'placement-artifact--armed' : ''}`}
@@ -143,13 +145,14 @@ export function PlacementView({ question, onSolved }: Props) {
             fallbackLabel={question.artifactName}
           />
           <span className="placement-artifact__name">{question.artifactName}</span>
+        </button>
           {photoSrc(question.artifactPhoto) && (
             <>
               <PhotoZoomButton stickerId={question.artifactPhoto!} title={question.artifactName} />
               <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
             </>
           )}
-        </button>
+        </div>
         <p className="placement-guide">유물을 끌어서 알맞은 자리에 놓아 보세요</p>
       </div>
       <HintBubble msg={hintMsg} />

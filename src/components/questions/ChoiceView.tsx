@@ -77,13 +77,15 @@ export function ChoiceView({ question, onSolved }: Props) {
       ) : (
         artifactImage
       )}
-      {realPhoto && revealed && (
-        <>
-          <PhotoZoomButton stickerId={question.artifactPhoto!} title={question.artifactName ?? ''} />
-          <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
-        </>
-      )}
     </span>
+  )
+
+  // 확대 버튼은 받침대 버튼 밖으로 — button 안에 button은 중첩 오류
+  const artifactZoom = realPhoto && revealed && (
+    <>
+      <PhotoZoomButton stickerId={question.artifactPhoto!} title={question.artifactName ?? ''} />
+      <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
+    </>
   )
 
   // 비교형: 유물 두 개를 나란히
@@ -122,17 +124,20 @@ export function ChoiceView({ question, onSolved }: Props) {
     <div className="qv qv-choice">
       <div className="qv-choice__left">
         {question.artifactName && (
-          <button
-            type="button"
-            className={`artifact-pedestal ${zoomed ? 'artifact-pedestal--zoomed' : ''}`}
-            onClick={() => revealed && setZoomed(!zoomed)}
-            aria-label={zoomed ? `${question.artifactName} 축소하기` : `${question.artifactName} 확대해서 관찰하기`}
-          >
-            {artifactBody}
-            <span className="artifact-pedestal__name">
-              {revealed ? `${question.artifactName} ${zoomed ? '➖' : '🔍'}` : '❓ 발굴 중...'}
-            </span>
-          </button>
+          <div className="artifact-pedestal-wrap">
+            <button
+              type="button"
+              className={`artifact-pedestal ${zoomed ? 'artifact-pedestal--zoomed' : ''}`}
+              onClick={() => revealed && setZoomed(!zoomed)}
+              aria-label={zoomed ? `${question.artifactName} 축소하기` : `${question.artifactName} 확대해서 관찰하기`}
+            >
+              {artifactBody}
+              <span className="artifact-pedestal__name">
+                {revealed ? `${question.artifactName} ${zoomed ? '➖' : '🔍'}` : '❓ 발굴 중...'}
+              </span>
+            </button>
+            {artifactZoom}
+          </div>
         )}
         {revealed && question.observePoints && (
           <div className="observe-points">

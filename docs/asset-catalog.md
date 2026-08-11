@@ -175,3 +175,43 @@
 
 
 ※ src에서 참조되지 않는 아이콘 webp는 `source-assets/unused-webp/`로 옮겨 배포 용량에서 제외했다. 다시 쓰려면 파일을 `public/assets/opt/`로 되돌리면 된다.
+
+---
+
+# 생성 필요 목록 (2026-08-11 기준)
+
+프롬프트는 `docs/ASSET-PROMPTS.md`(아이콘)와 `docs/ASSET-PROMPTS-DIARY.md`(다이어리 배경·장식)에 있다.
+상태: **미생성** = 프롬프트만 있음 / **생성됨** = 원본 확보 / **적용됨** = webp 변환 + 코드 연결 완료
+
+⚠️ 아래 목록은 전부 **생성형 AI 이미지**다. `public/assets/photo/*.webp`(국가유산청·e뮤지엄 공공누리 실물 사진)와 성격이 다르므로 `public/assets/CREDITS.md`에 **"생성형 AI 제작 아이콘/일러스트 — 유물 실물 사진 아님"** 으로 분리 표기한다.
+
+## A. 아이콘 7종 — `ASSET-PROMPTS.md` "2026-08-11 추가 생성 7종"
+
+| 상태 | 원본 파일명 | 앱 파일명 | 용도 | 해상도 | 비고 |
+|---|---|---|---|---|---|
+| ☐ 미생성 | `source-assets/icons-numbered/146.png` | `i146.webp` | 그물추 스티커 아이콘 | 1024×1024 | `net-sinker` 현재 `icon: null` |
+| ☐ 미생성 | `source-assets/icons-numbered/147.png` | `i147.webp` | 금속활자 낱개 (한자 `直` 양각 거울상) | 1024×1024 | `i063` 대체 |
+| ☐ 미생성 | `source-assets/icons-numbered/148.png` | `i148.webp` | 마스코트 — 탐사 두더지 (선사) | 1024×1024 | `i041` 대체 |
+| ☐ 미생성 | `source-assets/icons-numbered/149.png` | `i149.webp` | 마스코트 — 수호 해치 사자 (삼국) | 1024×1024 | `i051` 대체 |
+| ☐ 미생성 | `source-assets/icons-numbered/150.png` | `i150.webp` | 마스코트 — 청자 용거북 (고려) | 1024×1024 | `i060` 대체 |
+| ☐ 미생성 | `source-assets/icons-numbered/151.png` | `i151.webp` | 마스코트 — 학자 토끼 (조선) | 1024×1024 | `i068` 대체 |
+| ☐ 미생성 | `source-assets/icons-numbered/152.png` | `i152.webp` | 마스코트 — 사서 너구리 (근현대) | 1024×1024 | `i085` 대체 |
+
+## B. 다이어리 배경·장식 35종 — `ASSET-PROMPTS-DIARY.md`
+
+원본은 `source-assets/diary-bg/`(배경) · `source-assets/diary-deco/`(스티커), 앱 경로는 `/assets/opt/diarybg/` · `/assets/opt/deco/`.
+
+| 상태 | 묶음 | 개수 | 파일명 규칙 | 해상도 |
+|---|---|---|---|---|
+| ☐ 미생성 | 시대별 다이어리 페이지 배경 | 5 | `diarybg_{prehistoric,threekingdoms,goryeo,joseon,modern}.png` | 1600×1200+ (4:3) |
+| ☐ 미생성 | 시대별 스티커 보관함 배경 | 5 | `traybg_{...동일 5종}.png` | 1200×1600+ (3:4) |
+| ☐ 미생성 | 시대별 꾸미기 장식 스티커 | 20 | `deco_{시대}_{이름}.png` (시대당 4종) | 512×512+ 투명 |
+| ☐ 미생성 | 비밀 스티커 | 5 | `secret_{시대}_{이름}.png` | 512×512+ 투명 |
+
+## C. 기타 1종
+
+| 상태 | 원본 파일명 | 앱 파일명 | 용도 | 해상도 |
+|---|---|---|---|---|
+| ☐ 미생성 | `cert_bg.png` | `/assets/opt/cert/cert_bg.webp` | 수료증 패널 배경 | 1600×1200+ (4:3) |
+
+**총 43종 미생성** (아이콘 7 + 다이어리 35 + 수료증 1).

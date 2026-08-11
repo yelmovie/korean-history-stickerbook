@@ -45,25 +45,61 @@ export function PhotoViewerProvider({ children }: { children: ReactNode }) {
         >
           <button type="button" className="photo-viewer__scrim" onClick={() => setShown(null)} aria-label="닫기" />
           <div className="photo-viewer__inner">
-            <AssetImage
-              src={photoSrc(shown.id)}
-              alt={shown.title}
-              className="photo-viewer__img"
-              style={{ transform: `scale(${scale})` }}
-              onClick={() => setScale((v) => (v >= 3 ? 1 : v + 0.5))}
-            />
+            <figure className="photo-viewer__frame">
+              <div className="photo-viewer__mat">
+                <AssetImage
+                  src={photoSrc(shown.id)}
+                  alt={shown.title}
+                  className="photo-viewer__img"
+                  style={{ transform: `scale(${scale})` }}
+                  onClick={() => setScale((v) => (v >= 3 ? 1 : v + 0.5))}
+                />
+              </div>
+              <div className="photo-viewer__zoombar" role="group" aria-label="확대 조절">
+                <button
+                  type="button"
+                  className="photo-viewer__zoombtn"
+                  onClick={() => setScale((v) => Math.max(1, v - 0.25))}
+                  disabled={scale <= 1}
+                  aria-label="축소"
+                >
+                  −
+                </button>
+                <span className="photo-viewer__zoomval" aria-live="polite">
+                  {Math.round(scale * 100)}%
+                </span>
+                <button
+                  type="button"
+                  className="photo-viewer__zoombtn"
+                  onClick={() => setScale((v) => Math.min(4, v + 0.25))}
+                  disabled={scale >= 4}
+                  aria-label="확대"
+                >
+                  ＋
+                </button>
+                <button
+                  type="button"
+                  className="photo-viewer__zoomreset"
+                  onClick={() => setScale(1)}
+                  disabled={scale === 1}
+                >
+                  원래 크기
+                </button>
+              </div>
+            </figure>
             <aside className="photo-viewer__info">
               {(() => {
                 const s = stickerById.get(shown.id)
                 const extra = PHOTO_ONLY_INFO[shown.id]
                 return (
                   <>
-                    <p className="photo-viewer__title">{s?.name ?? extra?.name ?? shown.title}</p>
+                    <p className="photo-viewer__eyebrow">유물 자세히 보기</p>
+                    <h2 className="photo-viewer__title">{s?.name ?? extra?.name ?? shown.title}</h2>
                     {s && <p className="photo-viewer__period">{PERIOD_LABELS[s.period]}</p>}
                     {(s || extra) && <p className="photo-viewer__desc">{s?.hintLine ?? extra?.desc}</p>}
                     <p className="photo-viewer__hint">재료·모양·쓰임이 그 시대를 알려 줘요.</p>
                     <p className="photo-viewer__zoomhint">
-                      🔍 사진을 누르거나 마우스 휠을 굴리면 더 크게 볼 수 있어요 (현재 {Math.round(scale * 100)}%)
+                      사진을 누르거나 마우스 휠을 굴려도 확대돼요.
                     </p>
                     <p className="photo-viewer__credit">{photoCredit(shown.id)}</p>
                   </>
@@ -72,7 +108,7 @@ export function PhotoViewerProvider({ children }: { children: ReactNode }) {
             </aside>
           </div>
           <button type="button" className="photo-viewer__close" onClick={() => setShown(null)} aria-label="크게 보기 닫기">
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
         </div>
       )}

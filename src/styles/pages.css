@@ -1999,20 +1999,37 @@ button.artifact-pedestal {
   z-index: 3;
 }
 
+/* ---------- 실물 사진 전체화면 뷰어 (전시실 액자) ---------- */
+
 .photo-viewer {
   position: absolute;
   inset: 0;
   z-index: 80;
   display: grid;
   place-items: center;
+  animation: viewer-in 0.24s var(--ease-out);
 }
 
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 어두운 전시실 벽 — 가운데만 스포트라이트가 떨어진다 */
 .photo-viewer__scrim {
   position: absolute;
   inset: 0;
   border: none;
-  background: rgba(6, 14, 26, 0.92);
   cursor: zoom-out;
+  background:
+    radial-gradient(ellipse 60% 70% at 34% 42%, rgba(70, 96, 132, 0.35) 0%, transparent 68%),
+    radial-gradient(ellipse at center, rgba(11, 24, 44, 0.94) 0%, rgba(3, 8, 16, 0.985) 100%);
+  backdrop-filter: blur(0.6cqh);
+  -webkit-backdrop-filter: blur(0.6cqh);
 }
 
 .photo-viewer__inner {
@@ -2020,70 +2037,235 @@ button.artifact-pedestal {
   display: flex;
   align-items: center;
   gap: 3cqw;
-  max-width: 88cqw;
-  max-height: 86cqh;
+  max-width: 90cqw;
+  max-height: 88cqh;
+  animation: viewer-rise 0.32s var(--ease-pop) both;
 }
+
+@keyframes viewer-rise {
+  from {
+    opacity: 0;
+    transform: translateY(2.4cqh) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- 액자 --- */
+
+.photo-viewer__frame {
+  display: grid;
+  gap: 1.4cqh;
+  justify-items: center;
+  padding: 1.4cqh 1.2cqw;
+  border-radius: calc(var(--radius-card) * 1.1);
+  /* 나뭇결 프레임: 사선 결 + 세로 명암 */
+  background:
+    repeating-linear-gradient(92deg, rgba(255, 255, 255, 0.06) 0 0.16cqh, transparent 0.16cqh 0.7cqh),
+    linear-gradient(168deg, #8a5c33 0%, var(--color-wood) 46%, #4a2d17 100%);
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(255, 226, 175, 0.5),
+    inset 0 -0.28cqh 0 rgba(0, 0, 0, 0.5),
+    var(--gild-ring-outer),
+    0 1.6cqh 3cqh rgba(0, 0, 0, 0.55),
+    0 5cqh 9cqh rgba(0, 0, 0, 0.5);
+}
+
+/* 매트지(사진 둘레 여백) — 확대해도 액자 밖으로 새지 않게 여기서 자른다 */
+.photo-viewer__mat {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 50cqw;
+  height: 62cqh;
+  border-radius: 0.8cqh;
+  background:
+    var(--paper-grain),
+    linear-gradient(170deg, #fffdf6 0%, #f4ebd8 100%);
+  box-shadow:
+    inset 0 0 0 0.16cqw rgba(214, 168, 79, 0.75),
+    inset 0 0.6cqh 1.6cqh rgba(90, 62, 30, 0.3);
+}
+
+.photo-viewer__img {
+  /* 매트지와 같은 치수로 직접 묶는다. grid 아이템에서는 max-height:100% 가
+   * 확정 높이로 풀리지 않아 원본 크기 그대로 튀어나온다. */
+  max-width: 50cqw;
+  max-height: 62cqh;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 0.14s var(--ease-out);
+  cursor: zoom-in;
+  filter: drop-shadow(0 0.8cqh 1.6cqh rgba(0, 0, 0, 0.35));
+}
+
+/* --- 줌 컨트롤 --- */
+
+.photo-viewer__zoombar {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  padding: 0.5cqh 1cqw;
+  border-radius: 3cqh;
+  background: linear-gradient(180deg, rgba(10, 22, 40, 0.92), rgba(4, 10, 20, 0.95));
+  box-shadow:
+    inset 0 0.18cqh 0 rgba(180, 214, 255, 0.25),
+    var(--gild-ring),
+    0 0.6cqh 1.4cqh rgba(0, 0, 0, 0.5);
+}
+
+.photo-viewer__zoombtn,
+.photo-viewer__zoomreset {
+  font-family: var(--font-display);
+  font-weight: 400;
+  min-height: max(44px, 5.2cqh);
+  border-radius: 2.6cqh;
+  border: 0.18cqw solid var(--color-gold);
+  background: linear-gradient(180deg, #2a5b88 0%, var(--color-navy) 100%);
+  color: var(--color-gold-light);
+  cursor: pointer;
+  transition: transform 0.12s var(--ease-out), box-shadow 0.12s var(--ease-out), filter 0.12s ease;
+  box-shadow: inset 0 0.2cqh 0 rgba(190, 220, 255, 0.3), 0 0.35cqh 0 var(--btn-edge-navy);
+}
+
+.photo-viewer__zoombtn {
+  width: max(44px, 5.2cqh);
+  font-size: 3cqh;
+  line-height: 1;
+}
+
+.photo-viewer__zoomreset {
+  padding: 0 1.2cqw;
+  font-size: 2.2cqh;
+}
+
+.photo-viewer__zoombtn:hover:not(:disabled),
+.photo-viewer__zoomreset:hover:not(:disabled) {
+  transform: translateY(-0.25cqh);
+  filter: brightness(1.12);
+  box-shadow: inset 0 0.2cqh 0 rgba(190, 220, 255, 0.4), 0 0.6cqh 0 var(--btn-edge-navy), 0 0 2cqh rgba(214, 168, 79, 0.5);
+}
+
+.photo-viewer__zoombtn:active:not(:disabled),
+.photo-viewer__zoomreset:active:not(:disabled) {
+  transform: translateY(0.3cqh);
+  box-shadow: inset 0 0.3cqh 0.8cqh rgba(0, 0, 0, 0.5);
+}
+
+.photo-viewer__zoombtn:focus-visible,
+.photo-viewer__zoomreset:focus-visible,
+.photo-viewer__close:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.photo-viewer__zoombtn:disabled,
+.photo-viewer__zoomreset:disabled {
+  cursor: default;
+  color: rgba(236, 217, 168, 0.4);
+  border-color: rgba(214, 168, 79, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.4);
+  transform: none;
+}
+
+.photo-viewer__zoomval {
+  min-width: 7cqh;
+  text-align: center;
+  font-size: 2.2cqh;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-gold-light);
+}
+
+/* --- 정보 패널 --- */
 
 .photo-viewer__info {
+  position: relative;
   display: grid;
-  gap: 1.2cqh;
+  gap: 0.9cqh;
   align-content: center;
-  max-width: 34cqw;
+  width: 32cqw;
+  max-height: 88cqh;
+  overflow-y: auto;
   text-align: left;
-  background: rgba(247, 234, 208, 0.96);
-  border: 0.3cqw solid var(--color-gold);
+  background:
+    var(--paper-grain),
+    var(--paper-face);
   border-radius: var(--radius-card);
-  padding: 2.4cqh 2cqw;
+  padding: 2.6cqh 2cqw;
+  box-shadow:
+    var(--gild-2tone),
+    var(--gild-ring-outer),
+    0 1.4cqh 2.8cqh rgba(0, 0, 0, 0.5),
+    0 4cqh 7cqh rgba(0, 0, 0, 0.4);
 }
 
-.photo-viewer__period {
-  font-size: 2.4cqh;
+.photo-viewer__eyebrow {
+  font-size: 2cqh;
   font-weight: 800;
+  letter-spacing: 0.4cqw;
   color: var(--color-teal);
 }
 
+.photo-viewer__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 4.6cqh;
+  line-height: 1.15;
+  color: var(--color-navy);
+  text-wrap: balance;
+  padding-bottom: 1cqh;
+  border-bottom: 0.3cqh solid var(--color-gold);
+}
+
+.photo-viewer__period {
+  justify-self: start;
+  font-size: 2.2cqh;
+  font-weight: 800;
+  color: var(--color-gold-light);
+  background: linear-gradient(180deg, #24557f 0%, var(--color-navy) 100%);
+  border: 0.16cqw solid var(--color-gold);
+  border-radius: 2.4cqh;
+  padding: 0.35cqh 1.2cqw;
+  box-shadow: inset 0 0.18cqh 0 rgba(190, 220, 255, 0.3);
+}
+
 .photo-viewer__desc {
-  font-size: 2.8cqh;
+  font-size: 2.6cqh;
   line-height: 1.55;
   color: var(--color-ink);
   text-wrap: pretty;
 }
 
 .photo-viewer__hint {
-  font-size: 2.2cqh;
+  font-size: 2.1cqh;
   line-height: 1.5;
   color: var(--color-wood);
-  border-top: 0.2cqh dashed var(--color-wood);
+  border-top: 0.2cqh dashed rgba(107, 69, 40, 0.6);
   padding-top: 1cqh;
   text-wrap: pretty;
 }
 
-.photo-viewer__img {
-  max-width: 50cqw;
-  max-height: 78cqh;
-  object-fit: contain;
-  border-radius: 1cqh;
-  border: 0.3cqw solid var(--color-gold);
-  background: #fff;
-}
-
-.photo-viewer__bar {
-  display: grid;
-  justify-items: center;
-  gap: 0.4cqh;
-}
-
-.photo-viewer__title {
-  font-family: var(--font-display);
-  font-size: 4.4cqh;
-  color: var(--color-navy);
+.photo-viewer__zoomhint {
+  font-size: 2cqh;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--color-teal);
+  text-wrap: pretty;
 }
 
 .photo-viewer__credit {
   font-size: 2cqh;
   font-weight: 700;
-  color: var(--color-wood);
+  line-height: 1.4;
+  color: rgba(107, 69, 40, 0.85);
+  text-wrap: pretty;
 }
+
+/* --- 닫기 --- */
 
 .photo-viewer__close {
   position: absolute;
@@ -2091,13 +2273,48 @@ button.artifact-pedestal {
   top: 2cqh;
   width: max(48px, 7cqh);
   height: max(48px, 7cqh);
+  display: grid;
+  place-items: center;
   border-radius: 50%;
-  border: 0.25cqw solid var(--color-gold);
-  background: rgba(16, 35, 63, 0.9);
+  border: 0.22cqw solid var(--color-gold);
+  background: radial-gradient(circle at 35% 28%, #2f6394 0%, var(--color-navy) 62%, #071224 100%);
   color: var(--color-gold-light);
   font-size: 3.4cqh;
+  line-height: 1;
   cursor: pointer;
   z-index: 2;
+  transition: transform 0.14s var(--ease-out), box-shadow 0.14s var(--ease-out), background 0.14s ease;
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(190, 220, 255, 0.35),
+    0 0.6cqh 1.4cqh rgba(0, 0, 0, 0.55);
+}
+
+.photo-viewer__close:hover {
+  transform: scale(1.08) rotate(90deg);
+  background: radial-gradient(circle at 35% 28%, #c2604c 0%, var(--color-wrong) 62%, #6d2b1f 100%);
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(255, 210, 190, 0.4),
+    0 0.9cqh 2cqh rgba(0, 0, 0, 0.55);
+}
+
+.photo-viewer__close:active {
+  transform: scale(0.94) rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-viewer,
+  .photo-viewer__inner {
+    animation: none;
+  }
+
+  .photo-viewer__img {
+    transition: none;
+  }
+
+  .photo-viewer__close:hover,
+  .photo-viewer__close:active {
+    transform: none;
+  }
 }
 
 /* 드래그 중 임시 선 */
@@ -2114,23 +2331,523 @@ button.artifact-pedestal {
   max-height: 22cqh;
 }
 
-/* 사진 뷰어: 휠·핀치로 확대 */
-.photo-viewer__img {
-  transform-origin: center;
-  transition: transform 0.12s ease-out;
-  cursor: zoom-in;
-}
-
-.photo-viewer__zoomhint {
-  font-size: 2cqh;
-  font-weight: 700;
-  color: var(--color-teal);
-}
-
 .stage-deco--swap .stage-deco__character {
   right: -10cqw;
 }
 
 .stage-deco--swap .stage-deco__mascot {
   left: -10cqw;
+}
+
+/* =========================================================================
+   질감·상태 마감 (이 파일 마지막 구획)
+   - 평평한 단색 면을 없애고 종이 결 / 금박 2톤 / 다층 그림자를 얹는다
+   - hover · active · focus-visible · disabled 를 형태로 구분한다
+   - 정답 / 오답 피드백을 눈에 띄게 (reduced-motion 존중)
+   ========================================================================= */
+
+/* ---------- 종이 면: 카드·선택지·칩 ---------- */
+
+.stage-card,
+.choice-item,
+.match-item,
+.event-card,
+.diary-tray__item,
+.observe-point,
+.standard-card,
+.settings-menu-item,
+.settings-toggle,
+.fill-chip,
+.puzzle-piece,
+.timeline-cell--filled {
+  background-image:
+    var(--paper-grain),
+    var(--paper-face);
+  background-color: var(--color-paper);
+}
+
+.stage-card,
+.choice-item,
+.match-item,
+.event-card,
+.diary-tray__item,
+.fill-chip,
+.puzzle-piece {
+  box-shadow:
+    var(--gild-2tone),
+    var(--shadow-lift);
+  transition:
+    transform 0.14s var(--ease-out),
+    box-shadow 0.14s var(--ease-out),
+    border-color 0.14s ease,
+    filter 0.14s ease;
+}
+
+/* 스테이지 카드: 안쪽 금박 실선으로 액자 느낌 */
+.stage-card::after {
+  content: '';
+  position: absolute;
+  inset: 0.9cqh 0.55cqw;
+  border: 0.14cqw solid rgba(214, 168, 79, 0.45);
+  border-radius: calc(var(--radius-card) * 0.65);
+  pointer-events: none;
+}
+
+.stage-card:hover:not(:disabled) {
+  transform: translateY(-1cqh);
+  border-color: var(--color-gold);
+  box-shadow:
+    var(--gild-2tone),
+    var(--inner-glow),
+    var(--shadow-lift-hi);
+}
+
+.stage-card:active:not(:disabled) {
+  transform: translateY(-0.15cqh) scale(0.985);
+  box-shadow: var(--gild-2tone), var(--shadow-press);
+}
+
+.stage-card--locked,
+.stage-card:disabled {
+  filter: grayscale(0.9) brightness(0.72) contrast(0.92);
+  transform: none;
+  box-shadow: inset 0 0.3cqh 1cqh rgba(40, 26, 10, 0.35), 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.3);
+}
+
+/* 잠긴 카드는 빗금으로 "아직 못 연다"를 형태로도 알린다 */
+.stage-card--locked::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-card);
+  background: repeating-linear-gradient(135deg, rgba(20, 14, 6, 0.16) 0 1cqh, transparent 1cqh 2.2cqh);
+  pointer-events: none;
+}
+
+/* ---------- 선택지 / 선잇기 / 사건 카드 상태 ---------- */
+
+.choice-item:hover:not(:disabled),
+.match-item:hover:not(:disabled):not(.match-item--done),
+.event-card:hover:not(:disabled),
+.diary-tray__item:hover:not(:disabled) {
+  transform: translateY(-0.5cqh);
+  border-color: var(--color-gold);
+  box-shadow:
+    var(--gild-2tone),
+    var(--inner-glow),
+    var(--shadow-lift-hi);
+}
+
+.choice-item:active:not(:disabled),
+.match-item:active:not(:disabled):not(.match-item--done),
+.event-card:active:not(:disabled),
+.fill-chip:active:not(:disabled),
+.puzzle-piece:active,
+.diary-tray__item:active:not(:disabled) {
+  transform: translateY(0.25cqh) scale(0.98);
+  box-shadow: var(--gild-2tone), var(--shadow-press);
+}
+
+.choice-item:disabled,
+.event-card:disabled,
+.diary-tray__item:disabled {
+  cursor: default;
+  transform: none;
+  filter: grayscale(0.4) brightness(0.94);
+  box-shadow: inset 0 0.25cqh 0.7cqh rgba(90, 66, 36, 0.28);
+}
+
+/* 선택지 번호 원판: 눌린 금속 느낌 */
+.choice-item__num {
+  background: radial-gradient(circle at 34% 26%, #2f6394 0%, var(--color-navy) 62%, #06101f 100%);
+  box-shadow:
+    inset 0 0.18cqh 0 rgba(190, 220, 255, 0.4),
+    0 0.25cqh 0.5cqh rgba(0, 0, 0, 0.45);
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.choice-item:hover:not(:disabled) .choice-item__num {
+  background: radial-gradient(circle at 34% 26%, #f0dcae 0%, var(--color-gold) 60%, #96702c 100%);
+  color: var(--color-navy);
+}
+
+/* 선잇기: 선택 중 / 완료 */
+.match-item--selected {
+  outline: 0.45cqw solid var(--color-teal);
+  outline-offset: 0.15cqw;
+  box-shadow:
+    var(--gild-2tone),
+    var(--shadow-lift-hi),
+    0 0 2.6cqh rgba(46, 110, 106, 0.6);
+}
+
+.match-item--done {
+  background-image:
+    var(--paper-grain),
+    linear-gradient(172deg, #f2f8ee 0%, #dfeada 100%);
+  box-shadow:
+    var(--gild-2tone),
+    inset 0 0 0 0.16cqw rgba(46, 125, 79, 0.45),
+    0 0.3cqh 0.8cqh rgba(24, 16, 6, 0.22);
+}
+
+.match-item--done::after {
+  box-shadow: 0 0 1.4cqh rgba(46, 125, 79, 0.75);
+}
+
+/* ---------- 남색 유리 패널 ---------- */
+
+.placement-tray,
+.timeline-board,
+.puzzle-board,
+.diary-tray {
+  background-image:
+    linear-gradient(178deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 45%),
+    var(--navy-face);
+  box-shadow:
+    inset 0 0.2cqh 0 rgba(180, 214, 255, 0.28),
+    inset 0 -0.3cqh 1cqh rgba(0, 0, 0, 0.45),
+    var(--gild-ring),
+    var(--shadow-lift);
+}
+
+.artifact-pedestal {
+  background-image:
+    radial-gradient(ellipse at 50% 22%, rgba(255, 248, 230, 0.42), transparent 62%),
+    linear-gradient(178deg, rgba(36, 72, 116, 0.5) 0%, rgba(8, 18, 34, 0.55) 100%);
+  box-shadow:
+    inset 0 0.2cqh 0 rgba(190, 220, 255, 0.3),
+    inset 0 -1.2cqh 2cqh rgba(0, 0, 0, 0.35),
+    0 0.8cqh 1.8cqh rgba(0, 0, 0, 0.4);
+}
+
+/* 배치형 슬롯: 비었을 때는 파인 홈처럼 */
+.placement-slot {
+  background-image: linear-gradient(178deg, rgba(4, 10, 20, 0.5) 0%, rgba(11, 24, 43, 0.35) 100%);
+  box-shadow:
+    inset 0 0.5cqh 1.4cqh rgba(0, 0, 0, 0.55),
+    inset 0 -0.2cqh 0 rgba(190, 220, 255, 0.12);
+}
+
+.placement-slot--target {
+  background-image: linear-gradient(178deg, rgba(46, 110, 106, 0.65) 0%, rgba(28, 74, 72, 0.55) 100%);
+}
+
+/* 연표 빈 칸도 홈처럼, 채워지면 종이가 얹힌 것처럼 */
+.timeline-cell {
+  transition: box-shadow 0.14s var(--ease-out), border-color 0.14s ease, transform 0.14s var(--ease-out);
+  box-shadow: inset 0 0.4cqh 1cqh rgba(0, 0, 0, 0.4);
+}
+
+.timeline-cell--target {
+  border-color: var(--color-gold);
+  animation: slot-pulse 1s ease-in-out infinite;
+}
+
+.timeline-cell--filled {
+  box-shadow: var(--gild-2tone), 0 0.4cqh 1cqh rgba(0, 0, 0, 0.35);
+}
+
+.timeline-cell:hover:not(:disabled) {
+  border-color: var(--color-gold);
+  transform: translateY(-0.3cqh);
+}
+
+.timeline-cell__num {
+  background-image: linear-gradient(180deg, #f0dcae 0%, var(--color-gold) 55%, #a97d31 100%);
+  box-shadow: inset 0 0.16cqh 0 rgba(255, 250, 232, 0.85), 0 0.25cqh 0.5cqh rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- 퍼즐 ---------- */
+
+.puzzle-slot {
+  box-shadow: inset 0 0.4cqh 1.2cqh rgba(0, 0, 0, 0.45);
+}
+
+.puzzle-piece:hover {
+  transform: translateY(-0.5cqh) rotate(-1deg);
+  box-shadow: var(--gild-2tone), var(--shadow-lift-hi);
+}
+
+.puzzle-piece--armed,
+.placement-artifact--armed .placement-artifact__img {
+  outline: 0.5cqw solid var(--color-gold);
+  outline-offset: 0.3cqw;
+  filter: drop-shadow(0 0 1.8cqh rgba(214, 168, 79, 0.9));
+}
+
+/* ---------- 관찰 포인트 ---------- */
+
+.observe-point {
+  transition: background 0.14s ease, border-color 0.14s ease, box-shadow 0.14s var(--ease-out), transform 0.14s var(--ease-out);
+  box-shadow: inset 0 0.16cqh 0 rgba(255, 255, 255, 0.7), 0 0.3cqh 0.8cqh rgba(24, 16, 6, 0.22);
+}
+
+.observe-point:hover {
+  transform: translateY(-0.3cqh);
+  border-color: var(--color-gold);
+  border-style: solid;
+  box-shadow: inset 0 0.16cqh 0 rgba(255, 255, 255, 0.8), var(--shadow-lift);
+}
+
+.observe-point--open {
+  border-style: solid;
+  border-color: var(--color-teal);
+  box-shadow:
+    inset 0 0.16cqh 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 0.14cqw rgba(46, 110, 106, 0.35),
+    var(--shadow-lift);
+}
+
+/* ---------- 설정 패널 ---------- */
+
+.settings-menu-item {
+  transition: background 0.14s ease, color 0.14s ease, box-shadow 0.14s var(--ease-out), transform 0.14s var(--ease-out);
+  box-shadow: inset 0 0.14cqh 0 rgba(255, 255, 255, 0.7), 0 0.25cqh 0.6cqh rgba(24, 16, 6, 0.18);
+}
+
+.settings-menu-item:hover:not(.settings-menu-item--active) {
+  transform: translateX(0.4cqw);
+  border-color: var(--color-gold);
+}
+
+.settings-menu-item--active {
+  background-image: var(--navy-face);
+  box-shadow:
+    inset 0 0.2cqh 0 rgba(190, 220, 255, 0.32),
+    inset 0 -0.3cqh 0.9cqh rgba(0, 0, 0, 0.4),
+    0 0.4cqh 1cqh rgba(0, 0, 0, 0.3);
+}
+
+.settings-toggle {
+  box-shadow: inset 0 0.16cqh 0 rgba(255, 255, 255, 0.65), inset 0 -0.2cqh 0.6cqh rgba(107, 69, 40, 0.14);
+}
+
+.settings-toggle__btn {
+  transition: background 0.14s ease, box-shadow 0.14s var(--ease-out), transform 0.12s var(--ease-out);
+  background-image: linear-gradient(180deg, #ebe2ce 0%, #d3c7ac 100%);
+  box-shadow: inset 0 0.18cqh 0 rgba(255, 255, 255, 0.8), inset 0 -0.35cqh 0.7cqh rgba(107, 69, 40, 0.25);
+}
+
+.settings-toggle__btn:hover {
+  transform: translateY(-0.25cqh);
+  border-color: var(--color-gold);
+}
+
+.settings-toggle__btn:active {
+  transform: translateY(0.2cqh);
+  box-shadow: inset 0 0.3cqh 0.8cqh rgba(107, 69, 40, 0.4);
+}
+
+.settings-toggle__btn--on {
+  background-image: linear-gradient(180deg, #45938d 0%, var(--color-teal) 100%);
+  box-shadow:
+    inset 0 0.2cqh 0 rgba(255, 255, 255, 0.35),
+    inset 0 -0.35cqh 0.7cqh rgba(0, 0, 0, 0.3),
+    0 0 1.6cqh rgba(46, 110, 106, 0.5);
+}
+
+.standard-card {
+  box-shadow: var(--gild-2tone), 0 0.4cqh 1cqh rgba(24, 16, 6, 0.2);
+}
+
+/* ---------- 아이콘 버튼 ---------- */
+
+.icon-btn {
+  background-image: radial-gradient(circle at 34% 26%, #2f6394 0%, var(--color-navy) 62%, #06101f 100%);
+  transition: transform 0.14s var(--ease-out), box-shadow 0.14s var(--ease-out), filter 0.14s ease;
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(190, 220, 255, 0.35),
+    0 0.5cqh 1.2cqh rgba(0, 0, 0, 0.45);
+}
+
+.icon-btn:hover {
+  transform: scale(1.08) translateY(-0.2cqh);
+  filter: brightness(1.12);
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(190, 220, 255, 0.45),
+    0 0.8cqh 1.8cqh rgba(0, 0, 0, 0.5),
+    0 0 2.2cqh rgba(214, 168, 79, 0.55);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 0.3cqh 0.9cqh rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- 포커스 가시성 통일 ---------- */
+
+.stage-card:focus-visible,
+.choice-item:focus-visible,
+.match-item:focus-visible,
+.event-card:focus-visible,
+.timeline-cell:focus-visible,
+.observe-point:focus-visible,
+.diary-tray__item:focus-visible,
+.diary-tab:focus-visible,
+.settings-menu-item:focus-visible,
+.settings-toggle__btn:focus-visible,
+.icon-btn:focus-visible,
+.fill-chip:focus-visible,
+.fill-blank:focus-visible,
+.puzzle-piece:focus-visible,
+.puzzle-slot:focus-visible,
+.placement-slot:focus-visible,
+.placement-artifact:focus-visible,
+.review-gate:focus-visible,
+.standard-card__summary:focus-visible {
+  outline: 0.34cqw solid var(--color-gold);
+  outline-offset: 0.26cqw;
+  filter: drop-shadow(0 0 1.4cqh rgba(214, 168, 79, 0.9));
+}
+
+/* ---------- 정답 · 오답 피드백 ---------- */
+
+@keyframes fb-wrong {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+  14% {
+    transform: translateX(-0.9cqw) rotate(-1deg);
+  }
+  30% {
+    transform: translateX(0.9cqw) rotate(1deg);
+  }
+  46% {
+    transform: translateX(-0.65cqw) rotate(-0.7deg);
+  }
+  62% {
+    transform: translateX(0.65cqw) rotate(0.7deg);
+  }
+  80% {
+    transform: translateX(-0.3cqw) rotate(0);
+  }
+}
+
+@keyframes fb-wrong-flash {
+  0%,
+  100% {
+    filter: none;
+  }
+  30% {
+    filter: drop-shadow(0 0 1.8cqh rgba(176, 74, 58, 0.95)) saturate(1.35) brightness(1.06);
+  }
+  65% {
+    filter: drop-shadow(0 0 0.8cqh rgba(176, 74, 58, 0.5));
+  }
+}
+
+@keyframes fb-correct {
+  0% {
+    transform: scale(1);
+  }
+  32% {
+    transform: scale(1.08);
+  }
+  58% {
+    transform: scale(0.975);
+  }
+  78% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fb-correct-glow {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(46, 125, 79, 0));
+  }
+  38% {
+    filter: drop-shadow(0 0 2.2cqh rgba(46, 125, 79, 0.95)) brightness(1.06);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(46, 125, 79, 0));
+  }
+}
+
+.choice-item--wrong,
+.timeline-cell--wrong,
+.fill-chip--wrong,
+.placement-slot--wrong {
+  animation:
+    fb-wrong 0.5s var(--ease-out),
+    fb-wrong-flash 0.7s ease-out;
+}
+
+.choice-item--wrong,
+.timeline-cell--wrong,
+.fill-chip--wrong {
+  background-image: linear-gradient(176deg, #f5ddd4 0%, #e3c8bd 100%);
+  border-color: var(--color-wrong);
+  color: var(--color-wrong);
+  box-shadow:
+    inset 0 0 0 0.16cqw rgba(176, 74, 58, 0.5),
+    inset 0 0.2cqh 0 rgba(255, 255, 255, 0.6),
+    0 0.3cqh 0.8cqh rgba(120, 40, 30, 0.3);
+}
+
+.match-item--done,
+.timeline-cell--filled,
+.fill-blank--filled,
+.puzzle-slot--filled {
+  animation:
+    fb-correct 0.5s var(--ease-pop),
+    fb-correct-glow 0.8s ease-out;
+}
+
+.puzzle-board--complete {
+  animation: board-glow 0.9s ease;
+}
+
+/* ---------- 모션 최소화 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .choice-item--wrong,
+  .timeline-cell--wrong,
+  .fill-chip--wrong,
+  .placement-slot--wrong,
+  .match-item--done,
+  .timeline-cell--filled,
+  .fill-blank--filled,
+  .puzzle-slot--filled,
+  .puzzle-board--complete,
+  .placement-slot--target,
+  .puzzle-slot--target,
+  .timeline-cell--target,
+  .review-gate {
+    animation: none;
+  }
+
+  .stage-card,
+  .choice-item,
+  .match-item,
+  .event-card,
+  .diary-tray__item,
+  .fill-chip,
+  .puzzle-piece,
+  .timeline-cell,
+  .observe-point,
+  .settings-menu-item,
+  .settings-toggle__btn,
+  .icon-btn,
+  .app-btn {
+    transition-duration: 0.01ms;
+  }
+
+  .stage-card:hover:not(:disabled),
+  .choice-item:hover:not(:disabled),
+  .match-item:hover:not(:disabled):not(.match-item--done),
+  .event-card:hover:not(:disabled),
+  .diary-tray__item:hover:not(:disabled),
+  .puzzle-piece:hover,
+  .timeline-cell:hover:not(:disabled),
+  .observe-point:hover,
+  .settings-menu-item:hover:not(.settings-menu-item--active),
+  .settings-toggle__btn:hover,
+  .icon-btn:hover {
+    transform: none;
+  }
 }

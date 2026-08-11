@@ -1,6 +1,7 @@
 /* ---------- 버튼 ---------- */
 
 .app-btn {
+  position: relative;
   min-height: max(48px, var(--button-height));
   min-width: 48px;
   padding: 0.8cqh 2.4cqw;
@@ -11,67 +12,169 @@
   font-weight: 400;
   letter-spacing: 0.05cqw;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.12s ease;
+  isolation: isolate;
+  transition:
+    transform 0.12s var(--ease-out),
+    box-shadow 0.12s var(--ease-out),
+    filter 0.12s ease,
+    border-color 0.12s ease;
   touch-action: manipulation;
 }
 
+/* 버튼 윗면 유광 하이라이트 — 평평한 단색 면을 없앤다 */
+.app-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0.18cqh 0.3cqw auto;
+  height: 42%;
+  border-radius: calc(var(--radius-card) * 0.6) calc(var(--radius-card) * 0.6) 40% 40% / 60% 60% 100% 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0));
+  pointer-events: none;
+  z-index: -1;
+}
+
 .app-btn:hover:not(:disabled) {
-  transform: translateY(-0.3cqh);
-  filter: brightness(1.05);
+  transform: translateY(-0.35cqh);
+  filter: brightness(1.06) saturate(1.04);
+  border-color: var(--color-gold);
 }
 
 /* 3D 엣지: 누르면 버튼이 실제로 눌리는 느낌 */
 .app-btn:active:not(:disabled) {
   transform: translateY(0.45cqh);
+  filter: brightness(0.97);
 }
 
 .app-btn:focus-visible {
-  outline: 0.4cqw solid var(--color-gold);
-  outline-offset: 0.2cqw;
+  outline: none;
+  border-color: var(--color-gold);
 }
 
 .app-btn:disabled {
-  opacity: 0.45;
   cursor: default;
 }
 
 .app-btn--primary {
-  background: linear-gradient(180deg, #fdf3dc 0%, var(--color-paper-dark) 100%);
+  background:
+    var(--paper-grain),
+    linear-gradient(178deg, #fffaea 0%, #fdf3dc 38%, var(--color-paper-dark) 100%);
   color: var(--color-ink);
-  box-shadow: 0 0.55cqh 0 var(--btn-edge-paper), 0 0.9cqh 1.8cqh rgba(24, 16, 6, 0.35), inset 0 0.2cqh 0 rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(255, 255, 255, 0.9),
+    inset 0 -0.5cqh 0.8cqh rgba(140, 96, 44, 0.22),
+    0 0.55cqh 0 var(--btn-edge-paper),
+    var(--shadow-lift);
+}
+
+.app-btn--primary:hover:not(:disabled) {
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(255, 255, 255, 0.95),
+    inset 0 -0.5cqh 0.8cqh rgba(140, 96, 44, 0.2),
+    0 0.85cqh 0 var(--btn-edge-paper),
+    var(--shadow-lift-hi);
 }
 
 .app-btn--primary:active:not(:disabled) {
-  box-shadow: 0 0.1cqh 0 var(--btn-edge-paper), 0 0.3cqh 0.6cqh rgba(24, 16, 6, 0.3);
+  box-shadow:
+    inset 0 0.3cqh 0.9cqh rgba(120, 80, 36, 0.35),
+    0 0.1cqh 0 var(--btn-edge-paper),
+    0 0.3cqh 0.6cqh rgba(24, 16, 6, 0.3);
+}
+
+.app-btn--primary:focus-visible {
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(255, 255, 255, 0.9),
+    0 0.55cqh 0 var(--btn-edge-paper),
+    var(--focus-ring);
 }
 
 .app-btn--secondary {
-  background: linear-gradient(180deg, #24557f 0%, var(--color-navy) 100%);
+  background: var(--navy-face);
   color: var(--color-gold-light);
   border-color: var(--color-gold);
-  box-shadow: 0 0.55cqh 0 var(--btn-edge-navy), 0 0.9cqh 1.8cqh rgba(9, 22, 40, 0.4), inset 0 0.2cqh 0 rgba(255, 255, 255, 0.18);
+  text-shadow: 0 0.2cqh 0.4cqh rgba(0, 0, 0, 0.55);
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(180, 214, 255, 0.35),
+    inset 0 -0.5cqh 0.9cqh rgba(0, 0, 0, 0.4),
+    0 0.55cqh 0 var(--btn-edge-navy),
+    var(--shadow-lift);
+}
+
+.app-btn--secondary::before {
+  background: linear-gradient(180deg, rgba(200, 226, 255, 0.28), rgba(255, 255, 255, 0));
+}
+
+.app-btn--secondary:hover:not(:disabled) {
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(200, 228, 255, 0.45),
+    inset 0 -0.5cqh 0.9cqh rgba(0, 0, 0, 0.35),
+    0 0.85cqh 0 var(--btn-edge-navy),
+    var(--shadow-lift-hi),
+    0 0 2.4cqh rgba(214, 168, 79, 0.35);
 }
 
 .app-btn--secondary:active:not(:disabled) {
-  box-shadow: 0 0.1cqh 0 var(--btn-edge-navy), 0 0.3cqh 0.6cqh rgba(9, 22, 40, 0.35);
+  box-shadow:
+    inset 0 0.35cqh 1cqh rgba(0, 0, 0, 0.5),
+    0 0.1cqh 0 var(--btn-edge-navy),
+    0 0.3cqh 0.6cqh rgba(9, 22, 40, 0.35);
+}
+
+.app-btn--secondary:focus-visible {
+  box-shadow:
+    inset 0 0.22cqh 0 rgba(180, 214, 255, 0.35),
+    0 0.55cqh 0 var(--btn-edge-navy),
+    var(--focus-ring);
 }
 
 .app-btn--ghost {
-  background: rgba(247, 234, 208, 0.85);
-  border-color: rgba(107, 69, 40, 0.5);
+  background:
+    var(--paper-grain),
+    linear-gradient(178deg, rgba(255, 250, 236, 0.95) 0%, rgba(238, 223, 190, 0.9) 100%);
+  border-color: rgba(107, 69, 40, 0.55);
   font-size: 2.1cqh;
+  box-shadow:
+    inset 0 0.18cqh 0 rgba(255, 255, 255, 0.8),
+    0 0.35cqh 0 rgba(140, 108, 66, 0.7),
+    0 0.5cqh 1cqh rgba(24, 16, 6, 0.28);
+}
+
+.app-btn--ghost:active:not(:disabled) {
+  box-shadow:
+    inset 0 0.28cqh 0.7cqh rgba(120, 80, 36, 0.3),
+    0 0.1cqh 0 rgba(140, 108, 66, 0.7);
+}
+
+.app-btn--ghost:focus-visible {
+  box-shadow:
+    inset 0 0.18cqh 0 rgba(255, 255, 255, 0.8),
+    0 0.35cqh 0 rgba(140, 108, 66, 0.7),
+    var(--focus-ring);
 }
 
 /* ---------- 종이 카드 ---------- */
 
 .paper-card {
+  position: relative;
   background:
-    radial-gradient(circle at 20% 15%, rgba(255, 252, 240, 0.55), transparent 55%),
-    linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
+    var(--paper-grain),
+    var(--paper-face);
   border: 0.25cqw solid var(--color-wood);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    var(--gild-2tone),
+    var(--shadow-lift);
   padding: 1.5cqh 1.5cqw;
+}
+
+/* 안쪽 금박 실선 — 카드에 액자 느낌을 준다 */
+.paper-card::before {
+  content: '';
+  position: absolute;
+  inset: 0.5cqh 0.45cqw;
+  border: 0.14cqw solid rgba(214, 168, 79, 0.5);
+  border-radius: calc(var(--radius-card) * 0.65);
+  pointer-events: none;
 }
 
 /* ---------- 모달 ---------- */
@@ -82,13 +185,31 @@
   z-index: 40;
   display: grid;
   place-items: center;
-  background: rgba(10, 22, 38, 0.6);
+  background:
+    radial-gradient(ellipse at center, rgba(10, 22, 38, 0.55) 0%, rgba(4, 10, 20, 0.86) 100%);
+  backdrop-filter: blur(0.5cqh) saturate(0.85);
+  -webkit-backdrop-filter: blur(0.5cqh) saturate(0.85);
+  animation: backdrop-in 0.22s var(--ease-out);
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-panel {
   max-width: 62cqw;
   max-height: 82cqh;
   overflow-y: auto;
+  box-shadow:
+    var(--gild-2tone),
+    var(--gild-ring),
+    0 1.2cqh 2.4cqh rgba(4, 10, 20, 0.5),
+    0 4cqh 7cqh rgba(4, 10, 20, 0.45);
 }
 
 /* ---------- 에러 폴백 / 이름 칩 ---------- */
@@ -314,14 +435,23 @@ h2,
   text-wrap: pretty;
 }
 
-/* 비활성 버튼도 글자는 읽히게 — 종류와 무관하게 같은 회색 종이 톤으로 통일 */
+/* 비활성 버튼도 글자는 읽히게 — 종류와 무관하게 같은 회색 종이 톤으로 통일.
+ * 튀어나온 3D 엣지를 없애고 안쪽으로 눌린 상태로 두어 "지금은 못 누른다"를 형태로 알린다. */
 .app-btn:disabled,
 .app-btn--secondary:disabled,
 .app-btn--ghost:disabled {
   opacity: 1;
-  filter: none;
-  background: linear-gradient(180deg, #e7ddc7 0%, #d6cab0 100%);
-  color: rgba(43, 33, 24, 0.7);
-  border-color: rgba(107, 69, 40, 0.4);
-  box-shadow: none;
+  filter: grayscale(0.35);
+  background:
+    repeating-linear-gradient(135deg, rgba(107, 69, 40, 0.05) 0 0.5cqh, transparent 0.5cqh 1.1cqh),
+    linear-gradient(180deg, #e7ddc7 0%, #d6cab0 100%);
+  color: rgba(43, 33, 24, 0.62);
+  border-color: rgba(107, 69, 40, 0.35);
+  text-shadow: none;
+  transform: translateY(0.25cqh);
+  box-shadow: inset 0 0.25cqh 0.7cqh rgba(90, 66, 36, 0.28);
+}
+
+.app-btn:disabled::before {
+  display: none;
 }

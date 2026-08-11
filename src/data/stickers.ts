@@ -18,7 +18,7 @@ export const STICKERS: Sticker[] = [
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },
   // ----- 삼국·통일신라 -----
   { id: 'goguryeo-mural', period: 'threeKingdoms', name: '고구려 고분벽화', icon: 'i057', hintLine: '고구려 고분벽화에는 당시 사람들의 생활과 생각이 그림으로 남아 있다.', contentReviewNeeded: true },
-  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i124', hintLine: '광개토대왕릉비는 고구려 광개토대왕의 업적을 기록한 비석이다.', contentReviewNeeded: true },
+  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i124', hintLine: '광개토대왕릉비는 광개토대왕의 업적을 새긴 고구려의 비석이고, 사진 속 글씨는 비석에 종이를 대고 떠낸 탁본이다.', contentReviewNeeded: true, sourceNote: '사진은 국립중앙박물관 소장 원석탁본 — 비석 실물 사진 아님. 학생 오해 방지 문구 포함' },
   { id: 'baekje-incense-burner', period: 'threeKingdoms', name: '백제 금동대향로', icon: 'i052', hintLine: '백제 금동대향로는 백제의 섬세한 공예 기술을 보여 주는 향로이다.', contentReviewNeeded: true },
   { id: 'muryeong-ornament', period: 'threeKingdoms', name: '무령왕 금제관식', icon: 'i143', hintLine: '무령왕릉에서 나온 금제관식은 백제 왕실의 화려한 문화를 보여 준다.', contentReviewNeeded: true },
   { id: 'silla-crown', period: 'threeKingdoms', name: '신라 금관', icon: 'i053', hintLine: '신라 금관은 신라 왕의 권위를 보여 주는 금으로 만든 관이다.', contentReviewNeeded: true },
@@ -31,7 +31,7 @@ export const STICKERS: Sticker[] = [
   { id: 'goryeo-celadon', period: 'goryeo', name: '고려청자', icon: 'i004', hintLine: '고려청자는 아름다운 빛깔과 상감기법으로 고려의 공예 수준을 보여 준다.', contentReviewNeeded: true },
   { id: 'celadon-maebyeong', period: 'goryeo', name: '청자 상감운학문 매병', icon: 'i061', hintLine: '청자 상감운학문 매병은 구름과 학 무늬를 상감기법으로 새긴 대표적인 고려청자이다.', contentReviewNeeded: true },
   { id: 'celadon-melon', period: 'goryeo', name: '청자 참외모양 병', icon: 'i129', hintLine: '청자 참외모양 병은 참외 모양을 본떠 만든 고려청자이다.', contentReviewNeeded: true },
-  { id: 'tripitaka', period: 'goryeo', name: '팔만대장경', icon: 'i062', hintLine: '팔만대장경은 부처의 힘으로 나라의 어려움을 이겨 내고자 새긴 목판이다.', contentReviewNeeded: true },
+  { id: 'tripitaka', period: 'goryeo', name: '팔만대장경', icon: 'i062', hintLine: '팔만대장경은 부처의 힘으로 나라의 어려움을 이겨 내려는 뜻에서 새긴 것으로 알려진 목판이다.', contentReviewNeeded: true },
   { id: 'janggyeong-panjeon', period: 'goryeo', name: '해인사 장경판전', icon: 'i065', hintLine: '장경판전은 팔만대장경 목판을 잘 보존하도록 지은 건물이다.', contentReviewNeeded: true },
   { id: 'metal-type', period: 'goryeo', name: '금속활자', icon: 'i063', hintLine: '금속활자는 금속으로 글자를 만들어 책을 찍는 인쇄 기술이다.', contentReviewNeeded: true },
   { id: 'jikji', period: 'goryeo', name: '직지', icon: 'i130', hintLine: '직지는 현재 남아 있는 금속활자 인쇄본 가운데 세계에서 가장 오래된 책으로 알려져 있다.', contentReviewNeeded: true },
@@ -40,7 +40,7 @@ export const STICKERS: Sticker[] = [
   { id: 'manwoldae', period: 'goryeo', name: '개성 만월대', icon: 'i133', hintLine: '만월대는 고려의 도읍 개경에 있던 궁궐 터이다.', contentReviewNeeded: true },
   // ----- 조선 시대 -----
   { id: 'hunminjeongeum', period: 'joseon', name: '훈민정음 해례본', icon: 'i070', hintLine: '훈민정음 해례본은 세종이 만든 글자의 원리와 사용법을 설명한 책이다.', contentReviewNeeded: true },
-  { id: 'sillok', period: 'joseon', name: '조선왕조실록', icon: 'i134', hintLine: '조선왕조실록은 조선 왕들의 시대를 날마다 기록한 방대한 역사책이다.', contentReviewNeeded: true },
+  { id: 'sillok', period: 'joseon', name: '조선왕조실록', icon: 'i134', hintLine: '조선왕조실록은 조선 왕들의 시대에 있었던 일을 날마다 적어 남긴 아주 많은 분량의 역사책이다.', contentReviewNeeded: true },
   { id: 'cheugugi', period: 'joseon', name: '측우기', icon: 'i071', hintLine: '측우기는 비가 내린 양을 재어 농사에 도움을 주고자 만든 기구이다.', contentReviewNeeded: true },
   { id: 'jagyeongnu', period: 'joseon', name: '자격루', icon: 'i073', hintLine: '자격루는 물의 힘으로 스스로 시각을 알려 주던 물시계이다.', contentReviewNeeded: true },
   { id: 'angbuilgu', period: 'joseon', name: '앙부일구', icon: 'i072', hintLine: '앙부일구는 해의 그림자로 시각을 읽던 해시계이다.', contentReviewNeeded: true },

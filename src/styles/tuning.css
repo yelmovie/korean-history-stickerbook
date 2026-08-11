@@ -288,7 +288,8 @@
 
 /* 출처는 설정 → 정보와 확대 화면에만 두고, 문제 화면에서는 숨긴다 */
 .artifact-photo-frame > .artifact-photo-credit,
-.placement-artifact .artifact-photo-credit,
+.placement-artifact-wrap > .artifact-photo-credit,
+.artifact-pedestal-wrap > .artifact-photo-credit,
 .reward__photo-wrap .artifact-photo-credit,
 .compare-card .artifact-photo-credit {
   display: none;
@@ -540,4 +541,15 @@
 .placement-slot__note {
   font-size: 0.82em;
   opacity: 0.9;
+}
+
+/* 확대 버튼을 끌기·받침대 버튼 밖으로 뺐으므로, 위치 기준을 감싸는 래퍼로 옮긴다.
+ * 래퍼가 내용만큼만 넓어야 확대 버튼이 액자 모서리에 붙는다. */
+.placement-artifact-wrap,
+.artifact-pedestal-wrap {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: fit-content;
+  margin-inline: auto;
 }
