@@ -168,3 +168,18 @@
    - `docs/asset-catalog.md`에 "다이어리 배경·장식" 절을 새로 만들어 35종 표 추가 (아이콘 iNNN 표에는 섞지 말 것)
    - `public/assets/CREDITS.md`에 "생성형 AI 제작 이미지, 실물 유물 사진 아님" 항목으로 한 줄 추가
 7. **검수** — 비밀 스티커 5종은 유물 형태 고증 대상이다. 실물과 크게 다르면 사용 보류 (CONTENT-REVIEW 원칙). 근현대 자료는 폭력·피해 장면 금지.
+
+---
+
+## 추가: 수료증 배경 1종 (2026-08-09)
+
+| 파일명 | 용도 |
+|---|---|
+| `cert_bg.png` | 수료 화면 수료증 패널 배경 (가로 4:3, 1600px 이상) |
+
+```
+A traditional Korean certificate (sujeungjeung) background for children, landscape 4:3. Aged ivory hanji paper texture with a wide ornate gold double border, subtle navy and gold Korean cloud and plum-blossom patterns only along the outer edges, a faint watermark of a Korean pavilion silhouette in the very center at low opacity. IMPORTANT: the entire center area must stay bright and almost empty because certificate text, a name line and record boxes will be placed on top. Elegant, formal but warm and friendly for upper elementary students. No text, no letters, no seal stamp, no collage, no grid, no asset sheet, one complete background image only.
+```
+
+- 적용: `public/assets/opt/cert/cert_bg.webp`로 변환 후 `.completion__cert`의 background-image로 사용
+- 변환: `python -c "from PIL import Image; im=Image.open('cert_bg.png'); im.thumbnail((1600,1600)); im.save('public/assets/opt/cert/cert_bg.webp','WEBP',quality=82)"`

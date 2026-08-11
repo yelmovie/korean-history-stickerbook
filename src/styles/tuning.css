@@ -368,3 +368,97 @@
   background: none;
   box-shadow: none;
 }
+
+/* ================= 스테이지 카드 / 전시 / 수료 ================= */
+
+/* 최고 기록: "다시 도전!"이 줄 끝에 걸리지 않게 두 줄로 */
+.stage-card__best {
+  display: block;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+/* 승인 도장 1.5배 — 카드 안쪽에 머물게 위치도 함께 조정 */
+.stage-card__stamp {
+  right: 0.2cqw;
+  top: 0.4cqh;
+}
+
+.stage-card__stamp-img {
+  width: 10.5cqh;
+  height: 10.5cqh;
+}
+
+/* 전시 화면 발표자 1.5배 (화면 밖으로 나가지 않게 폭 제한) */
+.diary-show__presenter.char-talk {
+  width: 26cqw;
+  height: 62cqh;
+  right: 0;
+}
+
+.diary-show__speech {
+  padding-right: 27cqw;
+}
+
+/* ================= 수료증 ================= */
+
+/* 큐레이터 로고 2배 + 도장처럼 쾅 찍히는 등장 */
+.completion__logo {
+  height: 32cqh;
+  animation: cert-stamp 0.75s cubic-bezier(0.2, 1.5, 0.35, 1) both;
+}
+
+@keyframes cert-stamp {
+  0% {
+    transform: scale(2.6) rotate(-14deg);
+    opacity: 0;
+    filter: blur(0.6cqh);
+  }
+  55% {
+    transform: scale(0.94) rotate(2deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  75% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* 학년·반·번호·이름을 손으로 적는 칸 */
+.cert-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.6cqh 1.4cqw;
+  font-size: 2.4cqh;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.cert-field {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.4cqw;
+}
+
+.cert-field__line {
+  display: inline-block;
+  width: 5cqw;
+  border-bottom: 0.3cqh solid var(--color-wood);
+}
+
+.cert-field__line--long {
+  width: 14cqw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .completion__logo {
+    animation: none;
+  }
+}
