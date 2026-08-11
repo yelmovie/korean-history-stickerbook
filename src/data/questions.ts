@@ -31,7 +31,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-02', stageId: 'stage1', type: 'choice',
-    artifactIcon: 'i042', artifactName: '주먹도끼', excavate: true, artifactPhoto: 'hand-axe',
+    artifactIcon: 'i195', artifactName: '주먹도끼', excavate: true, artifactPhoto: 'hand-axe',
     prompt: '주먹도끼의 생김새를 보고, 구석기 사람들이 어떻게 썼을지 가장 알맞게 추리한 것은?',
     observePoints: [
       { label: '모양', text: '한쪽 끝은 뾰족하고 옆날은 날카로워요.' },
@@ -87,7 +87,7 @@ export const QUESTIONS: Question[] = [
     ],
     answerIndex: 2,
     wrongHint: '사진에서 두 토기의 바닥 모양을 다시 비교해 보세요. 무늬가 없어진 것을 기술이 사라진 탓으로만 볼 수 있을까요?',
-    explanation: '민무늬 토기는 평평한 바닥이 많아지고 크기도 다양해졌다고 알려져 있어요. 농사가 자리 잡으며 곡식을 담고 저장하는 쓰임이 늘어난 변화와 연결해 볼 수 있어요.',
+    explanation: '민무늬 토기는 평평한 바닥이 많아지고 크기도 다양해졌다고 알려져 있어요. 농사가 자리 잡으며 곡식을 담고 저장하는 쓰임이 늘어난 변화와 연결해 볼 수 있어요. 같은 무렵 청동으로 만든 비파형 동검 같은 도구도 나타나요.',
     rewardStickerId: 'bipa-dagger',
     contentReviewNeeded: true, sourceNote: '비교 기준 서술 검수 필요',
   },
@@ -134,7 +134,7 @@ export const QUESTIONS: Question[] = [
   // ================= Stage 2: 삼국 문화유산 탐험 =================
   {
     id: 'q-s2-01', stageId: 'stage2', type: 'placement',
-    artifactIcon: 'i053', artifactName: '신라 금관', artifactPhoto: 'silla-crown',
+    artifactIcon: 'i209', artifactName: '신라 금관', artifactPhoto: 'silla-crown',
     prompt: '신라 금관은 어느 나라의 문화유산일까요? 알맞은 나라에 놓아 보세요.',
     slots: [
       { id: 'goguryeo', label: '고구려' },
@@ -157,7 +157,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-02', stageId: 'stage2', type: 'choice',
-    artifactIcon: 'i126', artifactName: '불국사와 석굴암', artifactPhoto: 'bulguksa',
+    artifactIcon: 'i055', artifactName: '불국사와 석굴암', artifactPhoto: 'bulguksa',
     prompt: '불국사와 석굴암을 통해 알 수 있는 통일신라 문화의 특징으로 가장 알맞은 것은?',
     choices: [
       '나라에서 불교 대신 유교를 앞세워 깊이 가르쳤다',
@@ -196,7 +196,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-04', stageId: 'stage2', type: 'choice',
-    artifactIcon: 'i052', artifactName: '백제 금동대향로', artifactPhoto: 'baekje-incense-burner',
+    artifactIcon: 'i206', artifactName: '백제 금동대향로', artifactPhoto: 'baekje-incense-burner',
     prompt: '백제 금동대향로를 관찰하면 산과 동물, 악사 등이 정교하게 새겨져 있어요. 이를 통해 알 수 있는 것은?',
     observePoints: [
       { label: '꼭대기', text: '봉황 모양 장식이 있어요.' },
@@ -270,7 +270,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s3-02', stageId: 'stage3', type: 'choice',
-    artifactIcon: 'i062', artifactName: '팔만대장경과 장경판전', artifactPhoto: 'tripitaka',
+    artifactIcon: 'i220', artifactName: '팔만대장경과 장경판전', artifactPhoto: 'tripitaka',
     prompt: '팔만대장경(목판 8만여 장)과 그것을 보관한 장경판전을 함께 살펴보면, 고려의 어떤 특징을 알 수 있을까요?',
     observePoints: [
       { label: '목판', text: '나무판에 한 글자씩 정성껏 새겼어요.' },
@@ -364,7 +364,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-02', stageId: 'stage4', type: 'choice',
-    artifactIcon: 'i071', artifactName: '측우기', artifactPhoto: 'cheugugi',
+    artifactIcon: 'i225', artifactName: '측우기', artifactPhoto: 'cheugugi',
     prompt: '측우기로 비의 양을 재는 일이 백성의 생활에 도움이 된 까닭으로 가장 알맞은 것은?',
     choices: [
       '지역마다 내린 비의 양을 알면 농사 형편을 살필 수 있다',
@@ -412,7 +412,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-05', stageId: 'stage4', type: 'choice',
-    artifactIcon: 'i028', artifactName: '조선왕조실록', artifactPhoto: 'sillok',
+    artifactIcon: 'i233', artifactName: '조선왕조실록', artifactPhoto: 'sillok',
     prompt: '조선왕조실록은 사관이 왕의 일을 날마다 적었고, 왕도 그 기록을 마음대로 볼 수 없었다고 전해져요. 이런 기록 문화가 중요한 까닭은?',
     choices: [
       '왕이 하루를 돌아보며 스스로 반성하는 데 도움이 되기 때문이다',
@@ -428,7 +428,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s4-06', stageId: 'stage4', type: 'fill',
-    artifactIcon: 'i157', artifactName: '혼천의',
+    artifactIcon: 'i223', artifactName: '혼천의',
     prompt: '낱말 카드를 골라 오늘 배운 내용을 한 문장으로 정리해 보세요.',
     textBefore: '혼천의는 ',
     textAfter: ' 위해 만든 기구이다.',
@@ -478,7 +478,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s5-03', stageId: 'stage5', type: 'choice',
-    artifactIcon: 'i080', artifactName: '독립선언서', artifactPhoto: 'declaration',
+    artifactIcon: 'i237', artifactName: '독립선언서', artifactPhoto: 'declaration',
     prompt: '독립선언서에는 "우리는 오늘 조선이 독립한 나라이며, 조선 사람이 자주적인 민족임을 선언한다"는 내용이 담겨 있어요. 이 자료와 가장 관련 깊은 사건은?',
     choices: [
       '3·1운동 (만세를 부르며 독립을 외친 운동)',
