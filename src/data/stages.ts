@@ -12,6 +12,8 @@ export interface StageMeta {
   character: string
   mascot: string
   prop: string
+  /** 배경 구도상 캐릭터를 오른쪽에 두는 스테이지 */
+  swapSides?: boolean
 }
 
 export const STAGES: StageMeta[] = [
@@ -28,7 +30,7 @@ export const STAGES: StageMeta[] = [
   {
     id: 'stage3', order: 3, title: '고려 보물 복원소', subtitle: '고려의 기술과 문화를 복원해요',
     period: 'goryeo', periodLabel: '고려 시대',
-    badge: A.badgeGoryeo, character: A.s3Boy, mascot: A.s3Turtle, prop: A.s3Workbench,
+    badge: A.badgeGoryeo, character: A.s3Boy, mascot: A.s3Turtle, prop: A.s3Workbench, swapSides: true,
   },
   {
     id: 'stage4', order: 4, title: '조선 발명 연구소', subtitle: '발명품의 쓰임을 백성의 생활과 연결해요',

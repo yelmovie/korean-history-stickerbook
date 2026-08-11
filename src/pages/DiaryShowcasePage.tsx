@@ -83,7 +83,7 @@ export function DiaryShowcasePage() {
           </AppButton>
         </div>
         <div className="diary-show__speech">
-          <AssetImage src={iconSrc(A.diaryGirl)} alt="" className="diary-show__presenter" />
+          <AssetImage src={iconSrc(A.medalGirl)} alt="" className="diary-show__presenter" />
           <div className="paper-card diary-show__speech-card">
             <p className="diary-show__speech-label">🎤 발표해 보세요</p>
             <p className="diary-show__speech-text">{speech}</p>

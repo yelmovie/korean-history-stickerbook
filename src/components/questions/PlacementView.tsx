@@ -4,6 +4,7 @@ import type { PlacementQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
+import { PhotoZoomButton } from '../PhotoViewer'
 import { ChoiceList, HintBubble } from './shared'
 
 interface Props {
@@ -139,7 +140,10 @@ export function PlacementView({ question, onSolved }: Props) {
           />
           <span className="placement-artifact__name">{question.artifactName}</span>
           {photoSrc(question.artifactPhoto) && (
-            <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
+            <>
+              <PhotoZoomButton stickerId={question.artifactPhoto!} title={question.artifactName} />
+              <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
+            </>
           )}
         </button>
         <p className="placement-guide">유물을 끌어서 알맞은 자리에 놓아 보세요</p>

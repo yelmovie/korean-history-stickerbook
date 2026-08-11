@@ -65,6 +65,10 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q-s1-04', stageId: 'stage1', type: 'choice',
     artifactName: '빗살무늬 토기와 민무늬 토기',
+    comparePhotos: [
+      { photo: 'comb-pottery', label: '빗살무늬 토기' },
+      { photo: 'plain-pottery', label: '민무늬 토기' },
+    ],
     prompt: '빗살무늬 토기(신석기)와 민무늬 토기(청동기)를 비교할 때, 달라진 점으로 가장 알맞은 것은?',
     choices: [
       '민무늬 토기 시대에는 토기를 전혀 쓰지 않았다',
@@ -296,6 +300,10 @@ export const QUESTIONS: Question[] = [
   {
     id: 'q-s3-04', stageId: 'stage3', type: 'choice',
     artifactName: '고려청자와 조선 백자',
+    comparePhotos: [
+      { photo: 'celadon-maebyeong', label: '고려청자' },
+      { photo: 'moon-jar', label: '조선 백자' },
+    ],
     prompt: '고려청자와 조선 백자를 비교하려고 해요. 비교 기준으로 가장 알맞은 것은?',
     choices: [
       '빛깔·무늬 기법·쓰인 시대를 기준으로 비교한다',
@@ -433,7 +441,7 @@ export const QUESTIONS: Question[] = [
     id: 'q-s5-01', stageId: 'stage5', type: 'ordering',
     prompt: '역사적 사건을 일어난 순서대로 연표에 배치해 보세요.',
     items: [
-      { id: 'donghak', label: '동학농민운동' },
+      { id: 'donghak', label: '동학농민운동', icon: 'i141' },
       { id: 'samil', label: '3·1운동', icon: 'i080' },
       { id: 'provgov', label: '대한민국 임시정부 수립', icon: 'i081' },
       { id: 'gwangbok', label: '광복', icon: 'i079' },
@@ -479,7 +487,7 @@ export const QUESTIONS: Question[] = [
     id: 'q-s5-04', stageId: 'stage5', type: 'match',
     prompt: '사건과 그 의미를 알맞게 연결해 보세요.',
     left: [
-      { id: 'donghak', label: '동학농민운동' },
+      { id: 'donghak', label: '동학농민운동', icon: 'i141' },
       { id: 'samil', label: '3·1운동' },
       { id: 'gwangbok', label: '광복' },
     ],

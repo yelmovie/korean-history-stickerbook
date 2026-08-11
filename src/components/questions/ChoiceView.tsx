@@ -4,6 +4,7 @@ import type { ChoiceQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
 import { PaperCard } from '../common'
+import { PhotoZoomButton } from '../PhotoViewer'
 import { ScratchReveal } from './ScratchReveal'
 import { ChoiceList, HintBubble } from './shared'
 
@@ -76,9 +77,46 @@ export function ChoiceView({ question, onSolved }: Props) {
       ) : (
         artifactImage
       )}
-      {realPhoto && revealed && <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>}
+      {realPhoto && revealed && (
+        <>
+          <PhotoZoomButton stickerId={question.artifactPhoto!} title={question.artifactName ?? ''} />
+          <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
+        </>
+      )}
     </span>
   )
+
+  // 비교형: 유물 두 개를 나란히
+  if (question.comparePhotos) {
+    return (
+      <div className="qv qv-choice">
+        <div className="qv-choice__left qv-choice__left--compare">
+          {question.comparePhotos.map((c) => (
+            <div key={c.photo} className="compare-card">
+              <span className="artifact-photo-frame">
+                <AssetImage src={photoSrc(c.photo)} alt={c.label} className="artifact-photo" fallbackLabel={c.label} />
+                <PhotoZoomButton stickerId={c.photo} title={c.label} />
+              </span>
+              <span className="compare-card__name">{c.label}</span>
+              <span className="artifact-photo-credit">{photoCredit(c.photo)}</span>
+            </div>
+          ))}
+        </div>
+        <div className="qv-choice__right">
+          <PaperCard className="qv__prompt-card">
+            <p className="qv__prompt">{question.prompt}</p>
+          </PaperCard>
+          <ChoiceList choices={question.choices} wrongPicks={wrongPicks} onPick={pick} disabled={needReview} />
+          {needReview && (
+            <button type="button" className="review-gate" onClick={reviewEvidence}>
+              🔍 근거 다시 보기
+            </button>
+          )}
+          <HintBubble msg={hintMsg} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="qv qv-choice">

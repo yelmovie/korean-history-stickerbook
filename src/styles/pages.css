@@ -235,7 +235,7 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: 0 15cqw calc(2cqh + var(--safe-bottom));
+  padding: 3cqh 21cqw calc(2cqh + var(--safe-bottom));
   position: relative;
   z-index: 2;
 }
@@ -249,18 +249,24 @@
 
 .stage-deco__character {
   position: absolute;
-  left: -1cqw;
+  left: -3cqw;
   bottom: 0;
-  height: 54cqh;
+  height: 48cqh;
+  max-width: 25cqw;
+  object-fit: contain;
+  object-position: bottom;
   object-fit: contain;
   opacity: 0.95;
 }
 
 .stage-deco__mascot {
   position: absolute;
-  right: -1cqw;
+  right: -3cqw;
   bottom: 0;
-  height: 34cqh;
+  height: 48cqh;
+  max-width: 25cqw;
+  object-fit: contain;
+  object-position: bottom;
   object-fit: contain;
 }
 
@@ -270,8 +276,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.8cqh;
+  gap: 1.6cqh;
   align-items: center;
+  padding-bottom: 4cqh;
 }
 
 .qv__prompt-card {
@@ -289,7 +296,7 @@
 }
 
 .choice-list {
-  width: min(100%, 60cqw);
+  width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -374,7 +381,7 @@
 }
 
 .qv-choice__left {
-  flex: 0 0 28cqw;
+  flex: 0 0 20cqw;
   display: flex;
   flex-direction: column;
   gap: 1.4cqh;
@@ -568,9 +575,10 @@
 .match-area {
   position: relative;
   width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  gap: 14cqw;
+  gap: 7cqw;
 }
 
 .match-lines {
@@ -581,9 +589,13 @@
   pointer-events: none;
 }
 
+.match-lines {
+  filter: drop-shadow(0 0 0.35cqw rgba(255, 255, 255, 0.95));
+}
+
 .match-lines line {
-  stroke: var(--color-gold);
-  stroke-width: 0.45cqw;
+  stroke: var(--color-teal);
+  stroke-width: 0.75cqw;
   stroke-linecap: round;
 }
 
@@ -595,20 +607,54 @@
 }
 
 .match-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 1cqw;
-  min-height: max(48px, 8cqh);
-  padding: 1cqh 1.4cqw;
+  gap: 0.8cqw;
+  min-height: max(48px, 8.5cqh);
+  padding: 1cqh 1.6cqw;
   border-radius: calc(var(--radius-card) * 0.8);
   border: 0.25cqw solid var(--color-wood);
   background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
   font-family: inherit;
-  font-size: 2.2cqh;
+  font-size: 2.8cqh;
   font-weight: 700;
   text-align: left;
   cursor: pointer;
   box-shadow: var(--shadow-card);
+}
+
+/* 연결점: 어디를 이어야 하는지 눈에 보이게 */
+.match-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 2.8cqh;
+  height: 2.8cqh;
+  border-radius: 50%;
+  border: 0.3cqw solid var(--color-wood);
+  background: #fffdf5;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.match-item:not(.match-item--right)::after {
+  right: calc(-1.4cqh - 0.3cqw);
+}
+
+.match-item--right::after {
+  left: calc(-1.4cqh - 0.3cqw);
+}
+
+.match-item--selected::after {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+  box-shadow: 0 0 1.4cqh rgba(46, 110, 106, 0.9);
+}
+
+.match-item--done::after {
+  background: var(--color-correct);
+  border-color: var(--color-correct);
 }
 
 .match-item:focus-visible {
@@ -669,7 +715,7 @@
 }
 
 .timeline-cell {
-  width: 16cqw;
+  width: 12.5cqw;
   min-height: max(48px, 9cqh);
   border: 0.3cqw dashed rgba(247, 234, 208, 0.7);
   border-radius: 1.2cqh;
@@ -727,7 +773,7 @@
   justify-items: center;
   gap: 0.5cqh;
   padding: 1cqh 1.4cqw;
-  min-width: 14cqw;
+  min-width: 12cqw;
   min-height: max(48px, 10cqh);
   border-radius: calc(var(--radius-card) * 0.8);
   border: 0.25cqw solid var(--color-wood);
@@ -1088,7 +1134,7 @@
 }
 
 .diary-show__presenter {
-  height: 20cqh;
+  height: 42cqh;
   object-fit: contain;
 }
 
@@ -1583,8 +1629,8 @@ button.artifact-pedestal {
 
 .artifact-pedestal--small .artifact-pedestal__img,
 .artifact-pedestal--small .asset-fallback {
-  width: 13cqh;
-  height: 13cqh;
+  width: 19cqh;
+  height: 19cqh;
 }
 
 /* ================= 관찰 포인트 뒤집기 카드 ================= */
@@ -1776,8 +1822,8 @@ button.artifact-pedestal {
 }
 
 .artifact-photo {
-  max-width: 24cqw;
-  max-height: 32cqh;
+  max-width: 20cqw;
+  max-height: 26cqh;
   object-fit: contain;
   border-radius: 1cqh;
   border: 0.35cqw solid var(--color-gold);
@@ -1825,4 +1871,184 @@ button.artifact-pedestal {
   border: 0.3cqw solid var(--color-gold);
   background: #fff;
   box-shadow: var(--shadow-card);
+}
+
+/* 배경 구도상 캐릭터가 오른쪽에 어울리는 스테이지 (고려 복원소 등) */
+.stage-deco--swap .stage-deco__character {
+  left: auto;
+  right: 0;
+}
+
+.stage-deco--swap .stage-deco__mascot {
+  right: auto;
+  left: 0;
+}
+
+/* 관찰형은 오른쪽 폭이 좁으므로 선택지를 한 줄씩 */
+.qv-choice .choice-list {
+  grid-template-columns: 1fr;
+}
+
+.qv-choice__left--compare {
+  flex: 0 0 24cqw;
+  flex-direction: row;
+  gap: 1cqw;
+}
+
+.compare-card {
+  display: grid;
+  justify-items: center;
+  gap: 0.5cqh;
+}
+
+.compare-card__name {
+  font-size: 2.2cqh;
+  font-weight: 800;
+  color: #fff8e6;
+  background: var(--color-navy);
+  border: 0.18cqw solid var(--color-gold);
+  padding: 0.3cqh 0.8cqw;
+  border-radius: 1.8cqh;
+}
+
+.compare-card .artifact-photo {
+  max-width: 11cqw;
+  max-height: 20cqh;
+}
+
+/* 사진 전체화면 보기 */
+.artifact-photo-frame {
+  position: relative;
+}
+
+.photo-zoom-btn {
+  position: absolute;
+  right: 0.4cqw;
+  top: 0.6cqh;
+  width: max(44px, 5cqh);
+  height: max(44px, 5cqh);
+  display: grid;
+  place-items: center;
+  border-radius: 1cqh;
+  border: 0.2cqw solid var(--color-gold);
+  background: rgba(16, 35, 63, 0.82);
+  color: var(--color-gold-light);
+  font-size: 2.6cqh;
+  cursor: zoom-in;
+  z-index: 3;
+}
+
+.photo-viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+}
+
+.photo-viewer__scrim {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(6, 14, 26, 0.92);
+  cursor: zoom-out;
+}
+
+.photo-viewer__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  max-width: 88cqw;
+  max-height: 86cqh;
+}
+
+.photo-viewer__info {
+  display: grid;
+  gap: 1.2cqh;
+  align-content: center;
+  max-width: 34cqw;
+  text-align: left;
+  background: rgba(247, 234, 208, 0.96);
+  border: 0.3cqw solid var(--color-gold);
+  border-radius: var(--radius-card);
+  padding: 2.4cqh 2cqw;
+}
+
+.photo-viewer__period {
+  font-size: 2.4cqh;
+  font-weight: 800;
+  color: var(--color-teal);
+}
+
+.photo-viewer__desc {
+  font-size: 2.8cqh;
+  line-height: 1.55;
+  color: var(--color-ink);
+  text-wrap: pretty;
+}
+
+.photo-viewer__hint {
+  font-size: 2.2cqh;
+  line-height: 1.5;
+  color: var(--color-wood);
+  border-top: 0.2cqh dashed var(--color-wood);
+  padding-top: 1cqh;
+  text-wrap: pretty;
+}
+
+.photo-viewer__img {
+  max-width: 50cqw;
+  max-height: 78cqh;
+  object-fit: contain;
+  border-radius: 1cqh;
+  border: 0.3cqw solid var(--color-gold);
+  background: #fff;
+}
+
+.photo-viewer__bar {
+  display: grid;
+  justify-items: center;
+  gap: 0.4cqh;
+}
+
+.photo-viewer__title {
+  font-family: var(--font-display);
+  font-size: 4.4cqh;
+  color: var(--color-navy);
+}
+
+.photo-viewer__credit {
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--color-wood);
+}
+
+.photo-viewer__close {
+  position: absolute;
+  right: 2cqw;
+  top: 2cqh;
+  width: max(48px, 7cqh);
+  height: max(48px, 7cqh);
+  border-radius: 50%;
+  border: 0.25cqw solid var(--color-gold);
+  background: rgba(16, 35, 63, 0.9);
+  color: var(--color-gold-light);
+  font-size: 3.4cqh;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* 드래그 중 임시 선 */
+.match-lines__drag {
+  stroke: var(--color-gold);
+  stroke-width: 0.7cqw;
+  stroke-dasharray: 1.2cqh 1cqh;
+  stroke-linecap: round;
+}
+
+/* 빈칸형 등 작은 카드의 실물 사진도 충분히 크게 */
+.artifact-pedestal--small .artifact-photo {
+  max-width: 16cqw;
+  max-height: 22cqh;
 }

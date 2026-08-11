@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ErrorBoundary } from './components/common'
+import { PhotoViewerProvider } from './components/PhotoViewer'
 import { GameContext, type GameApi } from './game/GameContext'
 import { CompletionPage } from './pages/CompletionPage'
 import { DiaryEditorPage } from './pages/DiaryEditorPage'
@@ -56,6 +57,7 @@ export default function App() {
   return (
     <GameContext.Provider value={api}>
       <div className="app-stage">
+        <PhotoViewerProvider>
         <ErrorBoundary>
           {screen === 'main' && <MainPage />}
           {screen === 'stageSelect' && <StageSelectPage />}
@@ -68,6 +70,7 @@ export default function App() {
           {screen === 'diaryShow' && <DiaryShowcasePage />}
           {screen === 'completion' && <CompletionPage />}
         </ErrorBoundary>
+        </PhotoViewerProvider>
         {saveFailed && (
           <div className="save-warning" role="alert">
             저장 공간이 부족해 진행이 저장되지 않았어요.

@@ -44,8 +44,10 @@ export interface ChoiceQuestion extends QuestionBase {
   artifactName?: string
   /** true면 흙을 문질러 유물을 발굴한 뒤에 문제를 풀 수 있다 */
   excavate?: boolean
-  /** 실물 사진으로 관찰할 스티커 id (assets.ts REAL_PHOTOS 참조) — 있으면 일러스트 대신 실물 사진 표시 */
+  /** 실물 사진으로 관찰할 스티커 id (assets.ts PHOTO_CREDITS 참조) — 있으면 일러스트 대신 실물 사진 표시 */
   artifactPhoto?: string
+  /** 비교형: 유물 두 개를 나란히 보여준다 */
+  comparePhotos?: { photo: string; label: string }[]
   /** 관찰 포인트: 클릭하면 힌트 카드가 열린다 */
   observePoints?: { label: string; text: string }[]
   choices: string[]

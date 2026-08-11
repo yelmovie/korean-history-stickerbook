@@ -127,14 +127,24 @@
 /* ---------- 스테이지 헤더 ---------- */
 
 .stage-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5cqw;
-  padding: 1.6cqh 1.6cqw;
+  position: relative;
+  padding: 1.6cqh 1.6cqw 0.8cqh;
+  text-align: center;
+}
+
+.stage-header__back {
+  position: absolute;
+  left: 1.6cqw;
+  top: 1.6cqh;
+}
+
+.stage-header__sound {
+  position: absolute;
+  right: 1.6cqw;
+  top: 1.6cqh;
 }
 
 .stage-header__title-wrap {
-  flex: 1;
   text-align: center;
 }
 
@@ -164,39 +174,10 @@
   text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.7);
 }
 
-.stage-header__right {
-  display: flex;
-  align-items: center;
-  gap: 1cqw;
-}
 
-.stage-progress {
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-}
 
-.stage-progress__bar {
-  width: 14cqw;
-  height: 1.8cqh;
-  border-radius: 1cqh;
-  background: rgba(247, 234, 208, 0.35);
-  border: 0.15cqw solid var(--color-gold);
-  overflow: hidden;
-}
 
-.stage-progress__fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-  transition: width 0.4s ease;
-}
 
-.stage-progress__text {
-  font-size: 2cqh;
-  font-weight: 700;
-  color: var(--color-paper);
-  text-shadow: 0 0.2cqh 0.4cqh rgba(0, 0, 0, 0.5);
-}
 
 /* ---------- 스티커 보상 연출 ---------- */
 

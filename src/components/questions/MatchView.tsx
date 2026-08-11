@@ -18,13 +18,16 @@ interface Line {
   y2: number
 }
 
-/** 선잇기: 왼쪽 항목을 누른 뒤 오른쪽 항목을 누르면 SVG 선으로 연결된다 */
+/** 선잇기: 왼쪽 점을 끌어 오른쪽 점에 놓거나, 왼쪽→오른쪽 순서로 눌러 잇는다 */
 export function MatchView({ question, onSolved }: Props) {
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null)
   const [links, setLinks] = useState<Record<string, string>>({})
   const [missed, setMissed] = useState(false)
   const [hintMsg, setHintMsg] = useState<string | null>(null)
   const [lines, setLines] = useState<Line[]>([])
+  /** 끌고 있는 중인 임시 선 */
+  const [dragLine, setDragLine] = useState<Line | null>(null)
+  const dragFrom = useRef<string | null>(null)
   const areaRef = useRef<HTMLDivElement>(null)
   const leftRefs = useRef(new Map<string, HTMLButtonElement>())
   const rightRefs = useRef(new Map<string, HTMLButtonElement>())
@@ -58,27 +61,67 @@ export function MatchView({ question, onSolved }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [links])
 
-  const clickRight = (rightId: string) => {
-    if (!selectedLeft) {
-      // 오른쪽을 먼저 눌러도 막히지 않고 안내한다 (태블릿에서 "안 눌린다" 오해 방지)
-      setHintMsg('왼쪽 카드를 먼저 누르고, 알맞은 짝을 눌러 이어 주세요!')
-      return
-    }
-    if (question.pairs[selectedLeft] === rightId) {
+  const connect = (leftId: string, rightId: string) => {
+    if (question.pairs[leftId] === rightId) {
       audio.playSfx('snap')
-      const next = { ...links, [selectedLeft]: rightId }
+      const next = { ...links, [leftId]: rightId }
       setLinks(next)
       setSelectedLeft(null)
       setHintMsg(null)
       if (Object.keys(next).length === question.left.length) {
         audio.playSfx('correct')
-        // 연결 완료 화면을 잠깐 보여준 뒤 완료 처리
         setTimeout(() => onSolved(!missed), 700)
       }
     } else {
       audio.playSfx('wrong')
       setMissed(true)
       setHintMsg('그 짝이 아니에요. 쓰임을 다시 생각해 보세요!')
+    }
+  }
+
+  const clickRight = (rightId: string) => {
+    if (!selectedLeft) {
+      setHintMsg('왼쪽 카드를 먼저 누르거나, 왼쪽 점을 끌어서 이어 주세요!')
+      return
+    }
+    connect(selectedLeft, rightId)
+  }
+
+  /* ---- 드래그로 잇기 ---- */
+
+  const startDrag = (leftId: string) => (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (leftId in links) return
+    e.currentTarget.setPointerCapture(e.pointerId)
+    dragFrom.current = leftId
+    setSelectedLeft(leftId)
+    const area = areaRef.current!.getBoundingClientRect()
+    const from = e.currentTarget.getBoundingClientRect()
+    setDragLine({
+      x1: from.right - area.left,
+      y1: from.top + from.height / 2 - area.top,
+      x2: e.clientX - area.left,
+      y2: e.clientY - area.top,
+    })
+  }
+
+  const moveDrag = (e: React.PointerEvent) => {
+    if (!dragFrom.current) return
+    const area = areaRef.current!.getBoundingClientRect()
+    setDragLine((d) => (d ? { ...d, x2: e.clientX - area.left, y2: e.clientY - area.top } : d))
+  }
+
+  const endDrag = (e: React.PointerEvent) => {
+    const leftId = dragFrom.current
+    dragFrom.current = null
+    setDragLine(null)
+    if (!leftId) return
+    for (const [rightId, el] of rightRefs.current) {
+      const r = el.getBoundingClientRect()
+      // 점까지 포함해 넉넉히 판정
+      if (e.clientX >= r.left - 30 && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
+        connect(leftId, rightId)
+        return
+      }
     }
   }
 
@@ -92,6 +135,15 @@ export function MatchView({ question, onSolved }: Props) {
           {lines.map((l, i) => (
             <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} />
           ))}
+          {dragLine && (
+            <line
+              className="match-lines__drag"
+              x1={dragLine.x1}
+              y1={dragLine.y1}
+              x2={dragLine.x2}
+              y2={dragLine.y2}
+            />
+          )}
         </svg>
         <div className="match-col">
           {question.left.map((item) => {
@@ -106,6 +158,13 @@ export function MatchView({ question, onSolved }: Props) {
                 }}
                 className={`match-item ${selectedLeft === item.id ? 'match-item--selected' : ''} ${done ? 'match-item--done' : ''}`}
                 onClick={() => !done && setSelectedLeft(selectedLeft === item.id ? null : item.id)}
+                onPointerDown={startDrag(item.id)}
+                onPointerMove={moveDrag}
+                onPointerUp={endDrag}
+                onPointerCancel={() => {
+                  dragFrom.current = null
+                  setDragLine(null)
+                }}
                 disabled={done}
               >
                 {item.icon && (
@@ -137,7 +196,7 @@ export function MatchView({ question, onSolved }: Props) {
           })}
         </div>
       </div>
-      <p className="placement-guide">왼쪽을 누르고, 알맞은 오른쪽 짝을 눌러 이어 보세요</p>
+      <p className="placement-guide">왼쪽 점을 끌어 오른쪽 점에 놓아 보세요 (눌러서 잇기도 돼요)</p>
       <HintBubble msg={hintMsg} />
     </div>
   )

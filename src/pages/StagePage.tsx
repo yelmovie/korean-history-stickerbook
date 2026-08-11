@@ -69,8 +69,6 @@ export function StagePage({ stageId }: Props) {
         <StageHeader
           title={stage.title}
           subtitle={`${index + 1}단계 · ${stage.subtitle}`}
-          current={index}
-          total={questions.length}
           onBack={() => goTo('stageSelect')}
         />
         <main className="stage-body">
@@ -97,7 +95,7 @@ export function StagePage({ stageId }: Props) {
             </>
           )}
         </main>
-        <div className="stage-deco" aria-hidden="true">
+        <div className={`stage-deco ${stage.swapSides ? 'stage-deco--swap' : ''}`} aria-hidden="true">
           <AssetImage src={iconSrc(stage.character)} alt="" className="stage-deco__character" />
           <AssetImage src={iconSrc(stage.mascot)} alt="" className="stage-deco__mascot" />
         </div>
