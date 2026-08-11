@@ -83,6 +83,8 @@ export function PuzzleView({ question, onSolved }: Props) {
     // 손가락이 살짝 빗나가도 놓이도록, 놓은 지점에서 가장 가까운 슬롯을 찾는다
     let best: { slot: number; dist: number } | null = null
     for (const [slot, el] of slotRefs.current) {
+      // 이미 채워진 칸은 후보에서 뺀다 — 남은 칸이 하나일 때 옆의 채워진 칸이 더 가깝게 잡히던 문제
+      if (placedPieces.includes(slot)) continue
       const r = el.getBoundingClientRect()
       const cx = r.left + r.width / 2
       const cy = r.top + r.height / 2
@@ -91,6 +93,8 @@ export function PuzzleView({ question, onSolved }: Props) {
       const reach = Math.max(r.width, r.height) * 0.8
       if (dist <= reach && (!best || dist < best.dist)) best = { slot, dist }
     }
+    const emptySlots = [0, 1, 2, 3].filter((s) => !placedPieces.includes(s))
+    if (!best && emptySlots.length === 1) best = { slot: emptySlots[0], dist: 0 }
     if (best) tryPlace(piece, best.slot)
   }
 

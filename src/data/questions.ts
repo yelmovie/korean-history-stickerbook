@@ -107,7 +107,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-06', stageId: 'stage1', type: 'choice',
-    artifactName: '발굴 현장의 기록',
+    artifactName: '발굴 현장의 기록', artifactPhoto: 'net-sinker',
     prompt: '어느 유적에서 "빗살무늬 토기 조각과 그물추가 함께 발견되었다"는 기록을 읽었어요. 추리할 수 있는 생활 모습은?',
     choices: [
       '넓은 들에서 벼농사를 지어 거둔 곡식을 창고에 저장했을 것이다',
@@ -118,7 +118,7 @@ export const QUESTIONS: Question[] = [
     answerIndex: 1,
     wrongHint: '함께 나온 두 유물이 모두 가리키는 곳이 있어요. 그물추는 어디에서 쓰는 도구일까요?',
     explanation: '그물추는 그물을 물에 가라앉히는 도구이고 토기는 담아 두는 그릇이에요. 두 유물이 함께 나왔다는 점을 근거로 물가에 머물며 고기잡이와 저장을 했다고 추리할 수 있어요.',
-    rewardStickerId: 'bone-needle',
+    rewardStickerId: 'net-sinker',
     contentReviewNeeded: true, sourceNote: '자료 해석형. 발굴 맥락 서술 검수 필요',
   },
 
