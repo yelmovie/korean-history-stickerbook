@@ -55,54 +55,94 @@ async function downloadCertificate(title: string, stats: { label: string; value:
     ctx.strokeRect(46, 46, W - 92, H - 92)
   }
 
+  /* 배경 그림의 테두리 장식 안쪽(크림색 면)만 실제로 쓸 수 있다.
+   * cert_bg.webp 를 1200×900 으로 재서 얻은 값 — 배경을 바꾸면 다시 재야 한다. */
+  const SAFE = { left: 160, right: 1024, top: 150, bottom: 752 }
+  const midX = (SAFE.left + SAFE.right) / 2
+
   ctx.textAlign = 'center'
+  ctx.textBaseline = 'alphabetic'
   ctx.fillStyle = '#2e6e6a'
   ctx.font = 'bold 34px "Malgun Gothic", sans-serif'
-  ctx.fillText('수 료 증', W / 2, 175)
+  ctx.fillText('수 료 증', midX, 195)
   ctx.fillStyle = '#10233f'
-  ctx.font = 'bold 64px "Malgun Gothic", sans-serif'
-  ctx.fillText(title, W / 2, 272)
+  ctx.font = 'bold 60px "Malgun Gothic", sans-serif'
+  ctx.fillText(title, midX, 285)
   ctx.fillStyle = '#2b2118'
-  ctx.font = '30px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', W / 2, 336)
+  ctx.font = '28px "Malgun Gothic", sans-serif'
+  ctx.fillText('한국사 스티커북 · 시간여행 다이어리', midX, 340)
 
-  // 손으로 쓰는 칸
+  // 손으로 쓰는 칸 — 밑줄과 글자를 한 덩어리로 재서 가운데에 맞춘다
+  ctx.font = '30px "Malgun Gothic", sans-serif'
   ctx.textAlign = 'left'
-  ctx.font = '32px "Malgun Gothic", sans-serif'
-  ctx.fillText('학년        반        번    이름', 210, 440)
+  const FIELD_Y = 424
+  /* 학년·반·번은 '밑줄 뒤에 이름표', 이름은 '이름표 뒤에 밑줄' 순서다(화면과 동일).
+   * 이름의 순서를 뒤집어야 덩어리가 밑줄로 시작해 밑줄로 끝나고, 그래야 밑줄이 가운데 보인다.
+   * (전부 '밑줄 뒤 이름표'로 두면 오른쪽 끝이 글자라 밑줄만 왼쪽으로 치우쳐 보였다.) */
+  const fields: { label: string; lineW: number; labelFirst?: boolean }[] = [
+    { label: '학년', lineW: 64 },
+    { label: '반', lineW: 64 },
+    { label: '번', lineW: 64 },
+    { label: '이름', lineW: 240, labelFirst: true },
+  ]
+  const GAP_AFTER_LINE = 8
+  const GAP_BETWEEN = 40
+  const partW = (f: (typeof fields)[number]) =>
+    f.lineW + GAP_AFTER_LINE + ctx.measureText(f.label).width
+  const runW = fields.reduce((sum, f) => sum + partW(f), 0) + GAP_BETWEEN * (fields.length - 1)
+  // 덩어리는 밑줄로 시작해 밑줄로 끝나므로, 덩어리를 가운데 두면 밑줄도 가운데 온다
+  let cursor = midX - runW / 2
   ctx.strokeStyle = '#6b4528'
   ctx.lineWidth = 2
-  for (const [x, w] of [[150, 55], [300, 55], [430, 55], [590, 320]] as const) {
+  for (const f of fields) {
+    if (f.labelFirst) {
+      ctx.fillStyle = '#2b2118'
+      ctx.fillText(f.label, cursor, FIELD_Y)
+      cursor += ctx.measureText(f.label).width + GAP_AFTER_LINE
+    }
     ctx.beginPath()
-    ctx.moveTo(x, 450)
-    ctx.lineTo(x + w, 450)
+    ctx.moveTo(cursor, FIELD_Y + 10)
+    ctx.lineTo(cursor + f.lineW, FIELD_Y + 10)
     ctx.stroke()
+    cursor += f.lineW
+    if (!f.labelFirst) {
+      cursor += GAP_AFTER_LINE
+      ctx.fillStyle = '#2b2118'
+      ctx.fillText(f.label, cursor, FIELD_Y)
+      cursor += ctx.measureText(f.label).width
+    }
+    cursor += GAP_BETWEEN
   }
 
-  // 기록
+  // 기록 4칸
   ctx.textAlign = 'center'
-  stats.forEach((s, i) => {
-    const x = W / 2 + (i - (stats.length - 1) / 2) * 250
+  const statGap = (SAFE.right - SAFE.left) / stats.length
+  stats.forEach((st, i) => {
+    const x = midX + (i - (stats.length - 1) / 2) * statGap
     ctx.fillStyle = '#10233f'
     ctx.font = 'bold 28px "Malgun Gothic", sans-serif'
-    ctx.fillText(s.value, x, 585)
+    ctx.fillText(st.value, x, 520)
     ctx.fillStyle = '#6b4528'
-    ctx.font = '22px "Malgun Gothic", sans-serif'
-    ctx.fillText(s.label, x, 625)
+    ctx.font = '21px "Malgun Gothic", sans-serif'
+    ctx.fillText(st.label, x, 558)
   })
 
   ctx.fillStyle = '#2b2118'
-  ctx.font = '30px "Malgun Gothic", sans-serif'
-  ctx.fillText('위 어린이는 한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.', W / 2, 725)
+  ctx.font = '28px "Malgun Gothic", sans-serif'
+  ctx.fillText('위 어린이는 한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.', midX, 612)
   ctx.fillStyle = '#b04a3a'
   ctx.font = 'bold 26px "Malgun Gothic", sans-serif'
-  ctx.fillText('한국사 스티커북', W / 2, 800)
+  ctx.fillText('한국사 스티커북', midX, 694)
 
+  /* 도장은 확인 문장 아래·기관명 오른쪽의 빈 자리에 찍는다.
+   * 회전 때문에 실제 차지하는 폭이 커지므로 그만큼 안쪽으로 당겨 배치한다. */
   if (seal) {
-    const size = 150
+    const size = 92
+    const angle = (-10 * Math.PI) / 180
+    const half = (size / 2) * (Math.abs(Math.cos(angle)) + Math.abs(Math.sin(angle)))
     ctx.save()
-    ctx.translate(W - 200, 770)
-    ctx.rotate((-10 * Math.PI) / 180)
+    ctx.translate(SAFE.right - half - 8, SAFE.bottom - half - 6)
+    ctx.rotate(angle)
     ctx.drawImage(seal, -size / 2, -size / 2, size, size)
     ctx.restore()
   }
