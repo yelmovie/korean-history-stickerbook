@@ -16,7 +16,7 @@ export const STICKERS: Sticker[] = [
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },
   // ----- 삼국·통일신라 -----
   { id: 'goguryeo-mural', period: 'threeKingdoms', name: '고구려 고분벽화', icon: 'i057', hintLine: '고구려 고분벽화에는 당시 사람들의 생활과 생각이 그림으로 남아 있다.', contentReviewNeeded: true },
-  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i204', hintLine: '광개토대왕릉비는 광개토대왕의 업적을 새긴 고구려의 비석이고, 사진 속 글씨는 비석에 종이를 대고 떠낸 탁본이다.', contentReviewNeeded: true, sourceNote: '사진은 국립중앙박물관 소장 원석탁본 — 비석 실물 사진 아님. 학생 오해 방지 문구 포함' },
+  { id: 'gwanggaeto-stele', period: 'threeKingdoms', name: '광개토대왕릉비', icon: 'i204', hintLine: '광개토대왕릉비는 광개토대왕의 업적을 네 면에 빼곡히 새긴 고구려의 커다란 비석이다.', contentReviewNeeded: true, sourceNote: '사진은 국립문화유산연구원 국가유산 지식이음의 비석 실물 사진(공공누리 제1유형)' },
   { id: 'baekje-incense-burner', period: 'threeKingdoms', name: '백제 금동대향로', icon: 'i206', hintLine: '백제 금동대향로는 백제의 섬세한 공예 기술을 보여 주는 향로이다.', contentReviewNeeded: true },
   { id: 'muryeong-ornament', period: 'threeKingdoms', name: '무령왕 금제관식', icon: 'i207', hintLine: '무령왕릉에서 나온 금제관식은 백제 왕실의 화려한 문화를 보여 준다.', contentReviewNeeded: true },
   { id: 'silla-crown', period: 'threeKingdoms', name: '신라 금관', icon: 'i209', hintLine: '신라 금관은 신라 왕의 권위를 보여 주는 금으로 만든 관이다.', contentReviewNeeded: true },

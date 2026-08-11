@@ -5,10 +5,19 @@ import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { PERIOD_LABELS } from '../data/stages'
 import { DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
 import { useGame } from '../game/GameContext'
-import type { DiaryPlacedSticker, PeriodId } from '../types'
+import type { DiaryPlacedSticker, PeriodId, StageId } from '../types'
 import { audio } from '../utils/audio'
 
 const PERIOD_ORDER: PeriodId[] = ['prehistoric', 'threeKingdoms', 'goryeo', 'joseon', 'modern']
+
+/** 시대 ↔ 그 시대를 다루는 스테이지 */
+const STAGE_OF_PERIOD: Record<PeriodId, StageId> = {
+  prehistoric: 'stage1',
+  threeKingdoms: 'stage2',
+  goryeo: 'stage3',
+  joseon: 'stage4',
+  modern: 'stage5',
+}
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
@@ -48,6 +57,21 @@ export function DiaryEditorPage() {
   // 크기·회전 핸들도 같은 이유로 ref 동기 추적 + state는 미리보기 용도로만 쓴다
   const gestureRef = useRef<GestureRef | null>(null)
   const [gesture, setGesture] = useState<Gesture | null>(null)
+
+  /* 다이어리는 그 시대 스테이지를 마친 뒤에 열린다.
+   * 스테이지를 안 끝냈는데 시대 페이지가 열려 있으면 학습 순서가 무너진다. */
+  const isPeriodOpen = (p: PeriodId) =>
+    save.settings.unlockAll || save.completedStages.includes(STAGE_OF_PERIOD[p])
+  const openPeriods = PERIOD_ORDER.filter(isPeriodOpen)
+
+  // 잠긴 시대를 보고 있으면(초기화·해금 해제 등) 열린 첫 시대로 되돌린다
+  useEffect(() => {
+    if (openPeriods.length > 0 && !isPeriodOpen(period)) {
+      setPeriod(openPeriods[0])
+      setSelectedId(null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openPeriods.length, period])
 
   const page = save.diary[period]
   const earnedInPeriod = [
@@ -255,21 +279,27 @@ export function DiaryEditorPage() {
           </AppButton>
         </header>
         <div className="diary-edit__tabs" role="tablist" aria-label="시대 선택">
-          {PERIOD_ORDER.map((p) => (
-            <button
-              key={p}
-              type="button"
-              role="tab"
-              aria-selected={p === period}
-              className={`diary-tab ${p === period ? 'diary-tab--active' : ''}`}
-              onClick={() => {
-                setPeriod(p)
-                setSelectedId(null)
-              }}
-            >
-              {PERIOD_LABELS[p]}
-            </button>
-          ))}
+          {PERIOD_ORDER.map((p) => {
+            const open = isPeriodOpen(p)
+            return (
+              <button
+                key={p}
+                type="button"
+                role="tab"
+                aria-selected={p === period}
+                className={`diary-tab ${p === period ? 'diary-tab--active' : ''} ${open ? '' : 'diary-tab--locked'}`}
+                onClick={() => {
+                  if (!open) return
+                  setPeriod(p)
+                  setSelectedId(null)
+                }}
+                disabled={!open}
+                aria-label={open ? PERIOD_LABELS[p] : `${PERIOD_LABELS[p]} — 그 시대를 먼저 완료해야 열려요`}
+              >
+                {open ? PERIOD_LABELS[p] : `🔒 ${PERIOD_LABELS[p]}`}
+              </button>
+            )
+          })}
         </div>
         <div className="diary-edit__body">
           <div

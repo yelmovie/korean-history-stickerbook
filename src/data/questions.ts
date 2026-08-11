@@ -245,9 +245,9 @@ export const QUESTIONS: Question[] = [
       { id: 'crown', label: '금관' },
     ],
     pairs: { goguryeo: 'mural', baekje: 'incense', silla: 'crown' },
-    explanation: '고구려의 고분벽화, 백제의 금동대향로, 신라의 금관은 각 나라 문화의 특징을 보여 주는 대표 유산이에요. 함께 받는 광개토대왕릉비 스티커의 사진은 비석 그 자체가 아니라, 비석에 새겨진 글씨를 종이에 대고 떠낸 탁본이에요.',
+    explanation: '고구려의 고분벽화, 백제의 금동대향로, 신라의 금관은 각 나라 문화의 특징을 보여 주는 대표 유산이에요. 함께 받는 광개토대왕릉비는 광개토대왕의 업적을 네 면에 빼곡히 새긴 고구려의 커다란 비석이에요.',
     rewardStickerId: 'gwanggaeto-stele',
-    contentReviewNeeded: true, sourceNote: '관계 연결형. 검수 필요. 보상 스티커 사진은 국립중앙박물관 소장 원석탁본',
+    contentReviewNeeded: true, sourceNote: '관계 연결형. 검수 필요',
   },
 
   // ================= Stage 3: 고려 보물 복원소 =================
@@ -293,8 +293,8 @@ export const QUESTIONS: Question[] = [
     prompt: '고려의 문화유산과 관련 있는 설명을 알맞게 연결해 보세요.',
     left: [
       { id: 'celadon', label: '고려청자', icon: 'i004' },
-      { id: 'tripitaka', label: '팔만대장경', icon: 'i062' },
-      { id: 'jikji', label: '직지', icon: 'i063' },
+      { id: 'tripitaka', label: '팔만대장경', icon: 'i220' },
+      { id: 'jikji', label: '직지', icon: 'i130' },
     ],
     right: [
       { id: 'sanggam', label: '상감기법으로 무늬를 새긴 공예품' },
@@ -348,8 +348,8 @@ export const QUESTIONS: Question[] = [
     id: 'q-s4-01', stageId: 'stage4', type: 'match',
     prompt: '조선의 과학 기구와 그 쓰임을 선으로 연결해 보세요.',
     left: [
-      { id: 'cheugugi', label: '측우기', icon: 'i071' },
-      { id: 'angbuilgu', label: '앙부일구', icon: 'i072' },
+      { id: 'cheugugi', label: '측우기', icon: 'i225' },
+      { id: 'angbuilgu', label: '앙부일구', icon: 'i224' },
       { id: 'jagyeongnu', label: '자격루', icon: 'i073' },
     ],
     right: [
@@ -453,7 +453,7 @@ export const QUESTIONS: Question[] = [
       { id: 'donghak', label: '동학농민운동', icon: 'i141' },
       { id: 'samil', label: '3·1운동', icon: 'i080' },
       { id: 'provgov', label: '대한민국 임시정부 수립', icon: 'i081' },
-      { id: 'gwangbok', label: '광복', icon: 'i079' },
+      { id: 'gwangbok', label: '광복', icon: 'i139' },
     ],
     correctOrder: ['donghak', 'samil', 'provgov', 'gwangbok'],
     explanation: '동학농민운동(1894년) → 3·1운동(1919년 3월) → 대한민국 임시정부 수립(1919년 4월) → 광복(1945년) 순서예요. 3·1운동과 임시정부 수립은 같은 해에 일어났고, 임시정부가 조금 뒤예요. 순서를 알면 원인과 결과가 보여요.',

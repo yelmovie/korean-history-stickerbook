@@ -1124,3 +1124,10 @@
   line-height: 1.25;
   word-break: keep-all;
 }
+
+/* 아직 열리지 않은 시대 탭 */
+.diary-tab--locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
