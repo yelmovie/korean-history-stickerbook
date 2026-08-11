@@ -104,7 +104,6 @@ export const DECO_STICKERS: Sticker[] = [
   { id: 'deco-independence-gate', period: 'modern', name: '독립문', icon: 'i230', hintLine: '자주 독립의 뜻을 담아 세운 문이에요.' },
   { id: 'deco-stamp-paper', period: 'modern', name: '옛 우표', icon: 'i174', hintLine: '우표 한 장에도 그때의 풍경이 남아 있어요.' },
   { id: 'deco-filmstrip', period: 'modern', name: '필름', icon: 'i180', hintLine: '사진과 영상으로 그때의 모습을 남길 수 있게 됐어요.' },
-  { id: 'deco-ribbon', period: 'modern', name: '기념 리본', icon: 'i179', hintLine: '기념식과 표창에 쓰이던 리본이에요.' },
   { id: 'deco-postbox', period: 'modern', name: '우체통', icon: 'i190', hintLine: '우편 제도가 생기면서 멀리 소식을 주고받게 됐어요.' },
   { id: 'deco-camera', period: 'modern', name: '옛 사진기', icon: 'i191', hintLine: '사진기가 들어오면서 그날의 모습을 그대로 남길 수 있었어요.' },
   { id: 'deco-radio', period: 'modern', name: '라디오', icon: 'i231', hintLine: '방송을 통해 온 나라가 같은 소식을 함께 듣게 됐어요.' },

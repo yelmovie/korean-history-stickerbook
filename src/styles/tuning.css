@@ -1131,3 +1131,60 @@
   cursor: not-allowed;
   filter: grayscale(0.6);
 }
+
+/* ================= 보관함을 한 화면에 ================= */
+
+/* 스크롤 막대 없이 시대별 최대 20칸이 한 번에 보이게 3열로 짜고,
+ * 칸 크기를 줄인다. (최대 20칸 = 3열 × 7행) */
+.diary-tray {
+  flex: 0 0 26cqw;
+  padding: 1.2cqh 0.8cqw;
+  gap: 0.8cqh;
+}
+
+.diary-tray__list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 0.5cqh 0.4cqw;
+  overflow: hidden;
+  padding-right: 0;
+}
+
+.diary-tray__item {
+  height: 100%;
+  align-self: stretch;
+  padding: 0.4cqh 0.2cqw;
+  min-height: 0;
+}
+
+.tray-card__face--front {
+  gap: 0.2cqh;
+}
+
+.diary-tray__img,
+.diary-tray__item .asset-fallback {
+  width: 4.6cqh;
+  height: 4.6cqh;
+}
+
+.diary-tray__name {
+  font-size: 1.45cqh;
+  line-height: 1.2;
+}
+
+.tray-card__back-name {
+  font-size: 1.6cqh;
+}
+
+.diary-tray__count {
+  min-width: 2cqh;
+  height: 2cqh;
+  line-height: 2cqh;
+  font-size: 1.3cqh;
+  top: -0.3cqh;
+  right: -0.2cqw;
+}
+
+.diary-tray__title {
+  font-size: 2cqh;
+}
