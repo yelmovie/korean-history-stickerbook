@@ -1188,3 +1188,45 @@
 .diary-tray__title {
   font-size: 2cqh;
 }
+
+/* ================= 전시 화면 시대 이동 ================= */
+
+/* 어느 시대에 스티커가 있는지 보여 주는 페이지 표시 */
+.diary-show__dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5cqw;
+  margin-top: 0.8cqh;
+}
+
+.diary-dot {
+  font-family: inherit;
+  font-size: 1.8cqh;
+  font-weight: 700;
+  min-height: max(36px, 3.6cqh);
+  padding: 0.3cqh 1cqw;
+  border-radius: 2cqh;
+  border: 0.18cqw solid var(--color-rule, rgba(214, 168, 79, 0.5));
+  background: rgba(16, 35, 63, 0.55);
+  color: rgba(247, 234, 208, 0.55);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* 스티커를 붙인 페이지는 또렷하게 */
+.diary-dot--filled {
+  color: #fff8e6;
+  border-color: var(--color-gold);
+}
+
+.diary-dot--on {
+  background: var(--color-gold);
+  color: #1b1204;
+  border-color: var(--color-gold);
+}
+
+.diary-dot:focus-visible {
+  outline: 0.3cqw solid var(--color-teal, #2f6f6a);
+  outline-offset: 0.2cqw;
+}

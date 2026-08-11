@@ -15,7 +15,12 @@ const PERIOD_ORDER: PeriodId[] = ['prehistoric', 'threeKingdoms', 'goryeo', 'jos
 /** 완성된 다이어리를 발표 모드로 보여준다. 페이지 넘기기 + 발표 문장 템플릿 */
 export function DiaryShowcasePage() {
   const { save, goTo } = useGame()
-  const [pageIdx, setPageIdx] = useState(0)
+  /* 항상 선사부터 열면, 근현대만 꾸민 학생에게는 빈 페이지가 떠서
+   * 꾸민 것이 저장되지 않은 줄 안다. 스티커가 있는 첫 페이지에서 시작한다. */
+  const [pageIdx, setPageIdx] = useState(() => {
+    const i = PERIOD_ORDER.findIndex((p) => save.diary[p]?.stickers.length > 0)
+    return i === -1 ? 0 : i
+  })
   const period = PERIOD_ORDER[pageIdx]
   const page = save.diary[period]
   const firstSticker = page.stickers.length > 0 ? stickerById.get(page.stickers[0].stickerId) : undefined
@@ -84,6 +89,27 @@ export function DiaryShowcasePage() {
             ▶
           </AppButton>
         </div>
+        {/* 어느 시대 페이지에 스티커가 있는지 한눈에 보이게 — 빈 페이지에서 헤매지 않도록 */}
+        <nav className="diary-show__dots" aria-label="시대 페이지 이동">
+          {PERIOD_ORDER.map((p, i) => {
+            const filled = save.diary[p]?.stickers.length > 0
+            return (
+              <button
+                key={p}
+                type="button"
+                className={`diary-dot ${i === pageIdx ? 'diary-dot--on' : ''} ${filled ? 'diary-dot--filled' : ''}`}
+                onClick={() => {
+                  audio.playSfx('page')
+                  setPageIdx(i)
+                }}
+                aria-label={`${PERIOD_LABELS[p]} 페이지${filled ? '' : ' (아직 비어 있음)'}`}
+                aria-current={i === pageIdx}
+              >
+                {PERIOD_LABELS[p]}
+              </button>
+            )
+          })}
+        </nav>
         <div className="diary-show__speech">
           <CharacterTalk icon={A.medalGirl} lines={SHOWCASE_LINES} side="left" className="diary-show__presenter" name="발표자" />
           <div className="paper-card diary-show__speech-card">

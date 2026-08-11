@@ -80,6 +80,8 @@ export function DiaryEditorPage() {
     ...DECO_STICKERS.filter((s) => s.period === period),
   ]
   const placedIds = page.stickers.map((p) => p.stickerId)
+  /** 어느 시대든 한 장이라도 붙였으면 스티커북을 볼 수 있다 (지금 보는 시대만으로 막지 않는다) */
+  const totalPlaced = PERIOD_ORDER.reduce((n, p) => n + (save.diary[p]?.stickers.length ?? 0), 0)
 
   const mutatePage = (fn: (stickers: DiaryPlacedSticker[]) => DiaryPlacedSticker[]) => {
     update((draft) => ({
@@ -274,8 +276,17 @@ export function DiaryEditorPage() {
             ← 나가기
           </AppButton>
           <h1 className="stage-header__title">역사 다이어리 꾸미기</h1>
-          <AppButton variant="secondary" onClick={() => goTo('diaryShow')} disabled={save.earnedStickers.length === 0}>
-            전시 보기 →
+          {/* 꾸민 내용은 붙이는 즉시 저장되지만, 학생에게는 "저장하고 넘어간다"가 보여야 안심된다 */}
+          <AppButton
+            variant="secondary"
+            onClick={() => {
+              audio.playSfx('page')
+              goTo('diaryShow')
+            }}
+            disabled={totalPlaced === 0}
+            ariaLabel="꾸민 내용을 저장하고 나만의 스티커북 보기"
+          >
+            💾 저장하고 스티커북 보기 →
           </AppButton>
         </header>
         <div className="diary-edit__tabs" role="tablist" aria-label="시대 선택">
