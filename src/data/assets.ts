@@ -25,16 +25,10 @@ export const PHOTO_CREDITS: Record<string, string> = {
   'bipa-dagger': EMU, 'spindle-whorl': EMU, 'bone-needle': EMU, 'sumbe-point': EMU,
   'polished-stone': EMU, 'goguryeo-mural': EMU, 'gwanggaeto-stele': EMU, 'metal-type': EMU,
   'goryeo-painting': EMU, 'independent-news': EMU, taegeukgi: EMU, declaration: EMU,
-  'net-sinker': EMU,
 }
 
 /** 스티커가 아닌 '자료용 사진'의 이름·설명 (PhotoViewer가 스티커에서 못 찾을 때 사용) */
-export const PHOTO_ONLY_INFO: Record<string, { name: string; desc: string }> = {
-  'net-sinker': {
-    name: '그물추',
-    desc: '그물추는 그물이 물에 잘 가라앉도록 매다는 돌추예요. 여러 개가 함께 나오면 그물로 물고기를 잡았다는 것을 짐작할 수 있어요.',
-  },
-}
+export const PHOTO_ONLY_INFO: Record<string, { name: string; desc: string }> = {}
 
 export function photoSrc(stickerId: string | null | undefined): string | null {
   return stickerId && stickerId in PHOTO_CREDITS ? `/assets/photo/${stickerId}.webp` : null

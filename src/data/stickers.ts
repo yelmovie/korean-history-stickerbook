@@ -14,7 +14,6 @@ export const STICKERS: Sticker[] = [
   { id: 'plain-pottery', period: 'prehistoric', name: '민무늬 토기', icon: 'i121', hintLine: '민무늬 토기는 청동기 시대에 널리 쓰인 무늬 없는 토기이다.', contentReviewNeeded: true },
   { id: 'half-moon-knife', period: 'prehistoric', name: '반달돌칼', icon: 'i122', hintLine: '반달돌칼은 곡식의 이삭을 자르는 데 쓰던 청동기 시대 도구이다.', contentReviewNeeded: true },
   { id: 'bipa-dagger', period: 'prehistoric', name: '비파형 동검', icon: 'i123', hintLine: '비파형 동검은 비파를 닮은 모양의 청동기 시대 검이다.', contentReviewNeeded: true },
-  { id: 'net-sinker', period: 'prehistoric', name: '그물추', icon: 'i146', hintLine: '그물추는 그물이 물에 잘 가라앉도록 매다는 돌추로, 고기잡이 생활을 짐작하게 해 준다.', contentReviewNeeded: true },
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },
   // ----- 삼국·통일신라 -----
   { id: 'goguryeo-mural', period: 'threeKingdoms', name: '고구려 고분벽화', icon: 'i057', hintLine: '고구려 고분벽화에는 당시 사람들의 생활과 생각이 그림으로 남아 있다.', contentReviewNeeded: true },
