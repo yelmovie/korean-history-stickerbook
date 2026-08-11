@@ -56,7 +56,7 @@ export const STICKERS: Sticker[] = [
   { id: 'provisional-gov', period: 'modern', name: '대한민국 임시정부 청사', icon: 'i081', hintLine: '대한민국 임시정부는 3·1운동 이후 독립운동을 이끌기 위해 세워졌다.', contentReviewNeeded: true },
   { id: 'gwangbok-record', period: 'modern', name: '광복 기념 자료', icon: 'i139', hintLine: '1945년 광복으로 우리 민족은 일제의 지배에서 벗어났다.', contentReviewNeeded: true },
   { id: 'war-record', period: 'modern', name: '6·25 전쟁 기록 자료', icon: 'i140', hintLine: '6·25 전쟁 기록은 전쟁의 아픔과 평화의 소중함을 알려 주는 자료이다.', contentReviewNeeded: true },
-  { id: 'donghak-flag', period: 'modern', name: '동학농민운동 깃발', icon: 'i141', hintLine: '동학농민운동은 낡은 제도를 고치고자 농민들이 일으킨 운동이다.', contentReviewNeeded: true },
+  { id: 'donghak-flag', period: 'modern', name: '동학농민운동 깃발', icon: 'i141', hintLine: '동학농민군은 나라를 돕고 백성을 편안하게 한다는 뜻의 보국안민(輔國安民)을 깃발에 내걸고 낡은 제도를 고치려 했다.', contentReviewNeeded: true, sourceNote: '⚠ 현재 아이콘 교체 대기: 그림의 태극 문양이 좌우로 나뉘어 있고(태극기는 위 빨강·아래 파랑) 글자가 한글이라, 1894년 농민군 깃발에서 확인된 형태가 아니다. 기록이 확실한 것은 한자 輔國安民 을 쓴 동도대장기. 태극 도안은 오지영 보국안민 태극기 목판(원주 명주사 고판화박물관)이 근거로 거론되나 실제 게양 여부는 미확인' },
   { id: 'daehan-doc', period: 'modern', name: '대한제국 문서', icon: 'i142', hintLine: '대한제국 문서는 대한제국 시기의 나라 운영을 보여 주는 기록이다.', contentReviewNeeded: true },
 ]
 

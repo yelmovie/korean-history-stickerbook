@@ -506,7 +506,7 @@ export const QUESTIONS: Question[] = [
       { id: 'freedom', label: '일제의 지배에서 벗어나 나라를 되찾음' },
     ],
     pairs: { donghak: 'reform', samil: 'will', gwangbok: 'freedom' },
-    explanation: '사건의 이름과 함께 그 의미를 연결해야 역사의 흐름을 이해할 수 있어요.',
+    explanation: '사건의 이름과 함께 그 의미를 연결해야 역사의 흐름을 이해할 수 있어요. 동학농민군은 나라를 돕고 백성을 편안하게 한다는 뜻의 보국안민을 깃발에 크게 써서 내걸었어요.',
     rewardStickerId: 'donghak-flag',
     contentReviewNeeded: true, sourceNote: '의미 요약 표현 국사편찬위원회 검수 필요',
   },
