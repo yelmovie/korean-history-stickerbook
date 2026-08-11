@@ -496,9 +496,9 @@
 
 /* 근현대 기록실 너구리만 1.5배 (화면 밖으로 안 나가게 아래 정렬 유지) */
 .stage-deco[data-stage='stage5'] .stage-deco__mascot {
-  height: calc(var(--deco-mascot-h) * 1.5);
-  width: calc(var(--deco-mascot-w) * 1.5);
-  max-width: calc(var(--deco-mascot-w) * 1.5);
+  height: calc(var(--deco-mascot-h) * 0.75);
+  width: calc(var(--deco-mascot-w) * 0.75);
+  max-width: calc(var(--deco-mascot-w) * 0.75);
 }
 
 /* ================= 비교형 두 사진 겹침 해결 ================= */
@@ -634,10 +634,17 @@
 
 /* ================= 선잇기 박스 ================= */
 
-/* 글자 수에 비해 박스가 지나치게 길어서, 양쪽 폭을 줄이고 글자를 가운데로 */
+/* 두 열 사이에 선을 그을 공간을 넉넉히 남긴다.
+ * 폭이 좁으면 점끼리 붙어 초등학생이 끌어 놓기 어렵다. */
 .match-area {
-  max-width: 74cqw;
-  gap: 5cqw;
+  max-width: 94cqw;
+  gap: 9cqw;
+}
+
+/* 오른쪽 설명은 문장이라 살짝 작게 (전자칠판 하한 2cqh는 지킨다) */
+.match-item--right {
+  font-size: 2.5cqh;
+  line-height: 1.35;
 }
 
 .match-item {
@@ -757,4 +764,192 @@
 
 .reward {
   padding-top: 4cqh;
+}
+
+/* ================= 말풍선 위치 전면 조정 ================= */
+
+/* 말풍선이 캐릭터 옆으로 펼쳐져 문제 패널과 겹쳤다.
+ * 머리 위로 올리고, 폭을 캐릭터가 차지하는 칸 안으로 묶는다.
+ * (--deco-w 27cqw ↔ stage-body 좌우 여백 23cqw) */
+.char-talk__bubble {
+  bottom: calc(100% + 1cqh);
+  min-width: 12cqw;
+  max-width: 24cqw;
+  font-size: 2cqh;
+  padding: 1cqh 1.1cqw;
+}
+
+/* 왼쪽 캐릭터는 왼쪽 끝에, 오른쪽 캐릭터는 오른쪽 끝에 맞춰 화면 밖으로 안 나가게 */
+.char-talk--right .char-talk__bubble {
+  left: 0;
+  right: auto;
+}
+
+.char-talk--left .char-talk__bubble {
+  right: 0;
+  left: auto;
+}
+
+/* 꼬리는 이제 아래를 향한다 */
+.char-talk--right .char-talk__bubble::after {
+  left: 4cqw;
+  right: auto;
+}
+
+.char-talk--left .char-talk__bubble::after {
+  right: 4cqw;
+  left: auto;
+}
+
+/* 마스코트는 키가 작아 머리 위 여유가 더 많다 — 그만큼만 띄운다 */
+.stage-deco__mascot .char-talk__bubble {
+  max-width: 22cqw;
+}
+
+/* ================= 선잇기 연결점 ================= */
+
+/* 초등학생이 끌어서 잇기 쉽도록 점을 키우고, 눈에 띄게 한다.
+ * 점 자체는 ::after 라 터치 판정을 못 키우므로, MatchView의 놓기 판정도
+ * 점 주변을 넉넉히 잡고 있다(endDrag의 여유값). */
+.match-item::after {
+  width: max(28px, 3.6cqh);
+  height: max(28px, 3.6cqh);
+  border-width: 0.35cqw;
+  background: #fffdf5;
+  box-shadow: 0 0.2cqh 0.6cqh rgba(0, 0, 0, 0.35);
+}
+
+.match-item:not(.match-item--right)::after {
+  right: calc(-1.8cqh - 0.35cqw);
+}
+
+.match-item--right::after {
+  left: calc(-1.8cqh - 0.35cqw);
+}
+
+/* 아직 안 이은 점은 살짝 맥동해서 "여기를 끌어라"를 알린다 */
+.match-item:not(.match-item--done)::after {
+  animation: match-dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes match-dot-pulse {
+  50% {
+    transform: translateY(-50%) scale(1.12);
+    border-color: var(--color-teal, #2f6f6a);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .match-item:not(.match-item--done)::after {
+    animation: none;
+  }
+}
+
+/* ================= 말풍선 기준을 그림에 맞추기 ================= */
+
+/* .char-talk 박스는 지정한 폭·높이 그대로라, object-fit:contain 으로 줄어든
+ * 그림 위쪽에 빈 공간이 남는다. 그 상태로 bottom:100% 를 주면 말풍선이
+ * 머리보다 훨씬 위(제목 근처)로 떠 버린다.
+ * → 박스가 그림을 딱 감싸게 해서 "박스 위 = 머리 위"가 되게 한다. */
+.char-talk {
+  width: auto;
+  max-width: var(--deco-w);
+}
+
+.char-talk .char-talk__btn {
+  width: auto;
+  height: 100%;
+}
+
+.char-talk .char-talk__img {
+  width: auto;
+  height: 100%;
+  max-width: var(--deco-w);
+}
+
+.stage-deco__mascot.char-talk,
+.stage-deco__mascot .char-talk__img {
+  max-width: var(--deco-mascot-w);
+}
+
+.main-page__character.char-talk,
+.main-page__character .char-talk__img {
+  max-width: 26cqw;
+}
+
+.diary-show__presenter.char-talk,
+.diary-show__presenter .char-talk__img {
+  max-width: 22cqw;
+}
+
+/* 머리 바로 위에 붙되, 화면 위쪽 제목과는 겹치지 않게 */
+.char-talk__bubble {
+  bottom: calc(100% + 0.8cqh);
+}
+
+/* ================= 수료 화면 마무리 ================= */
+
+.completion__content {
+  position: relative;
+}
+
+/* 축하 종이꽃가루 — 화면 전체에 깔되 클릭은 통과시킨다 */
+.confetti {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* 수료증을 배경 액자 비례(4:3)에 맞추고 화면 가운데로 */
+.completion__cert {
+  width: min(74cqw, 68cqh * 4 / 3);
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  display: grid;
+  align-content: center;
+  gap: 1.6cqh;
+  /* 아래쪽에 도장이 앉을 띠를 남긴다 (기록 칸과 겹치지 않게) */
+  padding: 5cqh 9cqw 13cqh;
+  background-size: 100% 100%;
+}
+
+.completion__seal {
+  right: 8cqw;
+  bottom: 1cqh;
+}
+
+/* 칭호 자리에 그림 글자를 도장처럼 쾅 */
+.completion__title {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+}
+
+.completion__logo {
+  height: 19cqh;
+  width: auto;
+  max-width: 56cqw;
+  object-fit: contain;
+  animation: cert-stamp 0.8s cubic-bezier(0.2, 1.5, 0.35, 1) 0.35s both;
+}
+
+/* 도장이 찍히는 순간 수료증이 한 번 흔들린다 */
+.completion__cert {
+  animation: cert-shake 0.5s ease-out 0.75s both;
+}
+
+@keyframes cert-shake {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(0.5cqh) rotate(-0.25deg); }
+  60% { transform: translateY(-0.2cqh) rotate(0.15deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .completion__cert,
+  .completion__logo {
+    animation: none;
+  }
 }

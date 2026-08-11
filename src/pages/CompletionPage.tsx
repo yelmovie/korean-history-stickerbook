@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
+import { Confetti } from '../components/Confetti'
 import { AppButton, Modal, PaperCard } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG, A } from '../data/assets'
 import { QUESTIONS } from '../data/questions'
@@ -166,10 +167,13 @@ export function CompletionPage() {
     <div className="screen completion">
       <img src={bgSrc(SCREEN_BG.completion)} alt="" className="screen__bg" />
       <div className="screen__content completion__content">
-        <AssetImage src={iconSrc(A.curatorLogo)} alt="어린이 역사 큐레이터" className="completion__logo" />
+        <Confetti />
         <PaperCard className="completion__cert">
           <p className="completion__cert-head">수료증</p>
-          <h1 className="completion__title">🏅 {title}</h1>
+          {/* 칭호는 글자 대신 그림 글자를 도장처럼 찍는다 */}
+          <h1 className="completion__title">
+            <AssetImage src={iconSrc(A.curatorLogo)} alt={title} className="completion__logo" />
+          </h1>
           <p className="completion__desc">한국사 시간여행을 훌륭하게 마쳤음을 확인합니다.</p>
           <div className="cert-fields" aria-label="학년 반 번호 이름 적는 곳">
             <span className="cert-field">
