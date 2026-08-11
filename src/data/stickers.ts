@@ -82,9 +82,11 @@ export const DECO_STICKERS: Sticker[] = [
   { id: 'deco-geojunggi', period: 'joseon', name: '거중기', icon: 'i170', hintLine: '무거운 돌을 적은 힘으로 들어 올리던 기구예요.' },
   { id: 'deco-seal', period: 'joseon', name: '도장', icon: 'i173', hintLine: '이름을 새긴 도장을 찍어 문서를 확인했어요.' },
   { id: 'deco-knot', period: 'joseon', name: '매듭', icon: 'i172', hintLine: '실을 엮어 만든 매듭으로 옷과 물건을 꾸몄어요.' },
+  { id: 'deco-inkstone', period: 'joseon', name: '벼루', icon: 'i178', hintLine: '먹을 갈아 쓰던 벼루예요. 글과 그림이 여기에서 시작됐어요.' },
   // ----- 근현대 -----
   { id: 'deco-independence-gate', period: 'modern', name: '독립문', icon: 'i171', hintLine: '자주 독립의 뜻을 담아 세운 문이에요.' },
   { id: 'deco-stamp-paper', period: 'modern', name: '옛 우표', icon: 'i174', hintLine: '우표 한 장에도 그때의 풍경이 남아 있어요.' },
+  { id: 'deco-filmstrip', period: 'modern', name: '필름', icon: 'i180', hintLine: '사진과 영상으로 그때의 모습을 남길 수 있게 됐어요.' },
 ]
 
 /** 시대와 상관없이 어느 페이지에서나 쓸 수 있는 꾸미기 조각 */
@@ -94,6 +96,7 @@ export const DECO_COMMON: Sticker[] = [
   { id: 'deco-cloud-jade', period: 'prehistoric', name: '푸른 구름', icon: 'i164', hintLine: '' },
   { id: 'deco-crane', period: 'prehistoric', name: '학', icon: 'i165', hintLine: '' },
   { id: 'deco-cloud-gold', period: 'prehistoric', name: '노을 구름', icon: 'i169', hintLine: '' },
+  { id: 'deco-ribbon', period: 'prehistoric', name: '리본 띠', icon: 'i179', hintLine: '' },
 ]
 
 export const stickerById = new Map([...STICKERS, ...DECO_STICKERS, ...DECO_COMMON].map((s) => [s.id, s]))
