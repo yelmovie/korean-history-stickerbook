@@ -450,7 +450,7 @@ export const QUESTIONS: Question[] = [
     id: 'q-s5-01', stageId: 'stage5', type: 'ordering',
     prompt: '역사적 사건을 일어난 순서대로 연표에 배치해 보세요.',
     items: [
-      { id: 'donghak', label: '동학농민운동', icon: 'i141' },
+      { id: 'donghak', label: '동학농민운동', icon: 'i240' },
       { id: 'samil', label: '3·1운동', icon: 'i080' },
       { id: 'provgov', label: '대한민국 임시정부 수립', icon: 'i081' },
       { id: 'gwangbok', label: '광복', icon: 'i139' },
@@ -496,7 +496,7 @@ export const QUESTIONS: Question[] = [
     id: 'q-s5-04', stageId: 'stage5', type: 'match',
     prompt: '사건과 그 의미를 알맞게 연결해 보세요.',
     left: [
-      { id: 'donghak', label: '동학농민운동', icon: 'i141' },
+      { id: 'donghak', label: '동학농민운동', icon: 'i240' },
       { id: 'samil', label: '3·1운동' },
       { id: 'gwangbok', label: '광복' },
     ],
