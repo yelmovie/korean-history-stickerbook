@@ -56,7 +56,12 @@ export function loadSave(): { data: SaveData; existed: boolean; corrupted: boole
       const page = data.diary[p]
       if (!page || !Array.isArray(page.stickers) || typeof page.note !== 'string') {
         data.diary[p] = { stickers: [], note: '' }
+        continue
       }
+      // uid가 없던 시절 저장본 보정 — 없으면 그 자리에서 하나 만들어 준다
+      page.stickers = page.stickers.map((s, i) =>
+        s && typeof s.uid === 'string' ? s : { ...s, uid: `${p}-${i}-legacy` },
+      )
     }
     return { data, existed: true, corrupted: false }
   } catch {

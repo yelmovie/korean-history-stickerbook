@@ -73,30 +73,24 @@ export const DECO_STICKERS: Sticker[] = [
   { id: 'deco-roof-tile', period: 'threeKingdoms', name: '연꽃무늬 수막새', icon: 'i161', hintLine: '기와 끝을 막던 수막새에는 연꽃무늬가 자주 쓰였어요.' },
   { id: 'deco-gogok', period: 'threeKingdoms', name: '곡옥', icon: 'i162', hintLine: '굽은 옥은 목걸이나 금관을 꾸미는 데 쓰였어요.' },
   { id: 'deco-cheonmado', period: 'threeKingdoms', name: '천마 그림', icon: 'i176', hintLine: '하늘을 달리는 말 그림에는 옛사람들의 바람이 담겨 있어요.' },
+  { id: 'deco-cloud-gold', period: 'threeKingdoms', name: '단청 구름무늬', icon: 'i169', hintLine: '고분벽화와 단청에는 흐르는 구름무늬가 자주 등장해요.' },
   // ----- 고려 -----
   { id: 'deco-lotus', period: 'goryeo', name: '연꽃', icon: 'i166', hintLine: '연꽃은 불교 문화가 널리 퍼지면서 즐겨 쓰인 무늬예요.' },
   { id: 'deco-celadon-medallion', period: 'goryeo', name: '국화무늬 청자판', icon: 'i167', hintLine: '상감으로 국화무늬를 새겨 넣은 청자의 빛깔이에요.' },
   { id: 'deco-najeon-box', period: 'goryeo', name: '나전칠기 상자', icon: 'i177', hintLine: '조개껍데기를 얇게 갈아 붙여 무늬를 낸 공예품이에요.' },
+  { id: 'deco-cloud-jade', period: 'goryeo', name: '비색 구름무늬', icon: 'i164', hintLine: '청자의 푸른빛을 닮은 구름무늬예요.' },
   // ----- 조선 -----
   { id: 'deco-brush', period: 'joseon', name: '붓', icon: 'i168', hintLine: '붓과 먹으로 글을 쓰고 그림을 그렸어요.' },
+  { id: 'deco-inkstone', period: 'joseon', name: '벼루', icon: 'i178', hintLine: '먹을 갈아 쓰던 벼루예요. 글과 그림이 여기에서 시작됐어요.' },
   { id: 'deco-geojunggi', period: 'joseon', name: '거중기', icon: 'i170', hintLine: '무거운 돌을 적은 힘으로 들어 올리던 기구예요.' },
   { id: 'deco-seal', period: 'joseon', name: '도장', icon: 'i173', hintLine: '이름을 새긴 도장을 찍어 문서를 확인했어요.' },
   { id: 'deco-knot', period: 'joseon', name: '매듭', icon: 'i172', hintLine: '실을 엮어 만든 매듭으로 옷과 물건을 꾸몄어요.' },
-  { id: 'deco-inkstone', period: 'joseon', name: '벼루', icon: 'i178', hintLine: '먹을 갈아 쓰던 벼루예요. 글과 그림이 여기에서 시작됐어요.' },
+  { id: 'deco-leaf', period: 'joseon', name: '단풍잎', icon: 'i160', hintLine: '선비들은 계절의 풍경을 시와 그림에 즐겨 담았어요.' },
   // ----- 근현대 -----
   { id: 'deco-independence-gate', period: 'modern', name: '독립문', icon: 'i171', hintLine: '자주 독립의 뜻을 담아 세운 문이에요.' },
   { id: 'deco-stamp-paper', period: 'modern', name: '옛 우표', icon: 'i174', hintLine: '우표 한 장에도 그때의 풍경이 남아 있어요.' },
   { id: 'deco-filmstrip', period: 'modern', name: '필름', icon: 'i180', hintLine: '사진과 영상으로 그때의 모습을 남길 수 있게 됐어요.' },
+  { id: 'deco-ribbon', period: 'modern', name: '기념 리본', icon: 'i179', hintLine: '기념식과 표창에 쓰이던 리본이에요.' },
 ]
 
-/** 시대와 상관없이 어느 페이지에서나 쓸 수 있는 꾸미기 조각 */
-export const DECO_COMMON: Sticker[] = [
-  { id: 'deco-leaf', period: 'prehistoric', name: '단풍잎', icon: 'i160', hintLine: '' },
-  { id: 'deco-heart', period: 'prehistoric', name: '금빛 하트', icon: 'i163', hintLine: '' },
-  { id: 'deco-cloud-jade', period: 'prehistoric', name: '푸른 구름', icon: 'i164', hintLine: '' },
-  { id: 'deco-crane', period: 'prehistoric', name: '학', icon: 'i165', hintLine: '' },
-  { id: 'deco-cloud-gold', period: 'prehistoric', name: '노을 구름', icon: 'i169', hintLine: '' },
-  { id: 'deco-ribbon', period: 'prehistoric', name: '리본 띠', icon: 'i179', hintLine: '' },
-]
-
-export const stickerById = new Map([...STICKERS, ...DECO_STICKERS, ...DECO_COMMON].map((s) => [s.id, s]))
+export const stickerById = new Map([...STICKERS, ...DECO_STICKERS].map((s) => [s.id, s]))

@@ -59,7 +59,7 @@ export function DiaryShowcasePage() {
                   if (!sticker) return null
                   return (
                     <div
-                      key={s.stickerId}
+                      key={s.uid}
                       className="diary-sticker diary-sticker--static"
                       style={{
                         left: `${s.x * 100}%`,

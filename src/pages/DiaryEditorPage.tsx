@@ -3,7 +3,7 @@ import { AssetImage } from '../components/AssetImage'
 import { AppButton } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { PERIOD_LABELS } from '../data/stages'
-import { DECO_COMMON, DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
+import { DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
 import { useGame } from '../game/GameContext'
 import type { DiaryPlacedSticker, PeriodId } from '../types'
 import { audio } from '../utils/audio'
@@ -30,6 +30,12 @@ type GestureRef = Gesture & {
   startRotation: number
 }
 
+/** 붙인 스티커 한 건씩 구분할 id. 저장 데이터 안에서만 쓰이므로 짧아도 된다 */
+let uidSeq = 0
+const nextUid = () => Date.now().toString(36) + (uidSeq += 1).toString(36)
+/** 새로 붙인 스티커가 페이지 밖으로 나가지 않게 */
+const clampPos = (v: number) => Math.min(0.92, Math.max(0.08, v))
+
 export function DiaryEditorPage() {
   const { save, update, goTo } = useGame()
   const [period, setPeriod] = useState<PeriodId>('prehistoric')
@@ -48,7 +54,6 @@ export function DiaryEditorPage() {
     ...STICKERS.filter((s) => s.period === period && save.earnedStickers.includes(s.id)),
     // 꾸미기 스티커는 모으지 않아도 늘 쓸 수 있다
     ...DECO_STICKERS.filter((s) => s.period === period),
-    ...DECO_COMMON,
   ]
   const placedIds = page.stickers.map((p) => p.stickerId)
 
@@ -65,16 +70,27 @@ export function DiaryEditorPage() {
   const addSticker = (stickerId: string) => {
     audio.playSfx('snap')
     const maxZ = page.stickers.reduce((m, s) => Math.max(m, s.z), 0)
+    const uid = stickerId + '-' + nextUid()
+    // 같은 자리에 그대로 겹쳐 쌓이지 않게, 붙일 때마다 조금씩 어긋나게 놓는다
+    const n = page.stickers.length
     mutatePage((stickers) => [
       ...stickers,
-      { stickerId, x: 0.5, y: 0.45, scale: 1, rotation: 0, z: maxZ + 1 },
+      {
+        uid,
+        stickerId,
+        x: clampPos(0.5 + ((n % 5) - 2) * 0.07),
+        y: clampPos(0.45 + (Math.floor(n / 5) % 3) * 0.12),
+        scale: 1,
+        rotation: 0,
+        z: maxZ + 1,
+      },
     ])
-    setSelectedId(stickerId)
+    setSelectedId(uid)
   }
 
-  const removeById = (id: string) => {
-    mutatePage((stickers) => stickers.filter((s) => s.stickerId !== id))
-    setSelectedId((cur) => (cur === id ? null : cur))
+  const removeById = (uid: string) => {
+    mutatePage((stickers) => stickers.filter((s) => s.uid !== uid))
+    setSelectedId((cur) => (cur === uid ? null : cur))
   }
 
   const onStickerPointerDown = (s: DiaryPlacedSticker) => (e: React.PointerEvent) => {
@@ -83,15 +99,15 @@ export function DiaryEditorPage() {
     const px = (e.clientX - rect.left) / rect.width
     const py = (e.clientY - rect.top) / rect.height
     dragOffset.current = { dx: px - s.x, dy: py - s.y }
-    setSelectedId(s.stickerId)
+    setSelectedId(s.uid)
     const maxZ = page.stickers.reduce((m, st) => Math.max(m, st.z), 0)
-    if (s.z < maxZ) changeSelectedById(s.stickerId, (st) => ({ ...st, z: maxZ + 1 }))
-    dragRef.current = { id: s.stickerId, x: s.x, y: s.y }
-    setDragPos({ id: s.stickerId, x: s.x, y: s.y })
+    if (s.z < maxZ) changeSelectedById(s.uid, (st) => ({ ...st, z: maxZ + 1 }))
+    dragRef.current = { id: s.uid, x: s.x, y: s.y }
+    setDragPos({ id: s.uid, x: s.x, y: s.y })
   }
 
-  const changeSelectedById = (id: string, fn: (s: DiaryPlacedSticker) => DiaryPlacedSticker) => {
-    mutatePage((stickers) => stickers.map((s) => (s.stickerId === id ? fn(s) : s)))
+  const changeSelectedById = (uid: string, fn: (s: DiaryPlacedSticker) => DiaryPlacedSticker) => {
+    mutatePage((stickers) => stickers.map((s) => (s.uid === uid ? fn(s) : s)))
   }
 
   const onStickerPointerMove = (e: React.PointerEvent) => {
@@ -131,7 +147,7 @@ export function DiaryEditorPage() {
       const dx = e.clientX - cx
       const dy = e.clientY - cy
       gestureRef.current = {
-        id: s.stickerId,
+        id: s.uid,
         mode,
         cx,
         cy,
@@ -142,8 +158,8 @@ export function DiaryEditorPage() {
         scale: s.scale,
         rotation: s.rotation,
       }
-      setSelectedId(s.stickerId)
-      setGesture({ id: s.stickerId, scale: s.scale, rotation: s.rotation })
+      setSelectedId(s.uid)
+      setGesture({ id: s.uid, scale: s.scale, rotation: s.rotation })
     }
 
   const onHandlePointerMove = (e: React.PointerEvent) => {
@@ -177,18 +193,18 @@ export function DiaryEditorPage() {
   const onStickerKeyDown = (s: DiaryPlacedSticker) => (e: React.KeyboardEvent) => {
     const step = e.shiftKey ? 0.05 : 0.02
     const move = (dx: number, dy: number) =>
-      changeSelectedById(s.stickerId, (st) => ({
+      changeSelectedById(s.uid, (st) => ({
         ...st,
         x: clamp(st.x + dx, 0.06, 0.94),
         y: clamp(st.y + dy, 0.08, 0.92),
       }))
     const resize = (d: number) =>
-      changeSelectedById(s.stickerId, (st) => ({
+      changeSelectedById(s.uid, (st) => ({
         ...st,
         scale: clamp(st.scale + d, SCALE_MIN, SCALE_MAX),
       }))
     const rotate = (d: number) =>
-      changeSelectedById(s.stickerId, (st) => ({
+      changeSelectedById(s.uid, (st) => ({
         ...st,
         rotation: clamp(st.rotation + d, ROT_MIN, ROT_MAX),
       }))
@@ -202,7 +218,7 @@ export function DiaryEditorPage() {
       case '-': case '_': resize(-0.15); break
       case '[': rotate(-15); break
       case ']': rotate(15); break
-      case 'Delete': case 'Backspace': removeById(s.stickerId); break
+      case 'Delete': case 'Backspace': removeById(s.uid); break
       default: return
     }
     e.preventDefault()
@@ -216,7 +232,7 @@ export function DiaryEditorPage() {
   }
 
   const firstSticker = placedIds.length > 0 ? stickerById.get(placedIds[0]) : undefined
-  const selected = page.stickers.find((s) => s.stickerId === selectedId)
+  const selected = page.stickers.find((s) => s.uid === selectedId)
 
   return (
     <div className="screen diary-edit">
@@ -266,13 +282,13 @@ export function DiaryEditorPage() {
               .map((s) => {
                 const sticker = stickerById.get(s.stickerId)
                 if (!sticker) return null
-                const pos = dragPos && dragPos.id === s.stickerId ? dragPos : s
+                const pos = dragPos && dragPos.id === s.uid ? dragPos : s
                 // 핸들 조작 중이면 저장값 대신 실시간 값으로 그린다
-                const live = gesture && gesture.id === s.stickerId ? gesture : s
-                const isSelected = selectedId === s.stickerId
+                const live = gesture && gesture.id === s.uid ? gesture : s
+                const isSelected = selectedId === s.uid
                 return (
                   <div
-                    key={s.stickerId}
+                    key={s.uid}
                     className={`diary-sticker ${isSelected ? 'diary-sticker--selected' : ''}`}
                     style={{
                       left: `${pos.x * 100}%`,
@@ -299,7 +315,7 @@ export function DiaryEditorPage() {
                           className="diary-handle diary-handle--delete"
                           aria-label={`${sticker.name} 스티커 떼기`}
                           onPointerDown={(e) => e.stopPropagation()}
-                          onClick={() => removeById(s.stickerId)}
+                          onClick={() => removeById(s.uid)}
                         >
                           ✕
                         </button>
@@ -352,18 +368,25 @@ export function DiaryEditorPage() {
                 <p className="diary-tray__empty">이 시대의 스티커가 아직 없어요. 스테이지에서 모아 보세요!</p>
               )}
               {earnedInPeriod.map((s) => {
-                const used = placedIds.includes(s.id)
+                const count = placedIds.filter((id) => id === s.id).length
                 return (
                   <button
                     key={s.id}
                     type="button"
-                    className={`diary-tray__item ${used ? 'diary-tray__item--used' : ''}`}
-                    onClick={() => !used && addSticker(s.id)}
-                    disabled={used}
-                    aria-label={used ? `${s.name} (이미 붙임)` : `${s.name} 붙이기`}
+                    className="diary-tray__item"
+                    onClick={() => addSticker(s.id)}
+                    aria-label={count > 0 ? `${s.name} 붙이기 (지금 ${count}개 붙임)` : `${s.name} 붙이기`}
                   >
-                    <AssetImage src={iconSrc(s.icon)} alt="" className="diary-tray__img" fallbackLabel={s.name} />
-                    <span className="diary-tray__name">{s.name}</span>
+                    <span className="tray-card">
+                      <span className="tray-card__face tray-card__face--front">
+                        <AssetImage src={iconSrc(s.icon)} alt="" className="diary-tray__img" fallbackLabel={s.name} />
+                        <span className="diary-tray__name">{s.name}</span>
+                      </span>
+                      <span className="tray-card__face tray-card__face--back">
+                        <span className="tray-card__back-name">{s.name}</span>
+                      </span>
+                    </span>
+                    {count > 0 && <span className="diary-tray__count">{count}</span>}
                   </button>
                 )
               })}

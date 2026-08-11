@@ -13,6 +13,8 @@ export function bgSrc(id: string): string {
 /** 실물 사진 출처 (상세 소장처는 CREDITS.md). KHS = 국가유산청 국가유산포털 OpenAPI, EMU = e뮤지엄(공공누리 제1유형 필터 확인) */
 const KHS = '사진 ⓒ 국가유산청 국가유산포털'
 const EMU = '사진 ⓒ 국립박물관 e뮤지엄'
+/** 국가유산 지식이음(portal.nrich.go.kr) — 기관이 공공누리 제1유형으로 일괄 고지 */
+const NRICH = '사진 ⓒ 국립문화유산연구원 국가유산 지식이음'
 
 export const PHOTO_CREDITS: Record<string, string> = {
   cheugugi: KHS, 'silla-crown': KHS, 'baekje-incense-burner': KHS, 'celadon-maebyeong': KHS,
@@ -23,7 +25,8 @@ export const PHOTO_CREDITS: Record<string, string> = {
   // 리사이즈·재인코딩이 조건 위반이라 사진을 빼고 스티커 아이콘으로 되돌렸다. docs/KOGL-AUDIT.md 참조
   'comb-pottery': EMU, 'hand-axe': EMU, 'plain-pottery': EMU, 'half-moon-knife': EMU,
   'bipa-dagger': EMU, 'spindle-whorl': EMU, 'bone-needle': EMU, 'sumbe-point': EMU,
-  'polished-stone': EMU, 'goguryeo-mural': EMU, 'gwanggaeto-stele': EMU, 'metal-type': EMU,
+  'polished-stone': EMU, 'goguryeo-mural': EMU, 'metal-type': EMU,
+  'gwanggaeto-stele': NRICH,
   'goryeo-painting': EMU, 'independent-news': EMU, taegeukgi: EMU, declaration: EMU,
 }
 

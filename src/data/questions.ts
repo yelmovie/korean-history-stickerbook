@@ -157,7 +157,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-02', stageId: 'stage2', type: 'choice',
-    artifactName: '불국사와 석굴암', artifactPhoto: 'bulguksa',
+    artifactIcon: 'i126', artifactName: '불국사와 석굴암', artifactPhoto: 'bulguksa',
     prompt: '불국사와 석굴암을 통해 알 수 있는 통일신라 문화의 특징으로 가장 알맞은 것은?',
     choices: [
       '나라에서 불교 대신 유교를 앞세워 깊이 가르쳤다',

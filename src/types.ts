@@ -120,6 +120,8 @@ export type Question =
   | FillQuestion
 
 export interface DiaryPlacedSticker {
+  /** 배치 한 건의 고유 id. 같은 스티커를 여러 번 붙일 수 있어 stickerId로는 구분이 안 된다 */
+  uid: string
   stickerId: string
   /** 0~1 비율 좌표 (화면 크기 무관) */
   x: number
