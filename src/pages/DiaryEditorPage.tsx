@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AssetImage } from '../components/AssetImage'
 import { AppButton } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
@@ -224,15 +224,22 @@ export function DiaryEditorPage() {
     e.preventDefault()
   }
 
-  const setNote = (content: string) => {
+  const selected = page.stickers.find((s) => s.uid === selectedId)
+  /** 지금 누른 스티커. 이 스티커의 설명이 곧 이 시대 페이지의 한 줄 설명이 된다 */
+  const selectedSticker = selected ? stickerById.get(selected.stickerId) : undefined
+
+  // 고른 스티커의 설명을 페이지에 남겨 둔다 — 전시 화면과 수료증이 이 값을 읽는다
+  useEffect(() => {
+    if (!selectedSticker || page.note === selectedSticker.hintLine) return
     update((draft) => ({
       ...draft,
-      diary: { ...draft.diary, [period]: { ...draft.diary[period], note: content } },
+      diary: {
+        ...draft.diary,
+        [period]: { ...draft.diary[period], note: selectedSticker.hintLine },
+      },
     }))
-  }
-
-  const firstSticker = placedIds.length > 0 ? stickerById.get(placedIds[0]) : undefined
-  const selected = page.stickers.find((s) => s.uid === selectedId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSticker?.id, period])
 
   return (
     <div className="screen diary-edit">
@@ -346,19 +353,19 @@ export function DiaryEditorPage() {
                   </div>
                 )
               })}
-            <div className="diary-note">
-              <label className="diary-note__label" htmlFor="diary-note-input">
-                한 줄 설명
-              </label>
-              <input
-                id="diary-note-input"
-                className="diary-note__input"
-                type="text"
-                maxLength={80}
-                value={page.note}
-                placeholder={firstSticker ? firstSticker.hintLine : '이 시대에서 알게 된 점을 한 줄로 써 보세요'}
-                onChange={(e) => setNote(e.target.value)}
-              />
+            {/* 직접 타이핑하는 대신, 누른 스티커의 이름과 설명을 보여 준다 */}
+            <div className="diary-note" role="status" aria-live="polite">
+              <span className="diary-note__label">한 줄 설명</span>
+              {selectedSticker ? (
+                <p className="diary-note__card">
+                  <span className="diary-note__name">{selectedSticker.name}</span>
+                  <span className="diary-note__text">{selectedSticker.hintLine}</span>
+                </p>
+              ) : (
+                <p className="diary-note__card diary-note__card--empty">
+                  붙인 스티커를 누르면 이름과 설명이 여기에 나와요
+                </p>
+              )}
             </div>
           </div>
           <aside className="diary-tray" data-period={period}>

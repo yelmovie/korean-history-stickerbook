@@ -1061,3 +1061,44 @@
   width: 9.5cqh;
   height: 9.5cqh;
 }
+
+/* ================= 다이어리 한 줄 설명 ================= */
+
+/* 직접 타이핑하는 입력칸을 없애고, 누른 스티커의 이름·설명을 보여 주는 판으로 */
+.diary-note {
+  display: grid;
+  gap: 0.4cqh;
+}
+
+.diary-note__card {
+  margin: 0;
+  display: grid;
+  gap: 0.3cqh;
+  min-height: 7cqh;
+  align-content: center;
+  padding: 1cqh 1.6cqw;
+  border-radius: 1.2cqh;
+  border: 0.18cqw solid var(--color-gold);
+  background: rgba(253, 247, 233, 0.94);
+  color: var(--color-ink);
+}
+
+.diary-note__name {
+  font-size: 2.3cqh;
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+.diary-note__text {
+  font-size: 2.1cqh;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.diary-note__card--empty {
+  font-size: 2cqh;
+  color: var(--color-wood);
+  text-align: center;
+  border-style: dashed;
+  background: rgba(253, 247, 233, 0.6);
+}
