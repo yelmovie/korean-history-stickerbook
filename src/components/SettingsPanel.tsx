@@ -138,15 +138,20 @@ export function SettingsPanel({ open, onClose }: Props) {
               {teacher ? (
                 <>
                   <p className="settings-note">{teacher.guide.summary}</p>
-                  {teacher.guide.sections.map((g) => (
-                    <div key={g.title} className="standard-card">
-                      <p className="standard-card__code">{g.title}</p>
+                  {teacher.guide.sections.map((g, i) => (
+                    <details key={g.title} className="standard-card standard-card--toggle" open={i === 0}>
+                      <summary className="standard-card__summary">
+                        <span className="standard-card__code">{g.title}</span>
+                        <span className="standard-card__chevron" aria-hidden="true">
+                          ▼
+                        </span>
+                      </summary>
                       {g.lines.map((l) => (
                         <p key={l} className="standard-card__how">
                           · {l}
                         </p>
                       ))}
-                    </div>
+                    </details>
                   ))}
                 </>
               ) : (

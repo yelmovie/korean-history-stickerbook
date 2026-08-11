@@ -46,10 +46,10 @@
 
 .main-page__title-area {
   text-align: center;
-  padding-top: 2.4cqh;
+  padding-top: 7.4cqh;
   display: grid;
   justify-items: center;
-  gap: 0.8cqh;
+  gap: 1.4cqh;
 }
 
 .main-page__logo {
@@ -77,7 +77,7 @@
 
 .main-page__character {
   position: absolute;
-  left: 5cqw;
+  left: 1.5cqw;
   bottom: 0;
   height: 62cqh;
   object-fit: contain;
@@ -106,7 +106,7 @@
 
 .stage-select__header {
   text-align: center;
-  padding: 2cqh 2cqw 1cqh;
+  padding: 1.6cqh 2cqw 0.6cqh;
   display: grid;
   justify-items: center;
   gap: 0.5cqh;
@@ -122,20 +122,20 @@
 .stage-select__cards {
   flex: 1;
   display: flex;
-  gap: 1.6cqw;
-  align-items: stretch;
+  gap: 1.4cqw;
+  align-items: center;
   justify-content: center;
-  padding: 2cqh 2cqw;
+  padding: 1cqh 2cqw;
 }
 
 .stage-card {
   position: relative;
-  width: 17cqw;
+  width: 17.5cqw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1cqh;
-  padding: 2cqh 1cqw;
+  gap: 1.2cqh;
+  padding: 3cqh 1cqw 2.4cqh;
   border-radius: var(--radius-card);
   border: 0.25cqw solid var(--color-wood);
   background:
@@ -178,30 +178,33 @@
 }
 
 .stage-card__badge {
-  width: 11cqh;
-  height: 11cqh;
+  width: 17cqh;
+  height: 17cqh;
   object-fit: contain;
-  margin-top: 1.5cqh;
+  margin-top: 0.5cqh;
 }
 
 .stage-card__period {
-  font-size: 2cqh;
-  font-weight: 700;
+  font-size: 2.4cqh;
+  font-weight: 800;
   color: var(--color-teal);
 }
 
 .stage-card__title {
-  font-size: 2.5cqh;
+  font-size: 3.1cqh;
   font-weight: 800;
   color: var(--color-ink);
   text-align: center;
+  line-height: 1.25;
 }
 
 .stage-card__count {
-  margin-top: auto;
-  font-size: 2cqh;
+  font-size: 2.4cqh;
   color: var(--color-wood);
-  font-weight: 700;
+  font-weight: 800;
+  background: rgba(107, 69, 40, 0.1);
+  padding: 0.4cqh 1cqw;
+  border-radius: 1.6cqh;
 }
 
 .stage-card__stamp {

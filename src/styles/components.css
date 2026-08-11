@@ -277,3 +277,59 @@
     animation: none;
   }
 }
+
+/* ---------- 한글 줄바꿈 정돈 ---------- */
+
+/* 제목·선택지·짧은 문구: 두 줄이 되면 길이를 고르게 나눈다 */
+h1,
+h2,
+.qv__prompt,
+.choice-item,
+.match-item,
+.stage-card__title,
+.stage-card__count,
+.main-page__subtitle,
+.stage-header__subtitle,
+.settings-toggle__label,
+.settings-menu-item,
+.standard-card__code,
+.fill-sentence,
+.placement-guide,
+.hint-bubble,
+.reward__name,
+.reward__badge,
+.completion__title,
+.completion__stat-label,
+.event-card,
+.timeline-cell,
+.diary-tray__name,
+.flip-card__front {
+  text-wrap: balance;
+}
+
+/* 긴 본문: 마지막 줄에 한 낱말만 남지 않게 */
+.standard-card__text,
+.standard-card__how,
+.settings-note,
+.reward__explain,
+.completion__desc,
+.stage-complete p,
+.diary-tray__empty,
+.diary-page__empty,
+.diary-show__speech-text,
+.observe-point__text,
+.flip-card__back {
+  text-wrap: pretty;
+}
+
+/* 비활성 버튼도 글자는 읽히게 — 종류와 무관하게 같은 회색 종이 톤으로 통일 */
+.app-btn:disabled,
+.app-btn--secondary:disabled,
+.app-btn--ghost:disabled {
+  opacity: 1;
+  filter: none;
+  background: linear-gradient(180deg, #e7ddc7 0%, #d6cab0 100%);
+  color: rgba(43, 33, 24, 0.7);
+  border-color: rgba(107, 69, 40, 0.4);
+  box-shadow: none;
+}
