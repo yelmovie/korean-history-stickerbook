@@ -6,7 +6,28 @@ interface Props {
   onRevealed: () => void
 }
 
-/** 문지르기 발굴: 흙 레이어를 문질러 60% 이상 지우면 유물이 드러난다 */
+/** 흙 레이어를 그린다 (캔버스 크기에 맞춰) */
+function drawDirt(canvas: HTMLCanvasElement) {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+  const g = ctx.createLinearGradient(0, 0, 0, canvas.height)
+  g.addColorStop(0, '#8a6a48')
+  g.addColorStop(1, '#5f4630')
+  ctx.globalCompositeOperation = 'source-over'
+  ctx.fillStyle = g
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.fillStyle = 'rgba(74, 55, 37, 0.55)'
+  for (let i = 0; i < 40; i++) {
+    const x = ((i * 137) % canvas.width) + (i % 3) * 4
+    const y = ((i * 89) % canvas.height) + (i % 5) * 3
+    ctx.beginPath()
+    ctx.arc(x, y, 6 + (i % 9), 0, Math.PI * 2)
+    ctx.fill()
+  }
+}
+
+/** 문지르기 발굴: 흙 레이어를 문질러 60% 이상 지우면 유물이 드러난다.
+ *  캔버스는 감싼 유물 이미지 크기에 자동으로 맞춘다. */
 export function ScratchReveal({ children, onRevealed }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -14,41 +35,44 @@ export function ScratchReveal({ children, onRevealed }: Props) {
   const rubbing = useRef(false)
   const moveCount = useRef(0)
 
+  // 이미지 로딩·리사이즈에 따라 캔버스 크기를 유물 이미지에 맞춘다
   useEffect(() => {
-    const canvas = canvasRef.current
     const wrap = wrapRef.current
-    if (!canvas || !wrap) return
-    const rect = wrap.getBoundingClientRect()
-    canvas.width = Math.max(1, Math.floor(rect.width))
-    canvas.height = Math.max(1, Math.floor(rect.height))
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    // 흙 표면: 갈색 그라데이션 + 얼룩
-    const g = ctx.createLinearGradient(0, 0, 0, canvas.height)
-    g.addColorStop(0, '#8a6a48')
-    g.addColorStop(1, '#5f4630')
-    ctx.fillStyle = g
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
-    ctx.fillStyle = 'rgba(74, 55, 37, 0.55)'
-    for (let i = 0; i < 40; i++) {
-      const x = ((i * 137) % canvas.width) + (i % 3) * 4
-      const y = ((i * 89) % canvas.height) + (i % 5) * 3
-      ctx.beginPath()
-      ctx.arc(x, y, 6 + (i % 9), 0, Math.PI * 2)
-      ctx.fill()
+    if (!wrap) return
+    const sync = () => {
+      const canvas = canvasRef.current
+      if (!canvas || moveCount.current > 0) return
+      const r = wrap.getBoundingClientRect()
+      const w = Math.floor(r.width)
+      const h = Math.floor(r.height)
+      if (w < 4 || h < 4 || (canvas.width === w && canvas.height === h)) return
+      canvas.width = w
+      canvas.height = h
+      drawDirt(canvas)
     }
+    sync()
+    const ro = new ResizeObserver(sync)
+    ro.observe(wrap)
+    return () => ro.disconnect()
   }, [])
 
   const erase = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current
-    if (!canvas || done) return
+    if (!canvas || done || canvas.width < 4) return
     const rect = canvas.getBoundingClientRect()
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const r = Math.max(18, canvas.width * 0.07)
+    // 붓 크기: 캔버스 폭의 14% (최소 36px)
+    const r = Math.max(36, canvas.width * 0.14)
     ctx.globalCompositeOperation = 'destination-out'
     ctx.beginPath()
-    ctx.arc(((clientX - rect.left) / rect.width) * canvas.width, ((clientY - rect.top) / rect.height) * canvas.height, r, 0, Math.PI * 2)
+    ctx.arc(
+      ((clientX - rect.left) / rect.width) * canvas.width,
+      ((clientY - rect.top) / rect.height) * canvas.height,
+      r,
+      0,
+      Math.PI * 2,
+    )
     ctx.fill()
     moveCount.current += 1
     if (moveCount.current % 8 === 0) checkCleared()
@@ -57,7 +81,7 @@ export function ScratchReveal({ children, onRevealed }: Props) {
   const checkCleared = () => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
-    if (!canvas || !ctx) return
+    if (!canvas || !ctx || canvas.width < 4) return
     const step = 12
     const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data
     let clear = 0
@@ -104,7 +128,11 @@ export function ScratchReveal({ children, onRevealed }: Props) {
           </span>
         </>
       )}
-      {done && <span className="scratch-done" aria-hidden="true">✨</span>}
+      {done && (
+        <span className="scratch-done" aria-hidden="true">
+          ✨
+        </span>
+      )}
     </div>
   )
 }

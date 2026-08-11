@@ -52,11 +52,13 @@ export function ChoiceView({ question, onSolved }: Props) {
 
   // 실물 사진이 있으면 AI 일러스트 대신 실물 사진으로 관찰한다 (공공누리 원본 우선 원칙)
   const realPhoto = photoSrc(question.artifactPhoto)
-  const artifactBody = realPhoto ? (
-    <span className="artifact-photo-frame">
-      <AssetImage src={realPhoto} alt={question.artifactName ?? ''} className="artifact-photo" fallbackLabel={question.artifactName} />
-      <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
-    </span>
+  const artifactImage = realPhoto ? (
+    <AssetImage
+      src={realPhoto}
+      alt={question.artifactName ?? ''}
+      className="artifact-photo"
+      fallbackLabel={question.artifactName}
+    />
   ) : (
     <AssetImage
       src={iconSrc(question.artifactIcon)}
@@ -64,6 +66,18 @@ export function ChoiceView({ question, onSolved }: Props) {
       className="artifact-pedestal__img"
       fallbackLabel={question.artifactName}
     />
+  )
+
+  // 발굴형이면 사진만 흙으로 덮는다 (출처 표기는 발굴 후 사진 아래에)
+  const artifactBody = (
+    <span className="artifact-photo-frame">
+      {question.excavate && !revealed ? (
+        <ScratchReveal onRevealed={() => setRevealed(true)}>{artifactImage}</ScratchReveal>
+      ) : (
+        artifactImage
+      )}
+      {realPhoto && revealed && <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>}
+    </span>
   )
 
   return (
@@ -76,11 +90,7 @@ export function ChoiceView({ question, onSolved }: Props) {
             onClick={() => revealed && setZoomed(!zoomed)}
             aria-label={zoomed ? `${question.artifactName} 축소하기` : `${question.artifactName} 확대해서 관찰하기`}
           >
-            {question.excavate && !revealed ? (
-              <ScratchReveal onRevealed={() => setRevealed(true)}>{artifactBody}</ScratchReveal>
-            ) : (
-              artifactBody
-            )}
+            {artifactBody}
             <span className="artifact-pedestal__name">
               {revealed ? `${question.artifactName} ${zoomed ? '➖' : '🔍'}` : '❓ 발굴 중...'}
             </span>

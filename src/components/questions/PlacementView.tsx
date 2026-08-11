@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { iconSrc } from '../../data/assets'
+import { iconSrc, photoSrc, photoCredit } from '../../data/assets'
 import type { PlacementQuestion } from '../../types'
 import { audio } from '../../utils/audio'
 import { AssetImage } from '../AssetImage'
@@ -132,12 +132,15 @@ export function PlacementView({ question, onSolved }: Props) {
           aria-label={`${question.artifactName} — 끌어서 알맞은 자리에 놓거나, 눌러서 고른 뒤 자리를 누르세요`}
         >
           <AssetImage
-            src={iconSrc(question.artifactIcon)}
+            src={photoSrc(question.artifactPhoto) ?? iconSrc(question.artifactIcon)}
             alt={question.artifactName}
-            className="placement-artifact__img"
+            className={photoSrc(question.artifactPhoto) ? 'placement-artifact__photo' : 'placement-artifact__img'}
             fallbackLabel={question.artifactName}
           />
           <span className="placement-artifact__name">{question.artifactName}</span>
+          {photoSrc(question.artifactPhoto) && (
+            <span className="artifact-photo-credit">{photoCredit(question.artifactPhoto)}</span>
+          )}
         </button>
         <p className="placement-guide">유물을 끌어서 알맞은 자리에 놓아 보세요</p>
       </div>

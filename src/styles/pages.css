@@ -235,7 +235,7 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: 0 3cqw calc(2cqh + var(--safe-bottom));
+  padding: 0 15cqw calc(2cqh + var(--safe-bottom));
   position: relative;
   z-index: 2;
 }
@@ -249,18 +249,18 @@
 
 .stage-deco__character {
   position: absolute;
-  left: 1cqw;
-  bottom: 2cqh;
-  height: 30cqh;
+  left: -1cqw;
+  bottom: 0;
+  height: 54cqh;
   object-fit: contain;
   opacity: 0.95;
 }
 
 .stage-deco__mascot {
   position: absolute;
-  right: 1cqw;
-  bottom: 2cqh;
-  height: 18cqh;
+  right: -1cqw;
+  bottom: 0;
+  height: 34cqh;
   object-fit: contain;
 }
 
@@ -269,15 +269,16 @@
   max-width: 88cqw;
   display: flex;
   flex-direction: column;
-  gap: 1.6cqh;
+  justify-content: center;
+  gap: 1.8cqh;
   align-items: center;
 }
 
 .qv__prompt-card {
   width: fit-content;
-  max-width: 100%;
+  max-width: 64cqw;
   margin: 0 auto;
-  padding: 1.2cqh 2.4cqw;
+  padding: 1.4cqh 2.4cqw;
 }
 
 .qv__prompt {
@@ -288,7 +289,7 @@
 }
 
 .choice-list {
-  width: min(100%, 74cqw);
+  width: min(100%, 60cqw);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -373,7 +374,7 @@
 }
 
 .qv-choice__left {
-  flex: 0 0 30cqw;
+  flex: 0 0 28cqw;
   display: flex;
   flex-direction: column;
   gap: 1.4cqh;
@@ -397,8 +398,10 @@
   background: radial-gradient(circle at 50% 30%, rgba(255, 248, 230, 0.5), rgba(16, 35, 63, 0.25) 75%);
   border: 0.25cqw solid var(--color-gold);
   border-radius: var(--radius-card);
-  padding: 1.6cqh 1.6cqw;
-  width: 100%;
+  padding: 1.2cqh 1.2cqw;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .artifact-pedestal__img,
@@ -463,16 +466,16 @@
 
 .placement-slot {
   flex: 0 1 24cqw;
-  min-height: 12cqh;
+  min-height: 11cqh;
   border: 0.35cqw dashed var(--color-gold);
   border-radius: var(--radius-card);
-  background: rgba(16, 35, 63, 0.5);
-  color: var(--color-paper);
+  background: rgba(11, 24, 43, 0.82);
+  color: #fff8e6;
   font-family: inherit;
-  font-size: 2.4cqh;
+  font-size: 2.8cqh;
   font-weight: 800;
   cursor: pointer;
-  text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.6);
+  text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.8);
 }
 
 .placement-slot--target {
@@ -495,10 +498,20 @@
   }
 }
 
+.qv-placement {
+  height: 100%;
+  justify-content: space-between;
+}
+
 .placement-tray {
   display: grid;
   justify-items: center;
   gap: 0.8cqh;
+  padding: 1.4cqh 2.4cqw;
+  border-radius: var(--radius-card);
+  background: rgba(16, 35, 63, 0.62);
+  border: 0.25cqw solid var(--color-gold);
+  box-shadow: var(--shadow-card);
 }
 
 .placement-artifact {
@@ -524,18 +537,18 @@
 
 .placement-artifact__img,
 .placement-artifact .asset-fallback {
-  width: 16cqh;
-  height: 16cqh;
+  width: 21cqh;
+  height: 21cqh;
   object-fit: contain;
-  filter: drop-shadow(0 0.8cqh 1cqh rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 0 1.2cqh rgba(255, 250, 230, 0.9)) drop-shadow(0 0.8cqh 1cqh rgba(0, 0, 0, 0.5));
 }
 
 .placement-artifact__name {
-  font-size: 2.2cqh;
+  font-size: 2.6cqh;
   font-weight: 800;
-  color: var(--color-paper);
+  color: #fff8e6;
   background: var(--color-navy);
-  padding: 0.3cqh 1.4cqw;
+  padding: 0.4cqh 1.6cqw;
   border-radius: 2cqh;
   border: 0.2cqw solid var(--color-gold);
 }
@@ -1513,8 +1526,8 @@
 
 .scratch-wrap {
   position: relative;
-  width: 22cqh;
-  height: 22cqh;
+  display: inline-flex;
+  line-height: 0;
 }
 
 .scratch-canvas {
@@ -1763,8 +1776,8 @@ button.artifact-pedestal {
 }
 
 .artifact-photo {
-  max-width: 26cqw;
-  max-height: 30cqh;
+  max-width: 24cqw;
+  max-height: 32cqh;
   object-fit: contain;
   border-radius: 1cqh;
   border: 0.35cqw solid var(--color-gold);
@@ -1776,9 +1789,10 @@ button.artifact-pedestal {
   font-size: 2cqh;
   font-weight: 700;
   color: var(--color-paper);
-  background: rgba(16, 35, 63, 0.75);
-  padding: 0.25cqh 1.2cqw;
+  background: rgba(16, 35, 63, 0.8);
+  padding: 0.3cqh 1cqw;
   border-radius: 1.6cqh;
+  white-space: nowrap;
 }
 
 .reward__photo-wrap {
@@ -1799,4 +1813,16 @@ button.artifact-pedestal {
 .reward__photo-wrap .artifact-photo-credit {
   color: var(--color-wood);
   background: rgba(16, 35, 63, 0.08);
+}
+
+/* 배치형에 실물 사진이 있을 때 */
+.placement-artifact__photo {
+  width: auto;
+  max-width: 22cqw;
+  max-height: 24cqh;
+  object-fit: contain;
+  border-radius: 1cqh;
+  border: 0.3cqw solid var(--color-gold);
+  background: #fff;
+  box-shadow: var(--shadow-card);
 }

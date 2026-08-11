@@ -80,7 +80,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-05', stageId: 'stage1', type: 'placement',
-    artifactIcon: 'i005', artifactName: '고인돌',
+    artifactIcon: 'i005', artifactName: '고인돌', artifactPhoto: 'dolmen',
     prompt: '고인돌은 어느 시대의 유적일까요? 알맞은 시대에 놓아 보세요.',
     slots: [
       { id: 'paleolithic', label: '구석기 시대' },
@@ -121,7 +121,7 @@ export const QUESTIONS: Question[] = [
   // ================= Stage 2: 삼국 문화유산 탐험 =================
   {
     id: 'q-s2-01', stageId: 'stage2', type: 'placement',
-    artifactIcon: 'i053', artifactName: '신라 금관',
+    artifactIcon: 'i053', artifactName: '신라 금관', artifactPhoto: 'silla-crown',
     prompt: '신라 금관은 어느 나라의 문화유산일까요? 알맞은 나라에 놓아 보세요.',
     slots: [
       { id: 'goguryeo', label: '고구려' },
@@ -160,7 +160,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s2-03', stageId: 'stage2', type: 'placement',
-    artifactName: '불국사',
+    artifactIcon: 'i126', artifactName: '불국사', artifactPhoto: 'bulguksa',
     prompt: '불국사와 석굴암이 있는 지역은 어디일까요? 지도에서 알맞은 곳에 놓아 보세요.',
     slots: [
       { id: 'pyongyang', label: '평양 (고구려 중심지)' },

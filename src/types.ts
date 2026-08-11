@@ -59,6 +59,8 @@ export interface PlacementQuestion extends QuestionBase {
   type: 'placement'
   artifactIcon?: string | null
   artifactName: string
+  /** 실물 사진으로 보여줄 스티커 id (assets.ts PHOTO_CREDITS 참조) */
+  artifactPhoto?: string
   slots: { id: string; label: string }[]
   correctSlotId: string
   reasonPrompt: string

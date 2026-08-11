@@ -11,8 +11,8 @@ export function bgSrc(id: string): string {
 }
 
 /** 실물 사진 출처 (상세 소장처는 CREDITS.md). KHS = 국가유산청 국가유산포털 OpenAPI, EMU = e뮤지엄(공공누리 제1유형 필터 확인) */
-const KHS = '실물 사진 ⓒ 국가유산청 국가유산포털'
-const EMU = '실물 사진 ⓒ 국립박물관 e뮤지엄 (공공누리 제1유형)'
+const KHS = '사진 ⓒ 국가유산청 국가유산포털'
+const EMU = '사진 ⓒ 국립박물관 e뮤지엄'
 
 export const PHOTO_CREDITS: Record<string, string> = {
   cheugugi: KHS, 'silla-crown': KHS, 'baekje-incense-burner': KHS, 'celadon-maebyeong': KHS,
