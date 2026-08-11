@@ -48,19 +48,24 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s1-03', stageId: 'stage1', type: 'choice',
-    artifactName: '가락바퀴와 뼈바늘', artifactPhoto: 'spindle-whorl',
-    prompt: '가락바퀴와 뼈바늘이 함께 발견되었다면, 어떤 생활 모습을 추리할 수 있을까요?',
-    choices: [
-      '실을 뽑아 옷감을 짜고 옷을 지어 입는 생활',
-      '짐승 뼈를 갈아 장신구를 만들어 몸을 꾸미는 생활',
-      '사냥한 짐승의 가죽을 손질하지 않고 그대로 몸에 두르던 생활',
-      '물레와 베틀로 비단을 짜서 나라에 바치던 생활',
+    artifactIcon: 'i118', artifactName: '가락바퀴', artifactPhoto: 'spindle-whorl',
+    observePoints: [
+      { label: '모양', text: '가운데에 구멍이 뚫린 납작한 원판이에요.' },
+      { label: '구멍', text: '구멍에 막대를 끼워 쓴 것으로 보여요.' },
+      { label: '함께 나온 것', text: '같은 유적에서 뼈바늘도 함께 발견되곤 해요.' },
     ],
-    answerIndex: 0,
-    wrongHint: '가락바퀴는 실을 꼬아 뽑는 도구, 뼈바늘은 꿰매는 도구예요. 두 도구가 이어져서 하나가 되는 일은 무엇일까요?',
-    explanation: '실을 뽑는 도구와 꿰매는 도구가 함께 나왔다는 점을 근거로, 옷감을 짜고 옷을 지어 입었다는 생활 모습을 짐작할 수 있어요.',
+    prompt: '가락바퀴는 가운데 구멍에 막대를 끼워 돌려 쓰던 도구예요. 이 도구로 무엇을 했을지 가장 알맞게 추리한 것은?',
+    choices: [
+      '흙을 둥글게 빚어 그릇을 만들 때 받침으로 썼다',
+      '돌을 갈아 날카로운 날을 세울 때 썼다',
+      '실을 뽑아 꼬아 옷감이나 끈을 만들 때 썼다',
+      '곡식을 갈아 가루로 만들 때 맷돌처럼 썼다',
+    ],
+    answerIndex: 2,
+    wrongHint: '무거운 원판이 돌아가면 어떤 힘이 생길까요? 함께 나온 뼈바늘도 힌트예요.',
+    explanation: '가락바퀴는 막대에 끼워 돌리면 그 힘으로 실이 고르게 꼬여요. 뼈바늘과 함께 나오면 실을 뽑아 옷을 지어 입었다고 짐작할 수 있어요.',
     rewardStickerId: 'spindle-whorl',
-    contentReviewNeeded: true, sourceNote: '설계 JSON 예시 문항. 공식 자료 검수 필요',
+    contentReviewNeeded: true, sourceNote: '국립중앙박물관 신석기실 방직 도구 설명 기준 검수 필요'
   },
   {
     id: 'q-s1-04', stageId: 'stage1', type: 'choice',
