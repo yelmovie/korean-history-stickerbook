@@ -1,0 +1,7 @@
+node_modules/
+dist/
+source-assets/
+docs/
+scripts/
+.claude/
+_폴더설명.txt
