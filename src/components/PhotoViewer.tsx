@@ -18,24 +18,40 @@ export function usePhotoViewer(): ViewerApi {
 /** 앱 전체에서 쓰는 실물 사진 전체화면 뷰어 */
 export function PhotoViewerProvider({ children }: { children: ReactNode }) {
   const [shown, setShown] = useState<{ id: string; title: string } | null>(null)
+  /** 휠·버튼으로 조절하는 확대 배율 */
+  const [scale, setScale] = useState(1)
 
   useEffect(() => {
     if (!shown) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setShown(null)
+      if (e.key === '+' || e.key === '=') setScale((v) => Math.min(4, v + 0.25))
+      if (e.key === '-') setScale((v) => Math.max(1, v - 0.25))
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [shown])
 
   return (
-    <PhotoViewerContext.Provider value={{ open: (id, title) => setShown({ id, title }) }}>
+    <PhotoViewerContext.Provider value={{ open: (id, title) => { setScale(1); setShown({ id, title }) } }}>
       {children}
       {shown && (
-        <div className="photo-viewer" role="dialog" aria-modal="true" aria-label={`${shown.title} 크게 보기`}>
+        <div
+          className="photo-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${shown.title} 크게 보기`}
+          onWheel={(e) => setScale((v) => Math.min(4, Math.max(1, v - e.deltaY * 0.0015)))}
+        >
           <button type="button" className="photo-viewer__scrim" onClick={() => setShown(null)} aria-label="닫기" />
           <div className="photo-viewer__inner">
-            <AssetImage src={photoSrc(shown.id)} alt={shown.title} className="photo-viewer__img" />
+            <AssetImage
+              src={photoSrc(shown.id)}
+              alt={shown.title}
+              className="photo-viewer__img"
+              style={{ transform: `scale(${scale})` }}
+              onClick={() => setScale((v) => (v >= 3 ? 1 : v + 0.5))}
+            />
             <aside className="photo-viewer__info">
               {(() => {
                 const s = stickerById.get(shown.id)
@@ -44,7 +60,10 @@ export function PhotoViewerProvider({ children }: { children: ReactNode }) {
                     <p className="photo-viewer__title">{s?.name ?? shown.title}</p>
                     {s && <p className="photo-viewer__period">{PERIOD_LABELS[s.period]}</p>}
                     {s && <p className="photo-viewer__desc">{s.hintLine}</p>}
-                    <p className="photo-viewer__hint">사진을 눌러 자세히 살펴보세요. 재료·모양·쓰임이 그 시대를 알려 줘요.</p>
+                    <p className="photo-viewer__hint">재료·모양·쓰임이 그 시대를 알려 줘요.</p>
+                    <p className="photo-viewer__zoomhint">
+                      🔍 사진을 누르거나 마우스 휠을 굴리면 더 크게 볼 수 있어요 (현재 {Math.round(scale * 100)}%)
+                    </p>
                     <p className="photo-viewer__credit">{photoCredit(shown.id)}</p>
                   </>
                 )

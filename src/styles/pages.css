@@ -233,9 +233,9 @@
   flex: 1;
   min-height: 0;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
-  padding: 3cqh 21cqw calc(2cqh + var(--safe-bottom));
+  padding: 3cqh 23cqw calc(2cqh + var(--safe-bottom));
   position: relative;
   z-index: 2;
 }
@@ -249,10 +249,10 @@
 
 .stage-deco__character {
   position: absolute;
-  left: -3cqw;
+  left: -8cqw;
   bottom: 0;
-  height: 48cqh;
-  max-width: 25cqw;
+  height: 62cqh;
+  max-width: 30cqw;
   object-fit: contain;
   object-position: bottom;
   object-fit: contain;
@@ -261,10 +261,10 @@
 
 .stage-deco__mascot {
   position: absolute;
-  right: -3cqw;
+  right: -8cqw;
   bottom: 0;
-  height: 48cqh;
-  max-width: 25cqw;
+  height: 62cqh;
+  max-width: 30cqw;
   object-fit: contain;
   object-position: bottom;
   object-fit: contain;
@@ -2051,4 +2051,25 @@ button.artifact-pedestal {
 .artifact-pedestal--small .artifact-photo {
   max-width: 16cqw;
   max-height: 22cqh;
+}
+
+/* 사진 뷰어: 휠·핀치로 확대 */
+.photo-viewer__img {
+  transform-origin: center;
+  transition: transform 0.12s ease-out;
+  cursor: zoom-in;
+}
+
+.photo-viewer__zoomhint {
+  font-size: 2cqh;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+.stage-deco--swap .stage-deco__character {
+  right: -10cqw;
+}
+
+.stage-deco--swap .stage-deco__mascot {
+  left: -10cqw;
 }
