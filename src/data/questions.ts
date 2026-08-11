@@ -328,7 +328,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'q-s3-05', stageId: 'stage3', type: 'choice',
-    artifactIcon: 'i063', artifactName: '금속활자', artifactPhoto: 'metal-type',
+    artifactIcon: 'i147', artifactName: '금속활자', artifactPhoto: 'metal-type',
     prompt: '"금속으로 글자를 하나씩 만들어 두면, 여러 종류의 책을 찍을 때 다시 배열해 쓸 수 있다." 이 설명에서 알 수 있는 금속활자의 좋은 점은?',
     choices: [
       '활자를 다시 짜 맞춰 여러 종류의 책을 찍을 수 있다',

@@ -3,7 +3,7 @@ import { AssetImage } from '../components/AssetImage'
 import { AppButton } from '../components/common'
 import { bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { PERIOD_LABELS } from '../data/stages'
-import { STICKERS, stickerById } from '../data/stickers'
+import { DECO_STICKERS, STICKERS, stickerById } from '../data/stickers'
 import { useGame } from '../game/GameContext'
 import type { DiaryPlacedSticker, PeriodId } from '../types'
 import { audio } from '../utils/audio'
@@ -44,9 +44,11 @@ export function DiaryEditorPage() {
   const [gesture, setGesture] = useState<Gesture | null>(null)
 
   const page = save.diary[period]
-  const earnedInPeriod = STICKERS.filter(
-    (s) => s.period === period && save.earnedStickers.includes(s.id),
-  )
+  const earnedInPeriod = [
+    ...STICKERS.filter((s) => s.period === period && save.earnedStickers.includes(s.id)),
+    // 꾸미기 스티커는 모으지 않아도 늘 쓸 수 있다
+    ...DECO_STICKERS.filter((s) => s.period === period),
+  ]
   const placedIds = page.stickers.map((p) => p.stickerId)
 
   const mutatePage = (fn: (stickers: DiaryPlacedSticker[]) => DiaryPlacedSticker[]) => {
@@ -248,6 +250,7 @@ export function DiaryEditorPage() {
         <div className="diary-edit__body">
           <div
             className="diary-page"
+            data-period={period}
             ref={pageRef}
             onPointerDown={(e) => {
               if (e.target === e.currentTarget) setSelectedId(null)
@@ -341,7 +344,7 @@ export function DiaryEditorPage() {
               />
             </div>
           </div>
-          <aside className="diary-tray">
+          <aside className="diary-tray" data-period={period}>
             <h2 className="diary-tray__title">스티커 보관함</h2>
             <div className="diary-tray__list">
               {earnedInPeriod.length === 0 && (

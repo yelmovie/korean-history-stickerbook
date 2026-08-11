@@ -553,3 +553,45 @@
   width: fit-content;
   margin-inline: auto;
 }
+
+/* ================= 다이어리 시대 배경 ================= */
+
+/* 시대마다 다른 종이 바탕을 깐다. 스티커·글씨가 위에 놓이므로
+ * 가운데는 비워 둔 그림이고, 밝기를 살짝 눌러 대비를 확보한다. */
+.diary-page[data-period] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.diary-page[data-period='prehistoric'] { background-image: url('/assets/opt/bg/diarybg1.webp'); }
+.diary-page[data-period='threeKingdoms'] { background-image: url('/assets/opt/bg/diarybg2.webp'); }
+.diary-page[data-period='goryeo'] { background-image: url('/assets/opt/bg/diarybg3.webp'); }
+.diary-page[data-period='joseon'] { background-image: url('/assets/opt/bg/diarybg4.webp'); }
+.diary-page[data-period='modern'] { background-image: url('/assets/opt/bg/diarybg5.webp'); }
+
+/* 보관함도 시대별 진열장으로 */
+.diary-tray[data-period] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.diary-tray[data-period='prehistoric'] { background-image: url('/assets/opt/bg/traybg1.webp'); }
+.diary-tray[data-period='threeKingdoms'] { background-image: url('/assets/opt/bg/traybg2.webp'); }
+.diary-tray[data-period='goryeo'] { background-image: url('/assets/opt/bg/traybg3.webp'); }
+.diary-tray[data-period='joseon'] { background-image: url('/assets/opt/bg/traybg4.webp'); }
+.diary-tray[data-period='modern'] { background-image: url('/assets/opt/bg/traybg5.webp'); }
+
+/* 배경 위에서도 카드·글씨가 읽히게 살짝 띄운다 */
+.diary-tray[data-period] .diary-tray__title,
+.diary-page[data-period] .diary-page__label {
+  background: rgba(16, 35, 63, 0.86);
+  color: #fff8e6;
+  border-radius: 1.4cqh;
+  padding: 0.3cqh 1cqw;
+}
+
+.diary-tray[data-period] .diary-tray__item {
+  background-color: rgba(253, 247, 233, 0.94);
+}

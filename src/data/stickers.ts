@@ -14,7 +14,7 @@ export const STICKERS: Sticker[] = [
   { id: 'plain-pottery', period: 'prehistoric', name: '민무늬 토기', icon: 'i121', hintLine: '민무늬 토기는 청동기 시대에 널리 쓰인 무늬 없는 토기이다.', contentReviewNeeded: true },
   { id: 'half-moon-knife', period: 'prehistoric', name: '반달돌칼', icon: 'i122', hintLine: '반달돌칼은 곡식의 이삭을 자르는 데 쓰던 청동기 시대 도구이다.', contentReviewNeeded: true },
   { id: 'bipa-dagger', period: 'prehistoric', name: '비파형 동검', icon: 'i123', hintLine: '비파형 동검은 비파를 닮은 모양의 청동기 시대 검이다.', contentReviewNeeded: true },
-  { id: 'net-sinker', period: 'prehistoric', name: '그물추', icon: null, hintLine: '그물추는 그물이 물에 잘 가라앉도록 매다는 돌추로, 고기잡이 생활을 짐작하게 해 준다.', contentReviewNeeded: true },
+  { id: 'net-sinker', period: 'prehistoric', name: '그물추', icon: 'i146', hintLine: '그물추는 그물이 물에 잘 가라앉도록 매다는 돌추로, 고기잡이 생활을 짐작하게 해 준다.', contentReviewNeeded: true },
   { id: 'dolmen', period: 'prehistoric', name: '고인돌', icon: 'i005', hintLine: '고인돌은 청동기 시대 지배층의 무덤으로 알려진 큰 돌 무덤이다.', contentReviewNeeded: true },
   // ----- 삼국·통일신라 -----
   { id: 'goguryeo-mural', period: 'threeKingdoms', name: '고구려 고분벽화', icon: 'i057', hintLine: '고구려 고분벽화에는 당시 사람들의 생활과 생각이 그림으로 남아 있다.', contentReviewNeeded: true },
@@ -33,7 +33,7 @@ export const STICKERS: Sticker[] = [
   { id: 'celadon-melon', period: 'goryeo', name: '청자 참외모양 병', icon: 'i129', hintLine: '청자 참외모양 병은 참외 모양을 본떠 만든 고려청자이다.', contentReviewNeeded: true },
   { id: 'tripitaka', period: 'goryeo', name: '팔만대장경', icon: 'i062', hintLine: '팔만대장경은 부처의 힘으로 나라의 어려움을 이겨 내려는 뜻에서 새긴 것으로 알려진 목판이다.', contentReviewNeeded: true },
   { id: 'janggyeong-panjeon', period: 'goryeo', name: '해인사 장경판전', icon: 'i065', hintLine: '장경판전은 팔만대장경 목판을 잘 보존하도록 지은 건물이다.', contentReviewNeeded: true },
-  { id: 'metal-type', period: 'goryeo', name: '금속활자', icon: 'i063', hintLine: '금속활자는 금속으로 글자를 만들어 책을 찍는 인쇄 기술이다.', contentReviewNeeded: true },
+  { id: 'metal-type', period: 'goryeo', name: '금속활자', icon: 'i147', hintLine: '금속활자는 금속으로 글자를 만들어 책을 찍는 인쇄 기술이다.', contentReviewNeeded: true },
   { id: 'jikji', period: 'goryeo', name: '직지', icon: 'i130', hintLine: '직지는 현재 남아 있는 금속활자 인쇄본 가운데 세계에서 가장 오래된 책으로 알려져 있다.', contentReviewNeeded: true },
   { id: 'goryeo-painting', period: 'goryeo', name: '고려 불화', icon: 'i131', hintLine: '고려 불화는 고려 시대 불교문화의 섬세한 아름다움을 보여 주는 그림이다.', contentReviewNeeded: true },
   { id: 'bronze-hyangwan', period: 'goryeo', name: '청동 은입사 향완', icon: 'i132', hintLine: '청동 은입사 향완은 청동에 은실로 무늬를 넣어 만든 고려의 향로이다.', contentReviewNeeded: true },
@@ -62,4 +62,12 @@ export const STICKERS: Sticker[] = [
   { id: 'daehan-doc', period: 'modern', name: '대한제국 문서', icon: 'i142', hintLine: '대한제국 문서는 대한제국 시기의 나라 운영을 보여 주는 기록이다.', contentReviewNeeded: true },
 ]
 
-export const stickerById = new Map(STICKERS.map((s) => [s.id, s]))
+/** 꾸미기 전용 스티커. 학습 보상이 아니라 처음부터 열려 있고,
+ *  "모은 스티커 n/m" 집계(STICKERS)에는 들어가지 않는다. */
+export const DECO_STICKERS: Sticker[] = [
+  { id: 'deco-stone-tower', period: 'prehistoric', name: '돌탑', icon: 'i153', hintLine: '돌을 쌓아 소원을 빌던 마음을 떠올리며 꾸며 보세요.' },
+  { id: 'deco-footprint', period: 'prehistoric', name: '발자국 화석', icon: 'i154', hintLine: '땅에 남은 발자국도 옛사람을 알려 주는 자료가 돼요.' },
+  { id: 'deco-campfire', period: 'prehistoric', name: '모닥불', icon: 'i155', hintLine: '불을 다루게 되면서 사람들의 생활이 크게 달라졌어요.' },
+]
+
+export const stickerById = new Map([...STICKERS, ...DECO_STICKERS].map((s) => [s.id, s]))

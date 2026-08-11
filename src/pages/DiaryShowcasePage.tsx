@@ -47,7 +47,7 @@ export function DiaryShowcasePage() {
             ◀
           </AppButton>
           <div className="diary-show__book">
-            <div className="diary-page diary-page--show">
+            <div className="diary-page diary-page--show" data-period={period}>
               <span className="diary-page__label">
                 {PERIOD_LABELS[period]} ({pageIdx + 1}/{PERIOD_ORDER.length})
               </span>
