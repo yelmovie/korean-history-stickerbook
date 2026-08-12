@@ -233,3 +233,73 @@
 .placement-artifact {
   min-height: 44px;
 }
+
+/* ================= 시작 화면 안내 줄 ================= */
+
+/* 버튼 아래 안내 줄이 받으므로 버튼의 아래 여백을 줄인다 */
+.main-page__buttons {
+  padding-bottom: 1.4cqh;
+}
+
+.viewing-tip {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 0.5cqh;
+  padding-bottom: calc(1.6cqh + var(--safe-bottom));
+  text-align: center;
+}
+
+.viewing-tip__line {
+  margin: 0;
+  /* 전폭으로 깔면 아래쪽 캐릭터와 보물상자를 가로로 덮는다.
+   * 가운데 폭만 쓰고 넘치면 줄을 바꾼다 */
+  max-width: 66cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4cqh 1cqw;
+  font-size: max(var(--fs-floor), 2cqh);
+  color: var(--color-paper);
+  background: rgba(16, 35, 63, 0.72);
+  border: 0.16cqw solid rgba(214, 168, 79, 0.55);
+  border-radius: 2cqh;
+  padding: 0.5cqh 1.6cqw;
+  /* 한글은 어절 단위로 끊는다 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.35;
+}
+
+.viewing-tip__line--warn {
+  background: rgba(122, 58, 24, 0.82);
+  border-color: rgba(236, 217, 168, 0.6);
+}
+
+.viewing-tip__btn {
+  min-height: 44px;
+  padding: 0.4cqh 1.4cqw;
+  font-family: inherit;
+  font-size: max(var(--fs-floor), 2cqh);
+  font-weight: 800;
+  color: var(--color-navy);
+  background: var(--color-paper);
+  border: 0.16cqw solid var(--color-gold);
+  border-radius: 1.6cqh;
+  cursor: pointer;
+}
+
+.viewing-tip__btn--sub {
+  color: var(--color-paper);
+  background: transparent;
+}
+
+/* 세로로 들면 16:9 무대가 확 작아진다. 막지는 않고 안내만 눈에 띄게 한다 */
+@media (orientation: portrait) {
+  .viewing-tip__line {
+    background: rgba(122, 58, 24, 0.85);
+    border-color: rgba(236, 217, 168, 0.6);
+  }
+}

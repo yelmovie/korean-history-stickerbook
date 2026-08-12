@@ -3,6 +3,7 @@ import { AssetImage } from '../components/AssetImage'
 import { CharacterTalk } from '../components/CharacterTalk'
 import { AppButton, Modal } from '../components/common'
 import { SettingsPanel } from '../components/SettingsPanel'
+import { ViewingTip } from '../components/ViewingTip'
 import { A, bgSrc, iconSrc, SCREEN_BG } from '../data/assets'
 import { MAIN_LINES } from '../data/lines'
 import { useGame } from '../game/GameContext'
@@ -56,6 +57,7 @@ export function MainPage() {
             스티커북 보기
           </AppButton>
         </nav>
+        <ViewingTip />
       </div>
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <Modal open={showCorrupted} onClose={() => setShowCorrupted(false)}>
