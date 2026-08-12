@@ -57,8 +57,9 @@ export function MainPage() {
             스티커북 보기
           </AppButton>
         </nav>
-        <ViewingTip />
       </div>
+      {/* 저장 손상 안내가 떠 있으면 팝업 두 개가 겹치므로 그때는 미룬다 */}
+      {!showCorrupted && <ViewingTip />}
       <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <Modal open={showCorrupted} onClose={() => setShowCorrupted(false)}>
         <div className="stage-complete">
