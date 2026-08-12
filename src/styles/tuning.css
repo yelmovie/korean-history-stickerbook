@@ -4,45 +4,6 @@
  * 글자 크기는 반드시 max(var(--fs-floor), Ncqh) 형태로 적는다.
  * (--fs-floor = 전자칠판 하한. tokens.css 한 곳만 고치면 전 화면이 따라온다) */
 
-/* ================= 의견 보내기 ================= */
-
-.feedback-input {
-  width: 100%;
-  min-height: 16cqh;
-  padding: 1cqh 1.2cqw;
-  border-radius: 1.2cqh;
-  border: 0.18cqw solid var(--color-gold);
-  background: rgba(253, 247, 233, 0.94);
-  color: var(--color-ink);
-  font-family: inherit;
-  font-size: max(var(--fs-floor), 2cqh);
-  line-height: 1.6;
-  resize: vertical;
-}
-
-.feedback-input:focus-visible {
-  outline: 0.3cqw solid var(--color-teal);
-  outline-offset: 0.2cqw;
-}
-
-.feedback-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8cqw;
-}
-
-/* 욕설이 섞여 막혔을 때 */
-.feedback-blocked {
-  margin: 0;
-  padding: 0.8cqh 1.2cqw;
-  border-radius: 1cqh;
-  border: 0.18cqw solid #b04a3a;
-  background: rgba(176, 74, 58, 0.14);
-  color: #fff2ea;
-  font-size: max(var(--fs-floor), 2cqh);
-  font-weight: 700;
-}
-
 /* ================= 말풍선 기준 마무리 ================= */
 
 /* 가로로 넓은 마스코트(용거북 등)는 max-width 에 먼저 걸려 세로가 남는다.

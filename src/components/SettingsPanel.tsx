@@ -3,7 +3,7 @@ import { useGame } from '../game/GameContext'
 import { audio } from '../utils/audio'
 import { AppButton, Modal } from './common'
 
-type SectionId = 'sound' | 'standards' | 'student' | 'guide' | 'admin' | 'feedback' | 'info'
+type SectionId = 'sound' | 'standards' | 'student' | 'guide' | 'admin' | 'info'
 
 interface GuideBlock {
   summary: string
@@ -24,7 +24,6 @@ interface TeacherData {
   }
   studentGuide: GuideBlock
   guide: GuideBlock
-  feedback: { title: string; intro: string; template: string[]; howTo: string[] }
   notice: LineBlock
   credit: LineBlock
 }
@@ -37,7 +36,6 @@ const SECTIONS: { id: SectionId; label: string }[] = [
   { id: 'student', label: '☺ 학생용 가이드' },
   { id: 'guide', label: '✎ 교사용 가이드' },
   { id: 'admin', label: '⚙ 관리자' },
-  { id: 'feedback', label: '✉ 의견 보내기' },
   { id: 'info', label: 'ⓘ 정보' },
 ]
 
@@ -49,28 +47,7 @@ const SLIDER_STYLE: CSSProperties ={
   accentColor: 'var(--color-teal)',
   cursor: 'pointer',
 }
-const SLIDER_VALUE_STYLE: CSSProperties ={ minWidth: '6cqw', textAlign: 'right' }
-
-/** 의견 접수 창구는 구글 폼으로만 연다.
- *  메일 주소를 화면이나 소스에 두면 크롤러가 긁어가 스팸이 쌓이고, 한 번 배포되면 회수할 수 없다.
- *  주소가 정해지면 이 상수 한 줄만 채우면 된다. 비어 있으면 버튼이 '준비 중'으로 잠긴다. */
-const FEEDBACK_FORM_URL = ''
-
-/** 욕설·협박처럼 앱과 상관없는 내용은 보내지 않는다.
- *  학생이 쓸 수도 있는 화면이라 최소한의 거름망을 둔다. 완벽한 필터가 아니라
- *  홧김에 눌러 보내는 것을 한 번 멈춰 세우는 정도이며, 과하게 막으면 정상 제보까지 걸린다. */
-const BAD_WORDS = [
-  // 욕설·비속어
-  '시발', '씨발', 'ㅅㅂ', '병신', 'ㅂㅅ', '지랄', '개새', '새끼', '좆', '엿먹',
-  '꺼져', 'fuck', 'shit', 'bitch', 'asshole',
-  // 협박성 표현
-  '죽여', '죽인다', '죽을래', '패버', '가만안', '테러', '폭파',
-]
-
-function findBadWord(text: string): string | null {
-  const flat = text.toLowerCase().replace(/\s/g, '')
-  return BAD_WORDS.find((w) => flat.includes(w)) ?? null
-}
+const SLIDER_VALUE_STYLE: CSSProperties = { minWidth: '6cqw', textAlign: 'right' }
 
 interface Props {
   open: boolean
@@ -86,10 +63,6 @@ export function SettingsPanel({ open, onClose }: Props) {
   const [confirmReset, setConfirmReset] = useState(false)
   const [bgmLevel, setBgmLevel] = useState(audio.bgmVolume)
   const [sfxLevel, setSfxLevel] = useState(audio.sfxVolume)
-  const [copied, setCopied] = useState(false)
-  const [feedbackText, setFeedbackText] = useState('')
-  /** 욕설이 섞여 보내기가 막혔는지 */
-  const [blocked, setBlocked] = useState(false)
 
   useEffect(() => {
     if (!open || teacherCache) return
@@ -155,29 +128,6 @@ export function SettingsPanel({ open, onClose }: Props) {
     setSetting({ sfxMuted: level === 0 })
   }
 
-  const copyFeedbackForm = () => {
-    if (!teacher) return
-    const text = teacher.feedback.template.join('\n')
-    void navigator.clipboard
-      ?.writeText(text)
-      .then(() => setCopied(true))
-      .catch(() => setCopied(false))
-  }
-
-  /** 적은 내용을 클립보드에 담고 구글 폼을 새 탭으로 연다.
-   *  폼에는 붙여 넣기만 하면 되므로 두 번 쓰지 않아도 된다. */
-  const openFeedbackForm = () => {
-    if (!teacher || !FEEDBACK_FORM_URL) return
-    const body = feedbackText.trim() || teacher.feedback.template.join('\n')
-    if (findBadWord(body)) {
-      setBlocked(true)
-      return
-    }
-    setBlocked(false)
-    void navigator.clipboard?.writeText(body).catch(() => {})
-    window.open(FEEDBACK_FORM_URL, '_blank', 'noopener,noreferrer')
-  }
-
   const renderGuide = (block: GuideBlock | undefined, failText: string) =>
     block ? (
       <>
@@ -230,7 +180,6 @@ export function SettingsPanel({ open, onClose }: Props) {
               className={`settings-menu-item ${section === s.id ? 'settings-menu-item--active' : ''}`}
               onClick={() => {
                 setSection(s.id)
-                setCopied(false)
               }}
             >
               {s.label}
@@ -312,54 +261,6 @@ export function SettingsPanel({ open, onClose }: Props) {
                 진행도 초기화
               </AppButton>
               <p className="settings-note">모든 스티커·다이어리·기록이 지워지며 되돌릴 수 없습니다.</p>
-            </div>
-          )}
-          {section === 'feedback' && (
-            <div className="settings-section">
-              {teacher ? (
-                <>
-                  <p className="settings-note">{teacher.feedback.intro}</p>
-                  <label className="settings-note" htmlFor="feedback-text">
-                    {teacher.feedback.title}
-                  </label>
-                  <textarea
-                    id="feedback-text"
-                    className="feedback-input"
-                    rows={6}
-                    value={feedbackText}
-                    placeholder={teacher.feedback.template.join('\n')}
-                    onChange={(e) => {
-                      setFeedbackText(e.target.value)
-                      setBlocked(false)
-                    }}
-                  />
-                  {blocked && (
-                    <p className="feedback-blocked" role="alert">
-                      거친 말이나 앱과 상관없는 내용이 들어 있어요. 고쳤으면 하는 점을 적어서 다시 눌러 주세요.
-                    </p>
-                  )}
-                  <div className="feedback-actions">
-                    <AppButton onClick={openFeedbackForm} disabled={!FEEDBACK_FORM_URL}>
-                      {FEEDBACK_FORM_URL ? '✉ 의견 보내기 (새 창)' : '✉ 의견 보내기 (준비 중)'}
-                    </AppButton>
-                    <AppButton variant="secondary" onClick={copyFeedbackForm}>
-                      {copied ? '✓ 복사했어요' : '양식 복사하기'}
-                    </AppButton>
-                  </div>
-                  {!FEEDBACK_FORM_URL && (
-                    <p className="settings-note">
-                      의견 접수 창구를 준비하고 있어요. 그동안에는 양식을 복사해 두셨다가 나중에 보내 주셔도 됩니다.
-                    </p>
-                  )}
-                  {teacher.feedback.howTo.map((l) => (
-                    <p key={l} className="settings-note">
-                      · {l}
-                    </p>
-                  ))}
-                </>
-              ) : (
-                <p className="settings-note">{loadFailed ? '의견 보내기 안내를 불러오지 못했어요.' : '불러오는 중…'}</p>
-              )}
             </div>
           )}
           {section === 'info' && (
