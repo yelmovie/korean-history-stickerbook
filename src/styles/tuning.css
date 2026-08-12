@@ -150,8 +150,12 @@
 }
 
 /* 안전여백이 screen__content 와 stage-body 에 이중으로 들어가
- * 캐릭터 발밑이 9px 잘렸다. 안쪽(stage-body)에만 둔다. */
-.screen__content {
+ * 캐릭터 발밑이 9px 잘렸다. 안쪽(stage-body)에만 둔다.
+ *
+ * 단 이 규칙은 stage-body 가 있는 문제 화면에만 걸어야 한다. 전체에 걸었더니
+ * 수료 화면처럼 stage-body 가 없는 화면까지 아래 여백을 잃어 버튼이 3px
+ * 삐져나왔다. 안쪽에서 여백을 받아 주는 화면만 골라 끈다. */
+.screen:has(.stage-body) > .screen__content {
   padding-bottom: 0;
 }
 
@@ -223,7 +227,9 @@
     font-size: max(var(--fs-floor), 3cqh);
   }
 
-  .reward__photo-wrap {
+  /* 상한은 반드시 <img> 에 건다. 래퍼에만 걸면 안쪽 그림이 제 크기(20cqh)
+   * 그대로 그려져 래퍼 밖으로 삐져나오고, 아래 설명 글을 덮어 버린다. */
+  .reward__photo {
     max-height: 16cqh;
   }
 }
@@ -272,4 +278,85 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1cqh 1.2cqw;
+}
+
+/* ===== 오답 힌트 말풍선까지 한 화면에 =====
+ * 오답을 고르면 말풍선이 하나 더 붙는데, 그 상태를 재지 않아 놓쳤다.
+ * 무대 1000x563 에서 22개 선택형 문항을 전수 측정한 결과 12개가 넘쳤고,
+ * 넘치는 건 선택지가 아니라 항상 말풍선이었다(최악 q-s5-03, 27px).
+ * 스크롤로 덮으면 태블릿에서는 막대가 보이지 않아 '잘렸다'고 읽힌다.
+ * 그래서 짧은 화면에서만 죽은 여백과 줄간격을 걷어내 애초에 들어가게 한다.
+ * 무대가 620px 를 넘는 전자칠판·데스크톱은 이 블록에 걸리지 않는다. */
+@container (max-height: 620px) {
+  /* 문제 묶음 아래에 22px 가 그냥 비어 있었다 */
+  .qv {
+    padding-bottom: 0.6cqh;
+    gap: 0.8cqh;
+  }
+
+  .qv__prompt-card {
+    padding: 0.8cqh 1.4cqw;
+  }
+
+  .qv__prompt {
+    line-height: 1.28;
+  }
+
+  .choice-list {
+    gap: 0.6cqh;
+  }
+
+  .choice-item {
+    padding: 0.4cqh 1cqw;
+    line-height: 1.25;
+  }
+
+  .hint-bubble {
+    padding: 0.5cqh 1.2cqw;
+    line-height: 1.3;
+  }
+}
+
+/* ===== 스크롤이 되는 곳은 '된다'고 보이게 =====
+ * 태블릿 크롬은 스크롤 막대를 겹쳐 그리고 손대기 전에는 숨긴다.
+ * 그래서 설정의 성취기준·가이드·정보처럼 원래 긴 글이 '잘렸다'고 읽힌다.
+ * (측정: 무대 1000x563 에서 정보 593px, 성취기준 359px, 학생 가이드 272px 넘침
+ *  — 화면에 다 담을 수 있는 분량이 아니라 줄이는 게 답이 아니다)
+ * 막대를 항상 보이는 고전형으로 바꿔 더 있다는 것을 알린다. */
+.settings-panel__content,
+.stage-body,
+.reward__explain,
+.diary-tray__list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold) rgba(16, 35, 63, 0.14);
+}
+
+.settings-panel__content::-webkit-scrollbar,
+.stage-body::-webkit-scrollbar,
+.reward__explain::-webkit-scrollbar,
+.diary-tray__list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.settings-panel__content::-webkit-scrollbar-track,
+.stage-body::-webkit-scrollbar-track,
+.reward__explain::-webkit-scrollbar-track,
+.diary-tray__list::-webkit-scrollbar-track {
+  background: rgba(16, 35, 63, 0.14);
+  border-radius: 10px;
+}
+
+.settings-panel__content::-webkit-scrollbar-thumb,
+.stage-body::-webkit-scrollbar-thumb,
+.reward__explain::-webkit-scrollbar-thumb,
+.diary-tray__list::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 10px;
+}
+
+/* 힌트 말풍선이 붙은 순간에만 아래 죽은 여백을 걷는다.
+ * q-s5-03(지문 85자 + 힌트 61자)은 전자칠판 1920x1080 에서도 31px 넘쳤다.
+ * :has 로 말풍선이 있을 때만 걸어, 평소 화면은 그대로 둔다. */
+.qv:has(.hint-bubble) {
+  padding-bottom: 0.6cqh;
 }
