@@ -8,7 +8,7 @@
   z-index: 60;
   background: var(--color-wrong);
   color: #fff;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   padding: 1cqh 2cqw;
   border-radius: 1cqh;
 }
@@ -21,11 +21,11 @@
 }
 
 .stage-complete h2 {
-  font-size: 3.4cqh;
+  font-size: max(var(--fs-floor), 3.4cqh);
 }
 
 .stage-complete p {
-  font-size: 2.3cqh;
+  font-size: max(var(--fs-floor), 2.3cqh);
   line-height: 1.5;
 }
 
@@ -46,7 +46,7 @@
 
 .main-page__title-area {
   text-align: center;
-  padding-top: 7.4cqh;
+  padding-top: 9.9cqh;
   display: grid;
   justify-items: center;
   gap: 1.4cqh;
@@ -69,10 +69,13 @@
   border: 0.2cqw solid var(--color-gold);
 }
 
+/* 캐릭터 레이어는 문제 영역(z-index 2)보다 위에 둔다. 레이어 자체는
+ * pointer-events:none이라 위로 올려도 문제 풀이를 막지 않는다. */
 .main-page__scene {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 4;
 }
 
 .main-page__character {
@@ -106,7 +109,7 @@
 
 .stage-select__header {
   text-align: center;
-  padding: 1.6cqh 2cqw 0.6cqh;
+  padding: 3.4cqh 2cqw 0.6cqh;
   display: grid;
   justify-items: center;
   gap: 0.5cqh;
@@ -147,16 +150,11 @@
   font-family: inherit;
 }
 
-.stage-card:hover:not(:disabled) {
-  transform: translateY(-1cqh);
-}
-
 .stage-card:focus-visible {
   outline: 0.4cqw solid var(--color-gold);
 }
 
 .stage-card--locked {
-  filter: grayscale(0.85) brightness(0.8);
   cursor: default;
 }
 
@@ -165,15 +163,17 @@
   top: -1.4cqh;
   left: 50%;
   transform: translateX(-50%);
-  width: 4.4cqh;
-  height: 4.4cqh;
+  /* 번호 원판은 글자 하한(20px)을 담을 만큼 커야 한다 */
+  width: max(1.5em, 4.4cqh);
+  height: max(1.5em, 4.4cqh);
+  line-height: 1;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: var(--color-navy);
   color: var(--color-gold-light);
   font-weight: 800;
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   border: 0.2cqw solid var(--color-gold);
 }
 
@@ -185,13 +185,13 @@
 }
 
 .stage-card__period {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 800;
   color: var(--color-teal);
 }
 
 .stage-card__title {
-  font-size: 3.1cqh;
+  font-size: max(var(--fs-floor), 3.1cqh);
   font-weight: 800;
   color: var(--color-ink);
   text-align: center;
@@ -199,7 +199,7 @@
 }
 
 .stage-card__count {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   color: var(--color-wood);
   font-weight: 800;
   background: rgba(107, 69, 40, 0.1);
@@ -207,15 +207,16 @@
   border-radius: 1.6cqh;
 }
 
+/* 승인 도장 — 카드 안쪽에 머물게 위치를 조정한다 */
 .stage-card__stamp {
   position: absolute;
-  right: 0.6cqw;
-  top: 0.8cqh;
+  right: 0.2cqw;
+  top: 0.4cqh;
 }
 
 .stage-card__stamp-img {
-  width: 7cqh;
-  height: 7cqh;
+  width: 10.5cqh;
+  height: 10.5cqh;
   object-fit: contain;
   transform: rotate(12deg);
 }
@@ -244,7 +245,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 4;
 }
 
 .stage-deco__character {
@@ -255,7 +256,6 @@
   max-width: 30cqw;
   object-fit: contain;
   object-position: bottom;
-  object-fit: contain;
   opacity: 0.95;
 }
 
@@ -267,7 +267,6 @@
   max-width: 30cqw;
   object-fit: contain;
   object-position: bottom;
-  object-fit: contain;
 }
 
 .qv {
@@ -289,7 +288,7 @@
 }
 
 .qv__prompt {
-  font-size: 2.7cqh;
+  font-size: max(var(--fs-floor), 2.7cqh);
   font-weight: 700;
   line-height: 1.45;
   text-align: center;
@@ -313,7 +312,7 @@
   border: 0.22cqw solid var(--color-wood);
   background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
   font-family: inherit;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 600;
   text-align: left;
   cursor: pointer;
@@ -330,21 +329,20 @@
 
 .choice-item--wrong {
   background: #e8d5cd;
-  border-color: var(--color-wrong);
-  color: var(--color-wrong);
   opacity: 0.75;
 }
 
 .choice-item__num {
   flex-shrink: 0;
-  width: 3.6cqh;
-  height: 3.6cqh;
+  width: max(1.6em, 3.6cqh);
+  height: max(1.6em, 3.6cqh);
+  line-height: 1;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: var(--color-navy);
   color: var(--color-gold-light);
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 800;
 }
 
@@ -354,7 +352,7 @@
   border: 0.25cqw solid var(--color-gold);
   border-radius: 1.5cqh;
   padding: 1.2cqh 1.8cqw;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 700;
   color: var(--color-wood);
   animation: bubble-in 0.25s ease-out;
@@ -420,7 +418,7 @@
 }
 
 .artifact-pedestal__name {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 800;
   color: var(--color-paper);
   background: var(--color-navy);
@@ -442,7 +440,7 @@
   background: rgba(247, 234, 208, 0.92);
   border-radius: 1.2cqh;
   padding: 0.9cqh 1.2cqw;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   color: var(--color-ink);
   cursor: pointer;
@@ -450,7 +448,6 @@
 }
 
 .observe-point--open {
-  border-style: solid;
   background: #fffdf5;
 }
 
@@ -458,7 +455,7 @@
   display: block;
   margin-top: 0.5cqh;
   font-weight: 500;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   color: var(--color-wood);
 }
 
@@ -471,18 +468,37 @@
   justify-content: center;
 }
 
+/* 글자가 박스 위쪽에 붙어 보이던 문제 — 세로도 가운데로, 이름/설명 두 줄로 */
 .placement-slot {
   flex: 0 1 24cqw;
-  min-height: 11cqh;
+  min-height: 12cqh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  gap: 0.1cqh;
   border: 0.35cqw dashed var(--color-gold);
   border-radius: var(--radius-card);
   background: rgba(11, 24, 43, 0.82);
   color: #fff8e6;
   font-family: inherit;
-  font-size: 2.8cqh;
+  font-size: max(var(--fs-floor), 3.2cqh);
   font-weight: 800;
+  line-height: 1.25;
+  padding: 0.6cqh 1cqw;
+  text-wrap: initial;
   cursor: pointer;
   text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.8);
+}
+
+.placement-slot__name {
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.placement-slot__note {
+  font-size: max(var(--fs-floor), 0.72em);
+  opacity: 0.9;
 }
 
 .placement-slot--target {
@@ -537,8 +553,6 @@
 }
 
 .placement-artifact--armed .placement-artifact__img {
-  outline: 0.5cqw solid var(--color-gold);
-  outline-offset: 0.4cqw;
   border-radius: 2cqh;
 }
 
@@ -551,7 +565,7 @@
 }
 
 .placement-artifact__name {
-  font-size: 2.6cqh;
+  font-size: max(var(--fs-floor), 2.6cqh);
   font-weight: 800;
   color: #fff8e6;
   background: var(--color-navy);
@@ -561,7 +575,7 @@
 }
 
 .placement-guide {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   color: var(--color-paper);
   text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.65);
@@ -572,13 +586,16 @@
 
 /* ---------- 선잇기 (match) ---------- */
 
+/* 두 열 사이에 선을 그을 공간을 넉넉히 남긴다.
+ * 폭이 좁으면 점끼리 붙어 초등학생이 끌어 놓기 어렵다. */
 .match-area {
   position: relative;
   width: 100%;
+  max-width: 94cqw;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  gap: 7cqw;
+  gap: 9cqw;
 }
 
 .match-lines {
@@ -587,9 +604,6 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-}
-
-.match-lines {
   filter: drop-shadow(0 0 0.35cqw rgba(255, 255, 255, 0.95));
 }
 
@@ -610,40 +624,45 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.8cqw;
   min-height: max(48px, 8.5cqh);
-  padding: 1cqh 1.6cqw;
+  padding: 1cqh 1.2cqw;
   border-radius: calc(var(--radius-card) * 0.8);
   border: 0.25cqw solid var(--color-wood);
   background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
   font-family: inherit;
-  font-size: 2.8cqh;
+  font-size: max(var(--fs-floor), 2.8cqh);
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   box-shadow: var(--shadow-card);
 }
 
-/* 연결점: 어디를 이어야 하는지 눈에 보이게 */
+/* 연결점: 어디를 이어야 하는지 눈에 보이게.
+ * 초등학생이 끌어서 잇기 쉽도록 손가락 크기(28px)를 하한으로 잡는다.
+ * 점 자체는 ::after 라 터치 판정을 못 키우므로 MatchView의 놓기 판정도
+ * 점 주변을 넉넉히 잡고 있다(endDrag의 여유값). */
 .match-item::after {
   content: '';
   position: absolute;
   top: 50%;
-  width: 2.8cqh;
-  height: 2.8cqh;
+  width: max(28px, 3.6cqh);
+  height: max(28px, 3.6cqh);
   border-radius: 50%;
-  border: 0.3cqw solid var(--color-wood);
+  border: 0.35cqw solid var(--color-wood);
   background: #fffdf5;
   transform: translateY(-50%);
+  box-shadow: 0 0.2cqh 0.6cqh rgba(0, 0, 0, 0.35);
   z-index: 2;
 }
 
 .match-item:not(.match-item--right)::after {
-  right: calc(-1.4cqh - 0.3cqw);
+  right: calc(-1.8cqh - 0.35cqw);
 }
 
 .match-item--right::after {
-  left: calc(-1.4cqh - 0.3cqw);
+  left: calc(-1.8cqh - 0.35cqw);
 }
 
 .match-item--selected::after {
@@ -662,7 +681,6 @@
 }
 
 .match-item--selected {
-  outline: 0.45cqw solid var(--color-teal);
   transform: scale(1.03);
 }
 
@@ -682,13 +700,15 @@
 
 /* ---------- 순서 배열 (ordering) ---------- */
 
+/* 연표 보드: 칸이 보드 밖으로 삐져나오지 않게 폭을 나눠 갖는다 */
 .timeline-board {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5cqw;
-  width: fit-content;
+  gap: 0.4cqw;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   background: rgba(16, 35, 63, 0.45);
   border: 0.25cqw solid var(--color-gold);
@@ -699,33 +719,40 @@
 .timeline-cell-wrap {
   display: flex;
   align-items: center;
-  gap: 0.5cqw;
+  flex: 1 1 0;
+  min-width: 0;
+  gap: 0.3cqw;
 }
 
+/* 숫자 원판·번호 원판은 글자 하한(20px)을 담을 만큼 커야 한다 */
 .timeline-cell__num {
-  width: 3.4cqh;
-  height: 3.4cqh;
+  width: max(1.5em, 3.4cqh);
+  height: max(1.5em, 3.4cqh);
+  flex-shrink: 0;
+  line-height: 1;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: var(--color-gold);
   color: var(--color-navy);
   font-weight: 800;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
 }
 
 .timeline-cell {
-  width: 12.5cqw;
+  width: auto;
+  flex: 1 1 0;
+  min-width: 0;
   min-height: max(48px, 9cqh);
   border: 0.3cqw dashed rgba(247, 234, 208, 0.7);
   border-radius: 1.2cqh;
   background: rgba(247, 234, 208, 0.12);
   color: var(--color-paper);
   font-family: inherit;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 1.9cqh);
   font-weight: 700;
   cursor: pointer;
-  padding: 0.5cqh;
+  padding: 0.4cqh 0.4cqw;
 }
 
 .timeline-cell--filled {
@@ -756,7 +783,7 @@
 
 .timeline-cell__arrow {
   color: var(--color-gold-light);
-  font-size: 3cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 800;
 }
 
@@ -779,7 +806,7 @@
   border: 0.25cqw solid var(--color-wood);
   background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-dark) 100%);
   font-family: inherit;
-  font-size: 2.1cqh;
+  font-size: max(var(--fs-floor), 2.1cqh);
   font-weight: 700;
   cursor: pointer;
   box-shadow: var(--shadow-card);
@@ -811,10 +838,6 @@
   border-radius: var(--radius-card);
 }
 
-.puzzle-board--complete {
-  animation: board-glow 0.8s ease;
-}
-
 @keyframes board-glow {
   50% {
     box-shadow: 0 0 3cqh rgba(236, 217, 168, 0.95);
@@ -843,7 +866,9 @@
   gap: 1.4cqh;
 }
 
+/* 끌고 있는 퍼즐 조각이 다른 요소에 가려지지 않게 */
 .puzzle-piece {
+  position: relative;
   width: 12cqh;
   height: 12cqh;
   border: 0.25cqw solid var(--color-wood);
@@ -852,10 +877,6 @@
   cursor: grab;
   box-shadow: var(--shadow-card);
   touch-action: none;
-}
-
-.puzzle-piece--armed {
-  outline: 0.5cqw solid var(--color-gold);
 }
 
 .puzzle-restored {
@@ -873,7 +894,7 @@
 }
 
 .puzzle-restored__label {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 800;
   color: var(--color-gold-light);
   text-shadow: 0 0.2cqh 0.5cqh rgba(0, 0, 0, 0.6);
@@ -885,7 +906,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.6cqh 1.6cqw 0.6cqh;
+  padding: 3.4cqh 1.6cqw 0.6cqh;
   gap: 1cqw;
 }
 
@@ -898,7 +919,7 @@
 
 .diary-tab {
   font-family: inherit;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   min-height: 48px;
   padding: 0.6cqh 1.6cqw;
@@ -941,7 +962,7 @@
   top: 1.2cqh;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   color: var(--color-teal);
   border-bottom: 0.25cqh dashed var(--color-gold);
@@ -954,7 +975,7 @@
   top: 45%;
   width: 100%;
   text-align: center;
-  font-size: 2.3cqh;
+  font-size: max(var(--fs-floor), 2.3cqh);
   color: var(--color-wood);
   opacity: 0.7;
 }
@@ -1010,7 +1031,7 @@
   justify-content: center;
   z-index: 2;
   font-family: inherit;
-  font-size: max(20px, 2.6cqh);
+  font-size: max(var(--fs-floor), 2.6cqh);
   font-weight: 800;
   line-height: 1;
   border-radius: 50%;
@@ -1055,56 +1076,48 @@
 }
 
 .diary-note__label {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 800;
   color: var(--color-teal);
 }
 
-.diary-note__input {
-  font-family: inherit;
-  font-size: 2.2cqh;
-  padding: 1cqh 1.2cqw;
-  min-height: 48px;
-  border: 0.22cqw solid var(--color-wood);
-  border-radius: 1cqh;
-  background: rgba(255, 253, 245, 0.95);
-}
-
-.diary-note__input:focus-visible {
-  outline: 0.35cqw solid var(--color-gold);
-}
-
 .diary-tray {
-  flex: 0 0 24cqw;
+  flex: 0 0 26cqw;
   display: flex;
   flex-direction: column;
-  gap: 1cqh;
+  gap: 0.8cqh;
   background: rgba(16, 35, 63, 0.6);
   border: 0.25cqw solid var(--color-gold);
   border-radius: var(--radius-card);
-  padding: 1.4cqh 1cqw;
+  padding: 1.2cqh 0.8cqw;
   min-height: 0;
 }
 
 .diary-tray__title {
-  font-size: 2.3cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   color: var(--color-gold-light);
   text-align: center;
 }
 
+/* 스티커 이름을 전자칠판에서 읽히는 크기로 두려면 칸이 넓어야 한다.
+ * 2열로 넓히고, 시대별 칸 수가 많을 때는 세로로 넘긴다. */
 .diary-tray__list {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8cqh 0.6cqw;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: min-content;
+  gap: 0.6cqh 0.5cqw;
   align-content: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.4cqw;
 }
 
 .diary-tray__empty {
   grid-column: 1 / -1;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   color: var(--color-paper);
   text-align: center;
   line-height: 1.5;
@@ -1112,43 +1125,51 @@
 }
 
 .diary-tray__item {
+  position: relative;
   display: grid;
   justify-items: center;
   gap: 0.3cqh;
-  padding: 0.8cqh 0.4cqw;
+  padding: 0.6cqh 0.4cqw;
   border-radius: 1.2cqh;
   border: 0.2cqw solid transparent;
   background: rgba(247, 234, 208, 0.12);
   font-family: inherit;
   cursor: pointer;
-  min-height: 48px;
+  /* 뒤집기 카드를 담으므로 원근을 주고, 칸은 열 폭 안에서만 자란다 */
+  perspective: 60cqh;
+  overflow: visible;
+  min-width: 0;
+  max-width: 100%;
+  /* 칸 높이는 내용(그림 + 이름)만큼만 — 빈 여백을 만들지 않는다 */
+  min-height: 0;
+  height: auto;
+  align-self: start;
 }
 
 .diary-tray__item:hover:not(:disabled) {
   border-color: var(--color-gold);
 }
 
-.diary-tray__item--used {
-  opacity: 0.45;
-  cursor: default;
-}
-
 .diary-tray__img,
 .diary-tray__item .asset-fallback {
-  width: 7cqh;
-  height: 7cqh;
+  width: 4.6cqh;
+  height: 4.6cqh;
   object-fit: contain;
 }
 
+/* 카드 바탕이 크림색이라 글자는 먹색으로 */
 .diary-tray__name {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 1.45cqh);
   font-weight: 700;
-  color: var(--color-paper);
+  color: var(--color-ink);
   text-align: center;
+  text-shadow: none;
+  line-height: 1.2;
+  word-break: keep-all;
 }
 
 .diary-tray__hint {
-  font-size: 1.8cqh;
+  font-size: max(var(--fs-floor), 1.8cqh);
   line-height: 1.5;
   color: var(--color-gold-light);
   text-align: center;
@@ -1182,37 +1203,47 @@
   right: 3cqw;
   bottom: 1.6cqh;
   text-align: center;
-  font-size: 2.3cqh;
+  font-size: max(var(--fs-floor), 2.3cqh);
   font-weight: 700;
   color: var(--color-wood);
 }
 
+/* 발표자는 오른쪽 끝, 발표 문장 카드는 화면 가운데 */
 .diary-show__speech {
+  position: relative;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 1.5cqw;
-  padding: 0 3cqw calc(2cqh + var(--safe-bottom));
+  padding: 0 27cqw calc(2cqh + var(--safe-bottom)) 6cqw;
 }
 
 .diary-show__presenter {
-  height: 42cqh;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 44cqh;
+  max-width: 22cqw;
   object-fit: contain;
+  object-position: bottom;
 }
 
 .diary-show__speech-card {
-  flex: 1;
+  flex: 0 1 auto;
+  width: min(100%, 62cqw);
+  margin: 0 auto;
   display: grid;
   gap: 0.6cqh;
 }
 
 .diary-show__speech-label {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 800;
   color: var(--color-teal);
 }
 
 .diary-show__speech-text {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   line-height: 1.5;
   font-weight: 600;
 }
@@ -1220,80 +1251,68 @@
 /* ================= 수료 화면 ================= */
 
 .completion__content {
+  position: relative;
   align-items: center;
   justify-content: center;
   gap: 2cqh;
   padding: 3cqh 4cqw calc(3cqh + var(--safe-bottom));
 }
 
+/* 칭호 자리에 들어가는 그림 글자 — 도장처럼 쾅 찍힌다 */
 .completion__logo {
-  height: 16cqh;
+  height: 24cqh;
+  width: auto;
+  max-width: 62cqw;
   object-fit: contain;
   filter: drop-shadow(0 0.6cqh 1cqh rgba(0, 0, 0, 0.4));
+  animation: cert-stamp 0.8s cubic-bezier(0.2, 1.5, 0.35, 1) 0.35s both;
 }
 
+/* 실제 상장 종이 배경을 깔고 액자 비례(4:3)에 맞춘다.
+ * 아래쪽에는 도장이 앉을 띠를 남긴다(기록 칸과 겹치지 않게). */
 .completion__cert {
   position: relative;
-  width: min(64cqw, 100%);
+  width: min(86cqw, 80cqh * 4 / 3);
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
   text-align: center;
   display: grid;
-  gap: 1.4cqh;
-  padding: 2.2cqh 2.4cqw;
+  align-content: center;
+  gap: 0.9cqh;
+  padding: 3cqh 6.5cqw 7.5cqh;
+  border: none;
+  background-image: url('/assets/opt/cert/cert_bg.webp');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: cert-shake 0.5s ease-out 0.75s both;
 }
 
 .completion__cert-head {
-  font-size: 2.2cqh;
+  margin-top: 1.6cqh;
+  font-size: max(var(--fs-floor), 3.2cqh);
   font-weight: 800;
-  letter-spacing: 1cqw;
+  letter-spacing: 0.7cqw;
   color: var(--color-teal);
+  text-align: center;
 }
 
 .completion__title {
+  margin: 0;
+  display: grid;
+  justify-items: center;
   font-size: 4.4cqh;
   color: var(--color-ink);
 }
 
-.completion__desc {
-  font-size: 2.3cqh;
-}
-
-.completion__stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1cqw;
-  margin-top: 1cqh;
-}
-
-.completion__stat {
-  display: grid;
-  gap: 0.4cqh;
-  background: rgba(16, 35, 63, 0.08);
-  border: 0.2cqw solid var(--color-gold);
-  border-radius: 1.2cqh;
-  padding: 1.4cqh 0.6cqw;
-}
-
-.completion__stat-num {
-  font-size: 3.4cqh;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-.completion__stat-label {
-  font-size: 2cqh;
-  font-weight: 700;
-  color: var(--color-wood);
-}
-
 .completion__seal {
   position: absolute;
-  right: 2cqw;
-  bottom: 2cqh;
+  right: 3.5cqw;
+  bottom: 1.5cqh;
 }
 
 .completion__seal-img {
-  width: 9cqh;
-  height: 9cqh;
+  width: 9.5cqh;
+  height: 9.5cqh;
   object-fit: contain;
   transform: rotate(-10deg);
 }
@@ -1325,15 +1344,12 @@
   border: 0.25cqw solid var(--color-gold);
   background: rgba(16, 35, 63, 0.75);
   color: var(--color-gold-light);
-  font-size: 3.4cqh;
+  font-size: max(var(--fs-floor), 3.4cqh);
   font-family: inherit;
   cursor: pointer;
   transition: transform 0.12s ease;
 }
 
-.icon-btn:hover {
-  transform: scale(1.08);
-}
 
 .icon-btn:focus-visible {
   outline: 0.4cqw solid var(--color-gold);
@@ -1379,7 +1395,7 @@
 }
 
 .settings-panel__head h2 {
-  font-size: 3.2cqh;
+  font-size: max(var(--fs-floor), 3.2cqh);
 }
 
 .settings-panel__body {
@@ -1399,7 +1415,7 @@
 
 .settings-menu-item {
   font-family: inherit;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 700;
   text-align: left;
   min-height: 48px;
@@ -1441,13 +1457,13 @@
 }
 
 .settings-toggle__label {
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 700;
 }
 
 .settings-toggle__btn {
   font-family: inherit;
-  font-size: 2.1cqh;
+  font-size: max(var(--fs-floor), 2.1cqh);
   font-weight: 800;
   min-height: 48px;
   min-width: 10cqw;
@@ -1465,7 +1481,7 @@
 }
 
 .settings-note {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   line-height: 1.55;
   color: var(--color-wood);
 }
@@ -1486,25 +1502,25 @@
 }
 
 .standard-card__code {
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   color: var(--color-navy);
 }
 
 .standard-card__area {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   color: var(--color-teal);
   margin-left: 0.6cqw;
 }
 
 .standard-card__text {
-  font-size: 2.1cqh;
+  font-size: max(var(--fs-floor), 2.1cqh);
   line-height: 1.55;
 }
 
 .standard-card__how {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   line-height: 1.5;
   color: var(--color-wood);
 }
@@ -1517,7 +1533,7 @@
 
 .review-gate {
   font-family: inherit;
-  font-size: 2.4cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
   font-weight: 800;
   min-height: 48px;
   padding: 1cqh 2.4cqw;
@@ -1533,6 +1549,7 @@
 
 .screen__content {
   animation: scene-in 0.45s ease-out;
+  z-index: 2;
 }
 
 @keyframes scene-in {
@@ -1591,10 +1608,6 @@
   }
 }
 
-.choice-item--wrong {
-  animation: cell-shake 0.3s ease;
-}
-
 /* 배경 위 비네트: 화면 가장자리를 살짝 눌러 시선을 중앙으로 */
 .screen::after {
   content: '';
@@ -1603,10 +1616,6 @@
   pointer-events: none;
   z-index: 1;
   background: radial-gradient(ellipse at center, transparent 55%, rgba(10, 22, 38, 0.4) 100%);
-}
-
-.screen__content {
-  z-index: 2;
 }
 
 .main-page__subtitle,
@@ -1655,7 +1664,9 @@
   transform: translateX(-50%);
   z-index: 4;
   pointer-events: none;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
+  /* .scratch-wrap 이 line-height:0 이라 그대로 두면 글자가 상자를 뚫는다 */
+  line-height: 1.3;
   font-weight: 800;
   color: #fff;
   background: rgba(16, 35, 63, 0.75);
@@ -1730,7 +1741,7 @@ button.artifact-pedestal {
   padding: 0.9cqh 1.2cqw;
   border-radius: 1.2cqh;
   backface-visibility: hidden;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   line-height: 1.4;
 }
 
@@ -1761,7 +1772,7 @@ button.artifact-pedestal {
 }
 
 .fill-sentence {
-  font-size: 2.9cqh;
+  font-size: max(var(--fs-floor), 2.9cqh);
   line-height: 1.7;
   text-align: center;
   font-weight: 700;
@@ -1795,7 +1806,7 @@ button.artifact-pedestal {
 
 .fill-chip {
   font-family: inherit;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 700;
   min-height: 48px;
   padding: 0.8cqh 1.6cqw;
@@ -1823,10 +1834,15 @@ button.artifact-pedestal {
   visibility: hidden;
 }
 
+/* 최고 기록: "다시 도전!"이 줄 끝에 걸리지 않게 두 줄로 */
 .stage-card__best {
-  font-size: 2cqh;
+  display: block;
+  max-width: 100%;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 800;
+  line-height: 1.4;
   color: var(--color-teal);
+  text-align: center;
 }
 
 /* 성취기준 접기/펼치기 */
@@ -1856,7 +1872,7 @@ button.artifact-pedestal {
 }
 
 .standard-card__chevron {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   color: var(--color-gold);
   transition: transform 0.25s ease;
 }
@@ -1877,6 +1893,7 @@ button.artifact-pedestal {
 /* ================= 실물 사진 (공공누리 원본) ================= */
 
 .artifact-photo-frame {
+  position: relative;
   display: grid;
   justify-items: center;
   gap: 0.4cqh;
@@ -1893,7 +1910,7 @@ button.artifact-pedestal {
 }
 
 .artifact-photo-credit {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   color: var(--color-paper);
   background: rgba(16, 35, 63, 0.8);
@@ -1950,20 +1967,23 @@ button.artifact-pedestal {
   grid-template-columns: 1fr;
 }
 
+/* 비교형: 유물 두 개를 세로로 쌓고, 문제·선택지는 넓게 가로로 */
 .qv-choice__left--compare {
-  flex: 0 0 24cqw;
-  flex-direction: row;
-  gap: 1cqw;
+  flex: 0 0 18cqw;
+  flex-direction: column;
+  align-self: center;
+  gap: 1.6cqh;
 }
 
 .compare-card {
   display: grid;
   justify-items: center;
   gap: 0.5cqh;
+  width: 100%;
 }
 
 .compare-card__name {
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   color: #fff8e6;
   background: var(--color-navy);
@@ -1972,31 +1992,61 @@ button.artifact-pedestal {
   border-radius: 1.8cqh;
 }
 
-.compare-card .artifact-photo {
-  max-width: 11cqw;
-  max-height: 20cqh;
-}
-
-/* 사진 전체화면 보기 */
-.artifact-photo-frame {
-  position: relative;
-}
-
-.photo-zoom-btn {
-  position: absolute;
-  right: 0.4cqw;
-  top: 0.6cqh;
-  width: max(44px, 5cqh);
-  height: max(44px, 5cqh);
+/* grid 아이템의 자동 최소 높이 때문에 세로로 긴 사진이 액자를 밀어내
+ * 아래 카드와 겹쳤다. 최소 높이를 풀고 액자 안에서만 맞춘다. */
+.compare-card .artifact-photo-frame {
   display: grid;
   place-items: center;
+  width: 100%;
+  height: 20cqh;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.6cqh;
+  background: #fff;
   border-radius: 1cqh;
+  border: 0.3cqw solid var(--color-gold);
+  box-shadow: var(--shadow-card);
+}
+
+.compare-card .artifact-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+/* 사진 전체화면 보기 — 아이콘만, 액자 밖 오른쪽 위 모서리에 작게 (유물을 가리지 않게) */
+.photo-zoom-btn {
+  position: absolute;
+  right: -1.2cqh;
+  top: -1.2cqh;
+  width: max(40px, 3.4cqh);
+  height: max(40px, 3.4cqh);
+  min-width: 0;
+  max-width: calc(100% - 1.2cqw);
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  gap: 0.4cqw;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 50%;
   border: 0.2cqw solid var(--color-gold);
   background: rgba(16, 35, 63, 0.82);
   color: var(--color-gold-light);
-  font-size: 2.6cqh;
+  font-size: max(var(--fs-floor), 1.9cqh);
   cursor: zoom-in;
   z-index: 3;
+}
+
+/* 아이콘만으로 충분하므로 문구는 숨긴다 */
+.photo-zoom-btn__label {
+  display: none;
 }
 
 /* ---------- 실물 사진 전체화면 뷰어 (전시실 액자) ---------- */
@@ -2132,13 +2182,13 @@ button.artifact-pedestal {
 
 .photo-viewer__zoombtn {
   width: max(44px, 5.2cqh);
-  font-size: 3cqh;
+  font-size: max(var(--fs-floor), 3cqh);
   line-height: 1;
 }
 
 .photo-viewer__zoomreset {
   padding: 0 1.2cqw;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
 }
 
 .photo-viewer__zoombtn:hover:not(:disabled),
@@ -2174,7 +2224,7 @@ button.artifact-pedestal {
 .photo-viewer__zoomval {
   min-width: 7cqh;
   text-align: center;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   color: var(--color-gold-light);
@@ -2204,7 +2254,7 @@ button.artifact-pedestal {
 }
 
 .photo-viewer__eyebrow {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 800;
   letter-spacing: 0.4cqw;
   color: var(--color-teal);
@@ -2223,7 +2273,7 @@ button.artifact-pedestal {
 
 .photo-viewer__period {
   justify-self: start;
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   color: var(--color-gold-light);
   background: linear-gradient(180deg, #24557f 0%, var(--color-navy) 100%);
@@ -2234,14 +2284,14 @@ button.artifact-pedestal {
 }
 
 .photo-viewer__desc {
-  font-size: 2.6cqh;
+  font-size: max(var(--fs-floor), 2.6cqh);
   line-height: 1.55;
   color: var(--color-ink);
   text-wrap: pretty;
 }
 
 .photo-viewer__hint {
-  font-size: 2.1cqh;
+  font-size: max(var(--fs-floor), 2.1cqh);
   line-height: 1.5;
   color: var(--color-wood);
   border-top: 0.2cqh dashed rgba(107, 69, 40, 0.6);
@@ -2250,7 +2300,7 @@ button.artifact-pedestal {
 }
 
 .photo-viewer__zoomhint {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   line-height: 1.45;
   color: var(--color-teal);
@@ -2258,7 +2308,7 @@ button.artifact-pedestal {
 }
 
 .photo-viewer__credit {
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   line-height: 1.4;
   color: rgba(107, 69, 40, 0.85);
@@ -2279,7 +2329,7 @@ button.artifact-pedestal {
   border: 0.22cqw solid var(--color-gold);
   background: radial-gradient(circle at 35% 28%, #2f6394 0%, var(--color-navy) 62%, #071224 100%);
   color: var(--color-gold-light);
-  font-size: 3.4cqh;
+  font-size: max(var(--fs-floor), 3.4cqh);
   line-height: 1;
   cursor: pointer;
   z-index: 2;
@@ -2329,14 +2379,6 @@ button.artifact-pedestal {
 .artifact-pedestal--small .artifact-photo {
   max-width: 16cqw;
   max-height: 22cqh;
-}
-
-.stage-deco--swap .stage-deco__character {
-  right: -10cqw;
-}
-
-.stage-deco--swap .stage-deco__mascot {
-  left: -10cqw;
 }
 
 /* =========================================================================
@@ -2849,5 +2891,589 @@ button.artifact-pedestal {
   .settings-toggle__btn:hover,
   .icon-btn:hover {
     transform: none;
+  }
+}
+
+/* =========================================================================
+   화면 균형 마감 (구 tuning.css) — 캐릭터·말풍선·시대 배경·수료증·보관함
+   ========================================================================= */
+
+/* ---------- 좌우 캐릭터: 화면 밖으로 잘리지 않게 가장자리에 붙인다 ---------- */
+
+.stage-deco__character,
+.stage-deco__mascot,
+.stage-deco--swap .stage-deco__character,
+.stage-deco--swap .stage-deco__mascot {
+  height: var(--deco-h);
+  max-width: var(--deco-w);
+  object-fit: contain;
+  object-position: bottom;
+  bottom: 0;
+}
+
+.stage-deco__character,
+.stage-deco--swap .stage-deco__mascot {
+  left: 0;
+  right: auto;
+}
+
+.stage-deco__mascot,
+.stage-deco--swap .stage-deco__character {
+  right: 0;
+  left: auto;
+}
+
+/* 마스코트만 30% 작게 */
+.stage-deco__mascot,
+.stage-deco--swap .stage-deco__mascot {
+  height: var(--deco-mascot-h);
+  width: var(--deco-mascot-w);
+  max-width: var(--deco-mascot-w);
+}
+
+/* 근현대 기록실 너구리만 작게 (화면 밖으로 안 나가게 아래 정렬 유지) */
+.stage-deco[data-stage='stage5'] .stage-deco__mascot {
+  height: calc(var(--deco-mascot-h) * 0.75);
+  width: calc(var(--deco-mascot-w) * 0.75);
+  max-width: calc(var(--deco-mascot-w) * 0.75);
+}
+
+/* 메인·전시 화면 캐릭터는 자체 크기를 유지 */
+.main-page__character.char-talk {
+  width: 26cqw;
+  height: 62cqh;
+  left: 5cqw;
+}
+
+.diary-show__presenter.char-talk {
+  width: 26cqw;
+  height: 62cqh;
+  right: 0;
+}
+
+.stage-deco__character,
+.stage-deco__mascot,
+.main-page__character,
+.diary-show__presenter {
+  display: block;
+}
+
+/* ---------- 캐릭터 말 걸기 ---------- */
+
+/* .char-talk 박스가 그림을 딱 감싸야 "박스 위 = 머리 위"가 되어
+ * 말풍선이 제목 근처로 떠오르지 않는다. */
+.char-talk {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  max-width: var(--deco-w);
+  height: var(--deco-h);
+  background: none;
+  pointer-events: auto;
+}
+
+.char-talk .char-talk__img,
+.char-talk .char-talk__btn {
+  background: none;
+}
+
+.char-talk__btn {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.15s ease;
+}
+
+.char-talk .char-talk__btn {
+  width: auto;
+  height: 100%;
+}
+
+.char-talk__btn:hover {
+  transform: translateY(-0.6cqh);
+}
+
+.char-talk__btn:focus-visible {
+  outline: 0.4cqw solid var(--color-gold);
+  outline-offset: 0.3cqw;
+  border-radius: 1cqh;
+}
+
+.char-talk__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+.char-talk .char-talk__img {
+  width: auto;
+  height: 100%;
+  max-width: var(--deco-w);
+}
+
+.stage-deco__mascot.char-talk,
+.stage-deco__mascot .char-talk__img {
+  max-width: var(--deco-mascot-w);
+}
+
+.main-page__character.char-talk,
+.main-page__character .char-talk__img {
+  max-width: 26cqw;
+}
+
+.diary-show__presenter.char-talk,
+.diary-show__presenter .char-talk__img {
+  max-width: 22cqw;
+}
+
+/* 좌우 반전 스테이지에서 캐릭터를 화면 오른쪽 끝에 딱 붙인다 */
+.stage-deco--swap .stage-deco__character .char-talk__img {
+  object-position: bottom right;
+}
+
+/* 말풍선은 머리 바로 위에, 폭은 캐릭터가 차지하는 칸 안으로 묶는다
+ * (--deco-w 27cqw ↔ stage-body 좌우 여백 23cqw) */
+.char-talk__bubble {
+  position: absolute;
+  bottom: calc(100% + 0.8cqh);
+  z-index: 40;
+  min-width: 12cqw;
+  max-width: 24cqw;
+  padding: 1cqh 1.1cqw;
+  border-radius: 1.8cqh;
+  border: 0.25cqw solid var(--color-gold);
+  background: #fffdf5;
+  color: var(--color-ink);
+  font-size: max(var(--fs-floor), 2cqh);
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: left;
+  text-wrap: pretty;
+  box-shadow: var(--shadow-card);
+  animation: bubble-in 0.2s ease-out;
+}
+
+/* 왼쪽 캐릭터는 왼쪽 끝에, 오른쪽 캐릭터는 오른쪽 끝에 맞춰 화면 밖으로 안 나가게 */
+.char-talk--right .char-talk__bubble {
+  left: 0;
+  right: auto;
+}
+
+.char-talk--left .char-talk__bubble {
+  right: 0;
+  left: auto;
+}
+
+/* 꼬리는 아래를 향한다 */
+.char-talk__bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -1.4cqh;
+  width: 0;
+  height: 0;
+  border-left: 1.2cqh solid transparent;
+  border-right: 1.2cqh solid transparent;
+  border-top: 1.5cqh solid #fffdf5;
+}
+
+.char-talk--right .char-talk__bubble::after {
+  left: 4cqw;
+  right: auto;
+}
+
+.char-talk--left .char-talk__bubble::after {
+  right: 4cqw;
+  left: auto;
+}
+
+/* 마스코트는 키가 작아 머리 위 여유가 더 많다 — 그만큼만 띄운다 */
+.stage-deco__mascot .char-talk__bubble {
+  max-width: 22cqw;
+}
+
+/* 타이핑 커서 */
+/* 커서는 글자 줄 안에 머물러야 말풍선을 세로로 밀지 않는다 */
+.char-talk__caret {
+  display: inline-block;
+  width: max(2px, 0.25cqw);
+  height: 1em;
+  margin-left: 0.2cqw;
+  vertical-align: middle;
+  background: var(--color-teal);
+  animation: caret-blink 0.8s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- 출처 표기 · 확대 버튼 기준 ---------- */
+
+/* 출처는 설정 → 정보와 확대 화면에만 두고, 문제 화면에서는 숨긴다 */
+.artifact-photo-frame > .artifact-photo-credit,
+.placement-artifact-wrap > .artifact-photo-credit,
+.artifact-pedestal-wrap > .artifact-photo-credit,
+.reward__photo-wrap .artifact-photo-credit,
+.compare-card .artifact-photo-credit {
+  display: none;
+}
+
+/* 확대 버튼이 액자 밖으로 나가지 않도록 기준 컨테이너를 지정한다.
+ * 래퍼가 내용만큼만 넓어야 확대 버튼이 액자 모서리에 붙는다. */
+.placement-artifact,
+.reward__photo-wrap,
+.compare-card .artifact-photo-frame {
+  position: relative;
+}
+
+.placement-artifact-wrap,
+.artifact-pedestal-wrap {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+/* ---------- 비교형: 문제·선택지를 넓게 가로로 ---------- */
+
+.qv-choice__left--compare + .qv-choice__right .choice-list {
+  grid-template-columns: 1fr 1fr;
+}
+
+.qv-choice__left--compare + .qv-choice__right .qv__prompt-card {
+  max-width: 100%;
+}
+
+/* ---------- 선잇기 연결점 ---------- */
+
+/* 아직 안 이은 점은 살짝 맥동해서 "여기를 끌어라"를 알린다 */
+.match-item:not(.match-item--done)::after {
+  animation: match-dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes match-dot-pulse {
+  50% {
+    transform: translateY(-50%) scale(1.12);
+    border-color: var(--color-teal, #2f6f6a);
+  }
+}
+
+/* 오른쪽 설명은 문장이라 살짝 작게 */
+.match-item--right {
+  font-size: max(var(--fs-floor), 2.5cqh);
+  line-height: 1.35;
+}
+
+/* ---------- 다이어리 시대 배경 ---------- */
+
+/* 시대마다 다른 종이 바탕을 깐다. 스티커·글씨가 위에 놓이므로
+ * 가운데는 비워 둔 그림이고, 밝기를 살짝 눌러 대비를 확보한다. */
+.diary-page[data-period] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.diary-page[data-period='prehistoric'] { background-image: url('/assets/opt/bg/diarybg1.webp'); }
+.diary-page[data-period='threeKingdoms'] { background-image: url('/assets/opt/bg/diarybg2.webp'); }
+.diary-page[data-period='goryeo'] { background-image: url('/assets/opt/bg/diarybg3.webp'); }
+.diary-page[data-period='joseon'] { background-image: url('/assets/opt/bg/diarybg4.webp'); }
+.diary-page[data-period='modern'] { background-image: url('/assets/opt/bg/diarybg5.webp'); }
+
+/* 보관함도 시대별 진열장으로 */
+.diary-tray[data-period] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.diary-tray[data-period='prehistoric'] { background-image: url('/assets/opt/bg/traybg1.webp'); }
+.diary-tray[data-period='threeKingdoms'] { background-image: url('/assets/opt/bg/traybg2.webp'); }
+.diary-tray[data-period='goryeo'] { background-image: url('/assets/opt/bg/traybg3.webp'); }
+.diary-tray[data-period='joseon'] { background-image: url('/assets/opt/bg/traybg4.webp'); }
+.diary-tray[data-period='modern'] { background-image: url('/assets/opt/bg/traybg5.webp'); }
+
+/* 배경 위에서도 카드·글씨가 읽히게 살짝 띄운다 */
+.diary-tray[data-period] .diary-tray__title,
+.diary-page[data-period] .diary-page__label {
+  background: rgba(16, 35, 63, 0.86);
+  color: #fff8e6;
+  border-radius: 1.4cqh;
+  padding: 0.3cqh 1cqw;
+}
+
+.diary-tray[data-period] .diary-tray__item {
+  background-color: rgba(253, 247, 233, 0.94);
+}
+
+/* ---------- 보관함 뒤집기 카드 ---------- */
+
+.tray-card {
+  position: relative;
+  display: grid;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.4s var(--ease-out, ease);
+}
+
+.diary-tray__item:hover .tray-card,
+.diary-tray__item:focus-visible .tray-card,
+.diary-tray__item:active .tray-card {
+  transform: rotateY(180deg);
+}
+
+.tray-card__face {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.3cqh;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.tray-card__face--front {
+  gap: 0.2cqh;
+}
+
+.tray-card__face--back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  background: var(--color-navy);
+  border-radius: 1cqh;
+  padding: 0.4cqh 0.4cqw;
+}
+
+.tray-card__back-name {
+  font-size: max(var(--fs-floor), 1.6cqh);
+  font-weight: 800;
+  color: #fff8e6;
+  text-align: center;
+  line-height: 1.25;
+  word-break: keep-all;
+}
+
+/* 몇 개 붙였는지 */
+.diary-tray__count {
+  position: absolute;
+  top: -0.3cqh;
+  right: -0.2cqw;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.25em;
+  border-radius: 0.75em;
+  background: var(--color-teal, #2f6f6a);
+  color: #fff;
+  font-size: max(var(--fs-floor), 1.3cqh);
+  font-weight: 800;
+  line-height: 1.5em;
+  text-align: center;
+  z-index: 3;
+}
+
+/* 아직 열리지 않은 시대 탭 */
+.diary-tab--locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
+/* ---------- 다이어리 한 줄 설명 ---------- */
+
+/* 직접 타이핑하는 입력칸 대신, 누른 스티커의 이름·설명을 보여 주는 판 */
+.diary-note__card {
+  margin: 0;
+  display: grid;
+  gap: 0.3cqh;
+  min-height: 7cqh;
+  align-content: center;
+  padding: 1cqh 1.6cqw;
+  border-radius: 1.2cqh;
+  border: 0.18cqw solid var(--color-gold);
+  background: rgba(253, 247, 233, 0.94);
+  color: var(--color-ink);
+}
+
+.diary-note__name {
+  font-size: max(var(--fs-floor), 2.3cqh);
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+.diary-note__text {
+  font-size: max(var(--fs-floor), 2.1cqh);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.diary-note__card--empty {
+  font-size: max(var(--fs-floor), 2cqh);
+  color: var(--color-wood);
+  text-align: center;
+  border-style: dashed;
+  background: rgba(253, 247, 233, 0.6);
+}
+
+/* ---------- 전시 화면 시대 이동 ---------- */
+
+.diary-show__dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5cqw;
+  margin-top: 0.8cqh;
+}
+
+.diary-dot {
+  font-family: inherit;
+  font-size: max(var(--fs-floor), 1.8cqh);
+  font-weight: 700;
+  min-height: max(36px, 3.6cqh);
+  padding: 0.3cqh 1cqw;
+  border-radius: 2cqh;
+  border: 0.18cqw solid var(--color-rule, rgba(214, 168, 79, 0.5));
+  background: rgba(16, 35, 63, 0.55);
+  color: rgba(247, 234, 208, 0.55);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* 스티커를 붙인 페이지는 또렷하게 */
+.diary-dot--filled {
+  color: #fff8e6;
+  border-color: var(--color-gold);
+}
+
+.diary-dot--on {
+  background: var(--color-gold);
+  color: #1b1204;
+  border-color: var(--color-gold);
+}
+
+.diary-dot:focus-visible {
+  outline: 0.3cqw solid var(--color-teal, #2f6f6a);
+  outline-offset: 0.2cqw;
+}
+
+/* ---------- 수료증 ---------- */
+
+/* 축하 종이꽃가루 — 화면 전체에 깔되 클릭은 통과시킨다 */
+.confetti {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+@keyframes cert-stamp {
+  0% {
+    transform: scale(2.6) rotate(-14deg);
+    opacity: 0;
+    filter: blur(0.6cqh);
+  }
+  55% {
+    transform: scale(0.94) rotate(2deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  75% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* 도장이 찍히는 순간 수료증이 한 번 흔들린다 */
+@keyframes cert-shake {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(0.5cqh) rotate(-0.25deg); }
+  60% { transform: translateY(-0.2cqh) rotate(0.15deg); }
+}
+
+/* 본문 서술 — 수료증의 중심 문장이므로 읽기 좋게 */
+.completion__citation {
+  margin: 0 auto;
+  max-width: 58cqw;
+  font-size: max(var(--fs-floor), 2.15cqh);
+  line-height: 1.65;
+  color: var(--color-ink);
+  text-align: center;
+  text-wrap: pretty;
+  word-break: keep-all;
+}
+
+/* 학년·반·번호·이름을 손으로 적는 칸 */
+.cert-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.6cqh 1.4cqw;
+  margin-top: 0.6cqh;
+  font-size: max(var(--fs-floor), 2.4cqh);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.cert-field {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.4cqw;
+}
+
+.cert-field__line {
+  display: inline-block;
+  width: 5cqw;
+  border-bottom: 0.3cqh solid var(--color-wood);
+}
+
+.cert-field__line--long {
+  width: 14cqw;
+}
+
+/* 발급일과 발급 주체 */
+.completion__issued {
+  margin: 0.6cqh 0 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.2cqh;
+  text-align: center;
+}
+
+.completion__date {
+  font-size: max(var(--fs-floor), 2.1cqh);
+  font-weight: 700;
+  color: var(--color-wood);
+  letter-spacing: 0.2cqw;
+}
+
+.completion__issuer {
+  font-size: max(var(--fs-floor), 2.2cqh);
+  font-weight: 800;
+  color: #b04a3a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char-talk__caret,
+  .completion__cert,
+  .completion__logo,
+  .match-item:not(.match-item--done)::after {
+    animation: none;
+  }
+
+  .tray-card {
+    transition: none;
   }
 }

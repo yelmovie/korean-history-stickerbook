@@ -28,11 +28,16 @@ export function StagePage({ stageId }: Props) {
   const { save, update, goTo } = useGame()
   const stage = stageById.get(stageId)!
   const questions = questionsForStage(stageId)
-  const [index, setIndex] = useState(0)
+  /** 중간에 나갔다 들어오면 풀던 문항부터 이어간다.
+   *  문항이 줄어든 저장본(콘텐츠 수정)은 범위를 벗어나므로 처음부터. */
+  const resumed = save.stageProgress[stageId]
+  const [index, setIndex] = useState(resumed && resumed.index < questions.length ? resumed.index : 0)
   const [reward, setReward] = useState<Question | null>(null)
   const [finished, setFinished] = useState(false)
   /** 이번 도전에서 첫 시도에 맞힌 문항 수 (재도전 최고 기록용) */
-  const [runCorrect, setRunCorrect] = useState(0)
+  const [runCorrect, setRunCorrect] = useState(
+    resumed && resumed.index < questions.length ? Math.min(resumed.correct, resumed.index) : 0,
+  )
 
   const question = questions[index]
 
@@ -52,14 +57,25 @@ export function StagePage({ stageId }: Props) {
     setReward(null)
     if (index + 1 < questions.length) {
       setIndex(index + 1)
-    } else {
+      // 다음 문항으로 넘어갈 때마다 이어하기 지점을 남긴다
       update((draft) => ({
         ...draft,
-        completedStages: draft.completedStages.includes(stageId)
-          ? draft.completedStages
-          : [...draft.completedStages, stageId],
-        bestRuns: { ...draft.bestRuns, [stageId]: Math.max(draft.bestRuns[stageId] ?? 0, runCorrect) },
+        stageProgress: { ...draft.stageProgress, [stageId]: { index: index + 1, correct: runCorrect } },
       }))
+    } else {
+      update((draft) => {
+        const rest = { ...draft.stageProgress }
+        delete rest[stageId]
+        return {
+          ...draft,
+          completedStages: draft.completedStages.includes(stageId)
+            ? draft.completedStages
+            : [...draft.completedStages, stageId],
+          bestRuns: { ...draft.bestRuns, [stageId]: Math.max(draft.bestRuns[stageId] ?? 0, runCorrect) },
+          // 끝냈으면 이어하기 지점을 지운다 — 재도전은 1번 문항부터
+          stageProgress: rest,
+        }
+      })
       setFinished(true)
     }
   }

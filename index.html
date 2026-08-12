@@ -8,6 +8,10 @@
       content="초등 5~6학년용 한국사 탐구 학습 웹앱. 유물을 관찰하고 근거를 골라 스티커를 모아 나만의 역사 다이어리를 완성해요."
     />
     <link rel="icon" type="image/webp" href="/assets/opt/icons/i027.webp" />
+    <meta name="theme-color" content="#10233f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="/pwa-192.png" />
     <!-- Jua(SIL OFL) 셀프호스팅: 외부 요청 없이 로컬에서 서빙 (unicode-range 서브셋이라 필요한 조각만 로드됨) -->
     <link rel="stylesheet" href="/assets/fonts/jua.css" />
     <meta property="og:title" content="한국사 스티커북: 시간여행 다이어리" />
@@ -38,6 +42,34 @@
         color: #ecd9a8;
         font-family: 'Malgun Gothic', sans-serif;
         font-size: 20px;
+      }
+      /* 오프라인 배지 — 서비스워커가 캐시로 이어주는 동안 상태만 조용히 알린다.
+         src/styles/ 를 건드리지 않으려고 여기 둔다. */
+      .offline-badge {
+        position: fixed;
+        left: max(12px, env(safe-area-inset-left));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(236, 217, 168, 0.28);
+        background: rgba(16, 35, 63, 0.82);
+        color: rgba(236, 217, 168, 0.86);
+        font-size: 14px;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      .offline-badge::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #d9a441;
       }
     </style>
     <div id="root"></div>

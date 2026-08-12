@@ -1,8 +1,9 @@
-import type { PeriodId, SaveData } from '../types'
+import type { PeriodId, SaveData, StageId } from '../types'
 
 export const SAVE_KEY = 'kh_stickerbook_save_v1'
 
 const PERIODS: PeriodId[] = ['prehistoric', 'threeKingdoms', 'goryeo', 'joseon', 'modern']
+const STAGES: StageId[] = ['stage1', 'stage2', 'stage3', 'stage4', 'stage5']
 
 export function defaultSave(): SaveData {
   const diary = {} as SaveData['diary']
@@ -13,10 +14,28 @@ export function defaultSave(): SaveData {
     earnedStickers: [],
     questionResults: {},
     bestRuns: {},
+    stageProgress: {},
     diary,
     settings: { muted: false, bgmMuted: false, sfxMuted: false, unlockAll: false },
     lastSavedAt: new Date().toISOString(),
   }
+}
+
+/** 이어하기 지점은 숫자 두 개뿐이라 값이 이상하면 그 스테이지만 버린다(전체 저장본은 살린다) */
+function sanitizeStageProgress(raw: unknown): SaveData['stageProgress'] {
+  const out: SaveData['stageProgress'] = {}
+  if (typeof raw !== 'object' || raw === null) return out
+  for (const [key, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (!STAGES.includes(key as StageId)) continue
+    if (typeof value !== 'object' || value === null) continue
+    const { index, correct } = value as { index?: unknown; correct?: unknown }
+    if (!Number.isInteger(index) || (index as number) <= 0) continue
+    out[key as StageId] = {
+      index: index as number,
+      correct: Number.isInteger(correct) && (correct as number) >= 0 ? (correct as number) : 0,
+    }
+  }
+  return out
 }
 
 /** 저장 데이터가 있으면 불러오고, 깨졌으면 corrupted=true와 함께 기본값 반환 */
@@ -48,6 +67,8 @@ export function loadSave(): { data: SaveData; existed: boolean; corrupted: boole
           ? parsed.questionResults
           : base.questionResults,
       bestRuns: typeof parsed.bestRuns === 'object' && parsed.bestRuns !== null ? parsed.bestRuns : base.bestRuns,
+      // stageProgress 는 나중에 생긴 필드 — 옛 저장본에는 없으므로 기본값 {} 로 시작한다
+      stageProgress: sanitizeStageProgress(parsed.stageProgress),
       diary: { ...base.diary, ...(typeof parsed.diary === 'object' && parsed.diary !== null ? parsed.diary : {}) },
       settings: { ...base.settings, ...(typeof parsed.settings === 'object' ? parsed.settings : {}) },
       lastSavedAt: typeof parsed.lastSavedAt === 'string' ? parsed.lastSavedAt : base.lastSavedAt,

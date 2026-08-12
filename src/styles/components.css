@@ -1,3 +1,11 @@
+/* 폼 컨트롤은 브라우저 기본값(13px)으로 떨어지지 않게 앱 글꼴·하한을 물려받는다 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: max(var(--fs-floor), 2.2cqh);
+}
+
 /* ---------- 버튼 ---------- */
 
 .app-btn {
@@ -8,7 +16,7 @@
   border-radius: calc(var(--radius-card) * 0.8);
   border: 0.22cqw solid var(--color-wood);
   font-family: var(--font-display);
-  font-size: 2.5cqh;
+  font-size: max(var(--fs-floor), 2.5cqh);
   font-weight: 400;
   letter-spacing: 0.05cqw;
   cursor: pointer;
@@ -132,7 +140,7 @@
     var(--paper-grain),
     linear-gradient(178deg, rgba(255, 250, 236, 0.95) 0%, rgba(238, 223, 190, 0.9) 100%);
   border-color: rgba(107, 69, 40, 0.55);
-  font-size: 2.1cqh;
+  font-size: max(var(--fs-floor), 2.1cqh);
   box-shadow:
     inset 0 0.18cqh 0 rgba(255, 255, 255, 0.8),
     0 0.35cqh 0 rgba(140, 108, 66, 0.7),
@@ -238,7 +246,7 @@
   border: 0.2cqw dashed var(--color-wood);
   border-radius: 50%;
   aspect-ratio: 1;
-  font-size: 2cqh;
+  font-size: max(var(--fs-floor), 2cqh);
   font-weight: 700;
   color: var(--color-wood);
   padding: 1cqw;
@@ -247,9 +255,11 @@
 
 /* ---------- 스테이지 헤더 ---------- */
 
+/* 제목·소제목이 화면 맨 위에 붙어 보여서 한 뼘(약 0.5cm) 내려 둔다.
+ * 나가기·소리 버튼은 absolute라 헤더 padding에 딸려 내려가지 않는다. */
 .stage-header {
   position: relative;
-  padding: 1.6cqh 1.6cqw 0.8cqh;
+  padding: 4.2cqh 1.6cqw 0.8cqh;
   text-align: center;
 }
 
@@ -285,7 +295,7 @@
 .stage-header__subtitle {
   display: inline-block;
   margin-top: 0.6cqh;
-  font-size: 2.6cqh;
+  font-size: max(var(--fs-floor), 2.6cqh);
   font-weight: 800;
   color: #fff8e6;
   background: rgba(16, 35, 63, 0.82);
@@ -307,11 +317,13 @@
   display: grid;
   place-items: center;
   gap: 2cqh;
+  /* 유물 배지가 상단 소제목과 겹치지 않게 아래로 */
+  padding-top: 4cqh;
 }
 
 .reward__burst {
   position: absolute;
-  top: -4cqh;
+  top: 6cqh;
   width: 34cqh;
   height: 34cqh;
   border-radius: 50%;
@@ -319,7 +331,12 @@
   animation: reward-burst 0.9s ease-out;
 }
 
+/* 큰 유물 그림이 카드 뒤로 잘려 보이던 문제 — 그림을 카드 위로 올리고
+ * 카드가 그만큼 아래에서 시작하게 한다 */
 .reward__sticker {
+  position: relative;
+  z-index: 3;
+  margin-bottom: -2cqh;
   width: 24cqh;
   height: 24cqh;
   display: grid;
@@ -336,6 +353,8 @@
 }
 
 .reward__card {
+  position: relative;
+  z-index: 2;
   text-align: center;
   display: grid;
   gap: 1.4cqh;
@@ -343,7 +362,7 @@
 }
 
 .reward__badge {
-  font-size: 2.2cqh;
+  font-size: max(var(--fs-floor), 2.2cqh);
   font-weight: 800;
   color: var(--color-teal);
   letter-spacing: 0.3cqw;
@@ -355,7 +374,7 @@
 }
 
 .reward__explain {
-  font-size: 2.3cqh;
+  font-size: max(var(--fs-floor), 2.3cqh);
   line-height: 1.5;
 }
 
@@ -412,7 +431,6 @@ h2,
 .reward__name,
 .reward__badge,
 .completion__title,
-.completion__stat-label,
 .event-card,
 .timeline-cell,
 .diary-tray__name,
@@ -425,7 +443,7 @@ h2,
 .standard-card__how,
 .settings-note,
 .reward__explain,
-.completion__desc,
+.completion__citation,
 .stage-complete p,
 .diary-tray__empty,
 .diary-page__empty,

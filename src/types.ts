@@ -144,6 +144,9 @@ export interface SaveData {
   questionResults: Record<string, boolean>
   /** 스테이지별 최고 기록: 한 번의 도전에서 첫 시도에 맞힌 문항 수 (재도전 시 갱신) */
   bestRuns: Partial<Record<StageId, number>>
+  /** 진행 중인 스테이지의 이어하기 지점. index=다음에 풀 문항 번호, correct=이번 도전의 첫 시도 정답 수.
+   *  스테이지를 끝내면 지운다(재도전은 처음부터). */
+  stageProgress: Partial<Record<StageId, { index: number; correct: number }>>
   diary: Record<PeriodId, DiaryPage>
   settings: {
     /** 전체 소리 (우상단 아이콘) */

@@ -2,8 +2,31 @@ import type { Screen } from '../types'
 
 const BGM_BASE = '/assets/sound/'
 const SFX_BASE = '/assets/sound/sfx/'
-const BGM_VOLUME = 0.3
-const SFX_VOLUME = 0.5
+/** 볼륨 막대 100%일 때의 실제 재생 크기. 막대 값(0~1)을 여기에 곱해 쓴다 */
+const BGM_MAX_VOLUME = 0.3
+const SFX_MAX_VOLUME = 0.5
+/** 볼륨은 save.settings와 별도 키에 둔다(저장 스키마 변경 없이 값만 보존) */
+const VOLUME_KEY = 'kh_volume_v1'
+
+interface VolumeLevels {
+  bgm: number
+  sfx: number
+}
+
+function clamp01(v: number): number {
+  return Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : 1
+}
+
+function loadLevels(): VolumeLevels {
+  try {
+    const raw = localStorage.getItem(VOLUME_KEY)
+    if (!raw) return { bgm: 1, sfx: 1 }
+    const parsed = JSON.parse(raw) as Partial<VolumeLevels>
+    return { bgm: clamp01(Number(parsed.bgm)), sfx: clamp01(Number(parsed.sfx)) }
+  } catch {
+    return { bgm: 1, sfx: 1 }
+  }
+}
 
 /** 화면 → BGM 트랙 파일명. 없는 화면은 직전 트랙 유지 */
 const SCREEN_BGM: Partial<Record<Screen, string>> = {
@@ -30,6 +53,7 @@ class AudioManager {
   private _sfxMuted = false
   private unlocked = false
   private sfxCache = new Map<string, HTMLAudioElement>()
+  private levels: VolumeLevels = loadLevels()
 
   constructor() {
     // 브라우저 자동재생 제한: 첫 사용자 입력 후 BGM 재생을 재시도한다
@@ -69,6 +93,35 @@ class AudioManager {
     this._sfxMuted = muted
   }
 
+  /** 볼륨 막대 값(0~1). 실제 재생 크기는 여기에 BGM/SFX_MAX_VOLUME을 곱한 값 */
+  get bgmVolume(): number {
+    return this.levels.bgm
+  }
+
+  get sfxVolume(): number {
+    return this.levels.sfx
+  }
+
+  setBgmVolume(level: number): void {
+    this.levels.bgm = clamp01(level)
+    if (this.bgm) this.bgm.volume = this.levels.bgm * BGM_MAX_VOLUME
+    this.persistLevels()
+  }
+
+  setSfxVolume(level: number): void {
+    this.levels.sfx = clamp01(level)
+    for (const el of this.sfxCache.values()) el.volume = this.levels.sfx * SFX_MAX_VOLUME
+    this.persistLevels()
+  }
+
+  private persistLevels(): void {
+    try {
+      localStorage.setItem(VOLUME_KEY, JSON.stringify(this.levels))
+    } catch {
+      // 저장이 막혀 있어도(사생활 보호 모드 등) 이번 세션 볼륨은 그대로 동작한다
+    }
+  }
+
   private bgmSilenced(): boolean {
     return this._muted || this._bgmMuted
   }
@@ -91,7 +144,7 @@ class AudioManager {
     try {
       const audio = new Audio(BGM_BASE + track)
       audio.loop = true
-      audio.volume = BGM_VOLUME
+      audio.volume = this.levels.bgm * BGM_MAX_VOLUME
       this.bgm = audio
       if (!this.bgmSilenced() && this.unlocked) void audio.play().catch(() => {})
     } catch {
@@ -105,9 +158,9 @@ class AudioManager {
       let audio = this.sfxCache.get(name)
       if (!audio) {
         audio = new Audio(`${SFX_BASE}${name}.mp3`)
-        audio.volume = SFX_VOLUME
         this.sfxCache.set(name, audio)
       }
+      audio.volume = this.levels.sfx * SFX_MAX_VOLUME
       audio.currentTime = 0
       void audio.play().catch(() => {})
     } catch {

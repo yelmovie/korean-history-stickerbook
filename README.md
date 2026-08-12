@@ -48,3 +48,26 @@ JSON 손상 시 안전 기본값으로 복구하고 안내 모달을 띄운다.
 
 문제·스티커 설명 전체가 `contentReviewNeeded` 플래그로 표시되어 있다.
 배포 전 [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md)를 국가유산포털·국립중앙박물관·국사편찬위원회 자료로 검수할 것.
+
+## 문서
+
+| 문서 | 내용 |
+|---|---|
+| [docs/MAKING.md](docs/MAKING.md) | **제작기** — 날짜별로 무엇을 어떻게 만들었는지 (근거: 커밋 이력) |
+| [docs/IMPROVEMENTS.md](docs/IMPROVEMENTS.md) | **기능향상기** — 한 번 만든 것을 왜 다시 고쳤는지 |
+| [docs/KOGL-AUDIT.md](docs/KOGL-AUDIT.md) | 실물 사진 40장의 공공누리 유형 전수 감사 |
+| [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md) | 역사 사실 검수 목록 (사람 확인 필요 항목 포함) |
+| [public/assets/CREDITS.md](public/assets/CREDITS.md) | 에셋 출처 기록 |
+| [source-assets/README.md](source-assets/README.md) | 원본 보관소 분류 기준과 되돌리는 법 |
+
+## 저작권
+
+기획·제작: **옐샘 · 아이스크림미디어** · 제공: **issamGPT AI Mart**
+
+ⓒ 2026 옐샘 · 아이스크림미디어. 이용 조건은 issamGPT 이용약관을 따른다.
+
+- **앱 화면 캡처 이미지와 앱 안의 배경·캐릭터·스티커 일러스트, 음원은 저작권 보호를 받는다.** 내려받아 재배포하거나, 다른 자료·서비스에 옮겨 쓰거나, 상업적으로 이용할 수 없다.
+- 실물 유물 사진의 저작권은 각 소장 기관에 있으며, **공공누리 제1유형** 조건에 따라 출처를 표시하고 사용한다. 이 사진들의 이용 조건은 각 기관의 공공누리 표시를 따른다. 유형별 확인 근거는 [docs/KOGL-AUDIT.md](docs/KOGL-AUDIT.md).
+- 배경·캐릭터·스티커 일러스트와 음원은 생성형 AI 로 제작한 교육용 자료다. 실제 유물 사진이 아니다.
+- 본문 글꼴 Jua 는 SIL Open Font License 로 셀프호스팅한다.
+- 같은 표기가 앱 안 **설정 → ⓘ 정보**에도 나온다.

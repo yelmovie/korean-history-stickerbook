@@ -20,7 +20,8 @@ export const STAGES: StageMeta[] = [
   {
     id: 'stage1', order: 1, title: '선사 박물관', subtitle: '유물을 관찰하고 생활 모습을 추리해요',
     period: 'prehistoric', periodLabel: '선사 시대',
-    badge: A.badgePrehistoric, character: A.s1Girl, mascot: A.s1Mole, prop: A.s1Hearth,
+    // 발굴판이 화면 왼쪽에 놓이므로 사람을 오른쪽으로 보내 가리지 않게 한다
+    badge: A.badgePrehistoric, character: A.s1Girl, mascot: A.s1Mole, prop: A.s1Hearth, swapSides: true,
   },
   {
     id: 'stage2', order: 2, title: '삼국 문화유산 탐험', subtitle: '문화유산을 나라와 지역에 연결해요',
@@ -30,7 +31,7 @@ export const STAGES: StageMeta[] = [
   {
     id: 'stage3', order: 3, title: '고려 보물 복원소', subtitle: '고려의 기술과 문화를 복원해요',
     period: 'goryeo', periodLabel: '고려 시대',
-    badge: A.badgeGoryeo, character: A.s3Boy, mascot: A.s3Turtle, prop: A.s3Workbench, swapSides: true,
+    badge: A.badgeGoryeo, character: A.s3Boy, mascot: A.s3Turtle, prop: A.s3Workbench,
   },
   {
     id: 'stage4', order: 4, title: '조선 발명 연구소', subtitle: '발명품의 쓰임을 백성의 생활과 연결해요',
