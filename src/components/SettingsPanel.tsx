@@ -51,11 +51,10 @@ const SLIDER_STYLE: CSSProperties ={
 }
 const SLIDER_VALUE_STYLE: CSSProperties ={ minWidth: '6cqw', textAlign: 'right' }
 
-/** 받는 사람 주소. 화면에 그대로 적지 않기 위해 조각으로 나눠 두고 보낼 때만 합친다.
- *  (수집 로봇이 소스에서 통문자로 긁어가는 것을 조금이라도 늦추기 위한 것이고,
- *   완전한 은닉은 아니다 — 화면에 노출하지 않는 것이 목적이다) */
-const MAIL_PARTS = ['bongbiyobi', '@', 'gmail', '.', 'com']
-const feedbackAddress = () => MAIL_PARTS.join('')
+/** 의견 접수 창구는 구글 폼으로만 연다.
+ *  메일 주소를 화면이나 소스에 두면 크롤러가 긁어가 스팸이 쌓이고, 한 번 배포되면 회수할 수 없다.
+ *  주소가 정해지면 이 상수 한 줄만 채우면 된다. 비어 있으면 버튼이 '준비 중'으로 잠긴다. */
+const FEEDBACK_FORM_URL = ''
 
 /** 욕설·협박처럼 앱과 상관없는 내용은 보내지 않는다.
  *  학생이 쓸 수도 있는 화면이라 최소한의 거름망을 둔다. 완벽한 필터가 아니라
@@ -165,19 +164,18 @@ export function SettingsPanel({ open, onClose }: Props) {
       .catch(() => setCopied(false))
   }
 
-  /** 메일 앱을 열어 양식을 채운 채로 띄운다.
-   *  받는 주소는 화면에 찍지 않고 링크를 만들 때만 조립한다. */
-  const sendFeedbackMail = () => {
-    if (!teacher) return
+  /** 적은 내용을 클립보드에 담고 구글 폼을 새 탭으로 연다.
+   *  폼에는 붙여 넣기만 하면 되므로 두 번 쓰지 않아도 된다. */
+  const openFeedbackForm = () => {
+    if (!teacher || !FEEDBACK_FORM_URL) return
     const body = feedbackText.trim() || teacher.feedback.template.join('\n')
-    const bad = findBadWord(body)
-    if (bad) {
+    if (findBadWord(body)) {
       setBlocked(true)
       return
     }
     setBlocked(false)
-    const subject = '[한국사 스티커북] 의견 보내기'
-    window.location.href = `mailto:${feedbackAddress()}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    void navigator.clipboard?.writeText(body).catch(() => {})
+    window.open(FEEDBACK_FORM_URL, '_blank', 'noopener,noreferrer')
   }
 
   const renderGuide = (block: GuideBlock | undefined, failText: string) =>
@@ -341,11 +339,18 @@ export function SettingsPanel({ open, onClose }: Props) {
                     </p>
                   )}
                   <div className="feedback-actions">
-                    <AppButton onClick={sendFeedbackMail}>✉ 메일로 보내기</AppButton>
+                    <AppButton onClick={openFeedbackForm} disabled={!FEEDBACK_FORM_URL}>
+                      {FEEDBACK_FORM_URL ? '✉ 의견 보내기 (새 창)' : '✉ 의견 보내기 (준비 중)'}
+                    </AppButton>
                     <AppButton variant="secondary" onClick={copyFeedbackForm}>
                       {copied ? '✓ 복사했어요' : '양식 복사하기'}
                     </AppButton>
                   </div>
+                  {!FEEDBACK_FORM_URL && (
+                    <p className="settings-note">
+                      의견 접수 창구를 준비하고 있어요. 그동안에는 양식을 복사해 두셨다가 나중에 보내 주셔도 됩니다.
+                    </p>
+                  )}
                   {teacher.feedback.howTo.map((l) => (
                     <p key={l} className="settings-note">
                       · {l}

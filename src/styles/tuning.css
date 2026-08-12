@@ -124,3 +124,77 @@
 .diary-note__name {
   font-size: max(var(--fs-floor), 2.4cqh);
 }
+
+/* ================= 짧은 화면(태블릿 가로) 대응 ================= */
+
+/* 태블릿은 브라우저 주소창·하단바가 높이를 먹어 무대가 크게 낮아진다.
+ * 그때 문제 카드가 무대 밖으로 밀려나 overflow:hidden 에 잘리면
+ * 마지막 선택지를 아예 누를 수 없다. 두 겹으로 막는다.
+ * (1) 넘치면 스크롤로 닿을 수 있게 — 안전망
+ * (2) 애초에 덜 넘치도록 짧은 화면에서 여백·간격을 조인다 */
+.stage-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: safe center;
+  scrollbar-width: thin;
+}
+
+@container (max-height: 620px) {
+  .stage-body {
+    padding-top: 1.5cqh;
+    padding-bottom: calc(1cqh + var(--safe-bottom));
+  }
+
+  .qv {
+    gap: 1cqh;
+  }
+
+  .choice-list {
+    gap: 0.8cqh;
+  }
+
+  .choice-item {
+    min-height: max(44px, 7cqh);
+    padding: 0.6cqh 1cqw;
+  }
+
+  .qv__prompt-card {
+    padding: 1cqh 1.4cqw;
+  }
+
+  .observe-points {
+    gap: 0.6cqh;
+  }
+
+  .observe-point {
+    min-height: max(44px, 6cqh);
+    padding: 0.5cqh 1cqw;
+  }
+
+  /* 상단 제목 묶음도 함께 조인다 */
+  .stage-header {
+    padding-top: 2cqh;
+    padding-bottom: 0.4cqh;
+  }
+
+  .stage-header__title {
+    font-size: 5cqh;
+  }
+}
+
+/* 사진 확대 버튼이 40px 이라 터치 하한 44px 에 못 미쳤다 */
+.photo-zoom-btn {
+  width: max(44px, 3.4cqh);
+  height: max(44px, 3.4cqh);
+}
+
+/* 안전여백이 screen__content 와 stage-body 에 이중으로 들어가
+ * 캐릭터 발밑이 9px 잘렸다. 안쪽(stage-body)에만 둔다. */
+.screen__content {
+  padding-bottom: 0;
+}
+
+/* 보관함 칸이 44px 를 아주 살짝 밑돌던 것 */
+.diary-tray__item {
+  min-height: 46px;
+}
